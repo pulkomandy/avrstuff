@@ -1,0 +1,13 @@
+eeschema (2010-05-05 BZR 2356)-stable  >> Creation date: 22/06/2010 13:20:24
+
+#Cmp ( ordre = Référence )
+| ATMEGA     ATMEGA8-P   
+| CON_PROG   DIL10       
+#End Cmp
+
+#Cmp ( ordre = Valeur )
+| ATMEGA8-P    ATMEGA    
+| DIL10        CON_PROG  
+#End Cmp
+
+#End List
