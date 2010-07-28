@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date 22/06/2010 16:28:43
+EESchema Schematic File Version 2  date 23/06/2010 16:41:51
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -35,7 +35,7 @@ EELAYER END
 $Descr User 7000 6000
 Sheet 1 1
 Title "PS/2 to serial converter"
-Date "22 jun 2010"
+Date "23 jun 2010"
 Rev "2010.06.22"
 Comp "PulkoTronics"
 Comment1 ""
@@ -43,6 +43,51 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+Wire Wire Line
+	3700 3100 3350 3100
+Wire Notes Line
+	4300 550  4300 650 
+Wire Notes Line
+	4300 650  4100 650 
+Wire Notes Line
+	5700 1600 6150 1600
+Wire Notes Line
+	6150 1600 6150 550 
+Wire Notes Line
+	6150 550  4100 550 
+Wire Notes Line
+	4100 550  4100 1350
+Connection ~ 5550 1600
+Wire Wire Line
+	5650 1300 5650 1600
+Wire Wire Line
+	5650 1600 5450 1600
+Wire Wire Line
+	5200 1500 5450 1500
+Wire Wire Line
+	4650 1100 4750 1100
+Wire Wire Line
+	5650 1000 5650 600 
+Connection ~ 5450 1100
+Connection ~ 5350 3750
+Wire Wire Line
+	4900 3550 5350 3550
+Wire Wire Line
+	5350 3550 5350 3750
+Wire Notes Line
+	4800 2250 4800 1550
+Wire Notes Line
+	4800 1650 6150 1650
+Wire Notes Line
+	6150 1650 6150 2250
+Wire Notes Line
+	6150 2250 4800 2250
+Wire Wire Line
+	5050 1900 5050 1700
+Wire Wire Line
+	5350 2000 5350 2200
+Wire Wire Line
+	5350 2000 5650 2000
 Connection ~ 5650 2800
 Wire Wire Line
 	5650 2600 5650 3000
@@ -55,16 +100,8 @@ Wire Wire Line
 	5300 2700 5200 2700
 Wire Wire Line
 	6000 2900 6100 2900
-Wire Notes Line
-	5100 1750 5100 1600
-Wire Notes Line
-	5100 1600 4800 1600
-Wire Notes Line
-	4800 1600 4800 2250
 Wire Wire Line
-	5050 2150 5150 2150
-Wire Wire Line
-	5050 1950 5150 1950
+	5550 2100 5650 2100
 Wire Wire Line
 	3350 2600 3550 2600
 Wire Wire Line
@@ -83,7 +120,7 @@ Wire Wire Line
 	600  1150 800  1150
 Connection ~ 600  1900
 Wire Wire Line
-	1100 1700 1450 1700
+	1450 1700 1100 1700
 Connection ~ 6000 2900
 Wire Wire Line
 	3350 4000 3550 4000
@@ -159,10 +196,10 @@ Wire Wire Line
 Connection ~ 6000 2800
 Connection ~ 1200 1700
 Wire Wire Line
-	1200 1150 1200 1700
+	1200 1700 1200 1150
 Connection ~ 1200 1500
 Wire Wire Line
-	1600 1150 2350 1150
+	2350 1150 1600 1150
 Connection ~ 2350 1150
 Connection ~ 1200 1400
 Wire Wire Line
@@ -175,15 +212,7 @@ Connection ~ 1900 1150
 Wire Wire Line
 	3350 2700 3550 2700
 Wire Wire Line
-	5050 1850 5150 1850
-Wire Wire Line
-	5050 2050 5150 2050
-Wire Notes Line
-	4800 2250 5650 2250
-Wire Notes Line
-	5650 2250 5650 1750
-Wire Notes Line
-	5650 1750 4800 1750
+	5550 1800 5650 1800
 Wire Wire Line
 	6000 2700 6100 2700
 Wire Wire Line
@@ -193,37 +222,177 @@ Wire Wire Line
 Wire Wire Line
 	5650 2800 6000 2800
 Connection ~ 5650 2900
-Text Notes 5050 1700 2    60   ~ 0
-UART
+Wire Wire Line
+	5050 2000 5050 2200
+Wire Wire Line
+	5050 2200 5350 2200
+Connection ~ 5200 2200
+Wire Wire Line
+	5050 1700 5350 1700
+Wire Wire Line
+	5350 1700 5350 1900
+Wire Wire Line
+	5350 1900 5650 1900
+Connection ~ 5200 1700
+Wire Notes Line
+	4800 1550 5100 1550
+Wire Notes Line
+	5100 1550 5100 1650
+Wire Wire Line
+	5500 3850 5500 4050
+Wire Wire Line
+	5500 4050 4900 4050
+Connection ~ 5500 3850
+Wire Wire Line
+	5250 1100 5650 1100
+Connection ~ 5350 1100
+Wire Wire Line
+	5250 1200 5650 1200
+Connection ~ 5550 1200
+Wire Wire Line
+	5650 600  5250 600 
+Connection ~ 5350 600 
+Wire Wire Line
+	4650 1200 4750 1200
+Wire Wire Line
+	5450 1500 5450 1600
+Wire Notes Line
+	4100 1350 5100 1350
+Wire Notes Line
+	5100 1350 5100 1500
+Wire Wire Line
+	3700 2800 3350 2800
+Text Notes 4300 650  2    60   ~ 0
+USB
+$Comp
+L ZENER D4
+U 1 1 4C21F047
+P 5550 1400
+F 0 "D4" H 5500 1150 50  0000 C CNN
+F 1 "3.3V" H 5500 1250 40  0000 C CNN
+	1    5550 1400
+	0    -1   -1   0   
+$EndComp
+$Comp
+L ZENER D3
+U 1 1 4C21F044
+P 5450 1300
+F 0 "D3" H 5450 1400 50  0000 C CNN
+F 1 "3.3V" H 5450 1500 40  0000 C CNN
+	1    5450 1300
+	0    -1   -1   0   
+$EndComp
+$Comp
+L R R4
+U 1 1 4C21F015
+P 5350 850
+F 0 "R4" V 5430 850 50  0000 C CNN
+F 1 "2.2KR" V 5350 850 50  0000 C CNN
+	1    5350 850 
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R7
+U 1 1 4C21EFE9
+P 5000 1200
+F 0 "R7" V 5080 1200 50  0000 C CNN
+F 1 "68R" V 5000 1200 50  0000 C CNN
+	1    5000 1200
+	0    1    1    0   
+$EndComp
+$Comp
+L R R6
+U 1 1 4C21EFE5
+P 5000 1100
+F 0 "R6" V 4900 1100 50  0000 C CNN
+F 1 "68R" V 5000 1100 50  0000 C CNN
+	1    5000 1100
+	0    1    1    0   
+$EndComp
+Text GLabel 4650 1100 0    60   BiDi ~ 0
+USB_D-
+Text GLabel 4650 1200 0    60   BiDi ~ 0
+USB_D+
 $Comp
 L +5V #PWR01
-U 1 1 4C20B727
-P 5050 2050
-F 0 "#PWR01" H 5050 2140 20  0001 C CNN
-F 1 "+5V" H 5050 2140 30  0000 C CNN
-	1    5050 2050
+U 1 1 4C21EFA8
+P 5250 600
+F 0 "#PWR01" H 5250 690 20  0001 C CNN
+F 1 "+5V" H 5250 690 30  0000 C CNN
+	1    5250 600 
 	0    -1   -1   0   
 $EndComp
 $Comp
 L GND #PWR02
-U 1 1 4C20B722
-P 5050 2150
-F 0 "#PWR02" H 5050 2150 30  0001 C CNN
-F 1 "GND" H 5050 2080 30  0001 C CNN
-	1    5050 2150
+U 1 1 4C21EFA1
+P 5200 1500
+F 0 "#PWR02" H 5200 1500 30  0001 C CNN
+F 1 "GND" H 5200 1430 30  0001 C CNN
+	1    5200 1500
 	0    1    1    0   
 $EndComp
-Text GLabel 5050 1850 0    60   Input ~ 0
+$Comp
+L CONN_4 USB1
+U 1 1 4C21EF7A
+P 6000 1150
+F 0 "USB1" V 5950 1150 50  0000 C CNN
+F 1 "CONN_4" V 6050 1150 50  0000 C CNN
+	1    6000 1150
+	1    0    0    -1  
+$EndComp
+Text GLabel 3700 3100 2    60   BiDi ~ 0
+USB_D-
+Text GLabel 3700 2800 2    60   BiDi ~ 0
+USB_D+
+$Comp
+L R R5
+U 1 1 4C21EEDC
+P 4900 3800
+F 0 "R5" V 4980 3800 50  0000 C CNN
+F 1 "480R" V 4900 3800 50  0000 C CNN
+	1    4900 3800
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R3
+U 1 1 4C21ED9A
+P 5200 1950
+F 0 "R3" V 5280 1950 50  0000 C CNN
+F 1 "18KR" V 5200 1950 50  0000 C CNN
+	1    5200 1950
+	1    0    0    -1  
+$EndComp
+Text Notes 5050 1650 2    60   ~ 0
+UART
+$Comp
+L +5V #PWR03
+U 1 1 4C20B727
+P 5050 2000
+F 0 "#PWR03" H 5050 2090 20  0001 C CNN
+F 1 "+5V" H 5050 2100 30  0000 C CNN
+	1    5050 2000
+	0    -1   -1   0   
+$EndComp
+$Comp
+L GND #PWR04
+U 1 1 4C20B722
+P 5550 2100
+F 0 "#PWR04" H 5550 2100 30  0001 C CNN
+F 1 "GND" H 5550 2030 30  0001 C CNN
+	1    5550 2100
+	0    1    1    0   
+$EndComp
+Text GLabel 5550 1800 0    60   Input ~ 0
 TX
-Text GLabel 5050 1950 0    60   Output ~ 0
+Text GLabel 5050 1900 0    60   Output ~ 0
 RX
 $Comp
 L CONN_4 P1
 U 1 1 4C20B6CD
-P 5500 2000
-F 0 "P1" V 5450 2000 50  0000 C CNN
-F 1 "CONN_4" V 5550 2000 50  0000 C CNN
-	1    5500 2000
+P 6000 1950
+F 0 "P1" V 5950 1950 50  0000 C CNN
+F 1 "CONN_4" V 6050 1950 50  0000 C CNN
+	1    6000 1950
 	1    0    0    -1  
 $EndComp
 Text Notes 4200 3950 2    60   ~ 0
@@ -246,10 +415,10 @@ F 1 "100nF" H 1250 750 50  0000 L CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L GND #PWR03
+L GND #PWR05
 U 1 1 4C20B3CD
 P 4700 3200
-F 0 "#PWR03" H 4700 3200 30  0001 C CNN
+F 0 "#PWR05" H 4700 3200 30  0001 C CNN
 F 1 "GND" H 4700 3130 30  0001 C CNN
 	1    4700 3200
 	0    -1   -1   0   
@@ -267,7 +436,7 @@ $Comp
 L R R2
 U 1 1 4C20B383
 P 3800 3200
-F 0 "R2" V 3880 3200 50  0000 C CNN
+F 0 "R2" V 3700 3200 50  0000 C CNN
 F 1 "470R" V 3800 3200 50  0000 C CNN
 	1    3800 3200
 	0    -1   -1   0   
@@ -319,19 +488,19 @@ MOSI
 Text Notes 4850 2400 0    60   ~ 0
 ICSP
 $Comp
-L GND #PWR04
+L GND #PWR06
 U 1 1 4C20B0E8
 P 6100 3000
-F 0 "#PWR04" H 6100 3000 30  0001 C CNN
+F 0 "#PWR06" H 6100 3000 30  0001 C CNN
 F 1 "GND" H 6100 2930 30  0001 C CNN
 	1    6100 3000
 	0    -1   -1   0   
 $EndComp
 $Comp
-L +5V #PWR05
+L +5V #PWR07
 U 1 1 4C20B0DF
 P 5200 2700
-F 0 "#PWR05" H 5200 2790 20  0001 C CNN
+F 0 "#PWR07" H 5200 2790 20  0001 C CNN
 F 1 "+5V" H 5200 2790 30  0000 C CNN
 	1    5200 2700
 	0    -1   -1   0   
@@ -372,19 +541,19 @@ F 1 "16MHz" H 1100 2350 60  0000 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L +5V #PWR06
+L +5V #PWR08
 U 1 1 4C20ABFF
 P 5300 3750
-F 0 "#PWR06" H 5300 3840 20  0001 C CNN
+F 0 "#PWR08" H 5300 3840 20  0001 C CNN
 F 1 "+5V" H 5300 3840 30  0000 C CNN
 	1    5300 3750
 	0    -1   -1   0   
 $EndComp
 $Comp
-L GND #PWR07
+L GND #PWR09
 U 1 1 4C20ABF2
 P 5450 3650
-F 0 "#PWR07" H 5450 3650 30  0001 C CNN
+F 0 "#PWR09" H 5450 3650 30  0001 C CNN
 F 1 "GND" H 5450 3580 30  0001 C CNN
 	1    5450 3650
 	0    1    1    0   
@@ -400,19 +569,19 @@ PS2_CLK
 Text GLabel 3550 2900 2    60   Input ~ 0
 PS2_CLK
 $Comp
-L GND #PWR08
+L GND #PWR010
 U 1 1 4C20AAB2
 P 2350 4600
-F 0 "#PWR08" H 2350 4600 30  0001 C CNN
+F 0 "#PWR010" H 2350 4600 30  0001 C CNN
 F 1 "GND" H 2350 4530 30  0001 C CNN
 	1    2350 4600
 	1    0    0    -1  
 $EndComp
 $Comp
-L +5V #PWR09
+L +5V #PWR011
 U 1 1 4C20AAA4
 P 2350 1100
-F 0 "#PWR09" H 2350 1190 20  0001 C CNN
+F 0 "#PWR011" H 2350 1190 20  0001 C CNN
 F 1 "+5V" H 2350 1190 30  0000 C CNN
 	1    2350 1100
 	1    0    0    -1  
