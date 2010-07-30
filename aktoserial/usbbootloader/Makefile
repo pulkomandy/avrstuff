@@ -79,7 +79,7 @@ AVRDUDE = avrdude $(PROGRAMMER) -p $(DEVICE)
 CC = avr-gcc
 
 # Options:
-DEFINES = -DDEBUG_LEVEL=1
+DEFINES = #-DDEBUG_LEVEL=1
 CFLAGS = -Wall -Os -I. -mmcu=$(DEVICE) -DF_CPU=$(F_CPU) $(DEFINES)
 LDFLAGS = -Wl,--section-start=.text=$(BOOTLOADER_ADDRESS)
 
