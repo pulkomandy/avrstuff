@@ -10,16 +10,17 @@
 #include "usbdrv/usbdrv.h"
 #include "keycodes.h"
 
-const uint8_t PROGMEM keymatrix[128] = {
-// 0         1                 2            3            4          5          6           7            8            9              A             B             C             D             E              F
-KEY_grave,   KEY_1,            KEY_2,       KEY_3,       KEY_4,     KEY_5,     KEY_6,      KEY_7,       KEY_8,       KEY_9,         KEY_0,        KEY_minus,    KEY_equals,   KEY_backslash, KEY_Reserved,  KEY_KP0,      //0
-KEY_Q,       KEY_W,            KEY_E,       KEY_R,       KEY_T,     KEY_Y,     KEY_U,      KEY_I,       KEY_O,       KEY_P,         KEY_rbracket, KEY_lbracket, KEY_Reserved, KEY_KP1,       KEY_KP2,       KEY_KP3,      //1
-KEY_A,       KEY_S,            KEY_D,       KEY_F,       KEY_G,     KEY_H,     KEY_J,      KEY_K,       KEY_L,       KEY_semicolon, KEY_apostroph,KEY_hash,     KEY_Reserved, KEY_KP4,       KEY_KP5,       KEY_KP6,      //2
-KEY_Euro,    KEY_Z,            KEY_X,       KEY_C,       KEY_V,     KEY_B,     KEY_N,      KEY_M,       KEY_comma,   KEY_dot,       KEY_slash,    KEY_Reserved, KEY_KPcomma,  KEY_KP7,       KEY_KP8,       KEY_KP9,      //3
-KEY_Spacebar,KEY_DeleteForward,KEY_Tab,     KEY_KPenter, KEY_Return,KEY_ESCAPE,KEY_DELETE, KEY_Reserved,KEY_Reserved,KEY_Reserved,  KEY_KPminus,  KEY_Reserved, KEY_UpArrow,  KEY_DownArrow, KEY_RightArrow,KEY_LeftArrow,//4
-KEY_F1,      KEY_F2,           KEY_F3,      KEY_F4,      KEY_F5,    KEY_F6,    KEY_F7,     KEY_F8,      KEY_F9,      KEY_F10,       KEY_KPRParen, KEY_KPLParen, KEY_KPslash,  KEY_KPasterisk,KEY_KPplus,    KEY_Help,     //5
-KEY_Reserved,KEY_Reserved,     KEY_capslock,KEY_Reserved,KEY_Reserved,KEY_Reserved,KEY_Reserved,KEY_Reserved,KEY_Reserved,KEY_Reserved,KEY_Reserved,KEY_Reserved,KEY_Reserved,KEY_Reserved,  KEY_Reserved,  KEY_Reserved, //6
-KEY_Reserved,KEY_Reserved,     KEY_Reserved,KEY_Reserved,KEY_Reserved,KEY_Reserved,KEY_Reserved,KEY_Reserved,KEY_Reserved,KEY_Reserved,KEY_Reserved,KEY_Reserved,KEY_Reserved,KEY_Reserved,  KEY_Reserved,  KEY_Reserved, //7
+static uint8_t pressingCaps = 0;
+
+const uint8_t PROGMEM keymatrix[0x70] = {
+// 0         1            2            3            4          5          6           7            8            9              A             B             C             D             E              F
+KEY_grave,   KEY_1,       KEY_2,       KEY_3,       KEY_4,     KEY_5,     KEY_6,      KEY_7,       KEY_8,       KEY_9,         KEY_0,        KEY_minus,    KEY_equals,   KEY_F11,       KEY_Reserved,  KEY_KP0,      //0
+KEY_Q,       KEY_W,       KEY_E,       KEY_R,       KEY_T,     KEY_Y,     KEY_U,      KEY_I,       KEY_O,       KEY_P,         KEY_lbracket, KEY_rbracket, KEY_Reserved, KEY_KP1,       KEY_KP2,       KEY_KP3,      //1
+KEY_A,       KEY_S,       KEY_D,       KEY_F,       KEY_G,     KEY_H,     KEY_J,      KEY_K,       KEY_L,       KEY_semicolon, KEY_apostroph,KEY_hash,     KEY_Reserved, KEY_KP4,       KEY_KP5,       KEY_KP6,      //2
+KEY_Euro,    KEY_Z,       KEY_X,       KEY_C,       KEY_V,     KEY_B,     KEY_N,      KEY_M,       KEY_comma,   KEY_dot,       KEY_slash,    KEY_Reserved, KEY_KPcomma,  KEY_KP7,       KEY_KP8,       KEY_KP9,      //3
+KEY_Spacebar,KEY_DELETE,  KEY_Tab,     KEY_KPenter, KEY_Return,KEY_ESCAPE,KEY_DeleteForward,KEY_Reserved,KEY_Reserved,KEY_Reserved,  KEY_KPminus,  KEY_Reserved, KEY_UpArrow,  KEY_DownArrow, KEY_RightArrow,KEY_LeftArrow,//4
+KEY_F1,      KEY_F2,      KEY_F3,      KEY_F4,      KEY_F5,    KEY_F6,    KEY_F7,     KEY_F8,      KEY_F9,      KEY_F10,       KEY_Home, KEY_End, KEY_KPslash,  KEY_KPasterisk,KEY_KPplus,    KEY_F12,     //5
+KEY_Reserved,KEY_Reserved,KEY_capslock,KEY_Reserved,KEY_Reserved,KEY_Reserved,KEY_Reserved,KEY_Reserved,KEY_Reserved,KEY_Reserved,KEY_Reserved,KEY_Reserved,KEY_Reserved,KEY_Reserved,  KEY_Reserved,  KEY_Reserved, //6
 };
 
 /**
@@ -29,26 +30,50 @@ KEY_Reserved,KEY_Reserved,     KEY_Reserved,KEY_Reserved,KEY_Reserved,KEY_Reserv
  */
 const uint8_t PROGMEM modmatrix[8] = { // contains positions of modifiers in the matrix
   // 0             1               2                 3         4         5         6                  7
-MOD_SHIFT_LEFT,MOD_SHIFT_RIGHT,MOD_NONE,MOD_CONTROL_LEFT,MOD_ALT_LEFT,MOD_NONE, MOD_GUI_LEFT, MOD_GUI_RIGHT,
+MOD_SHIFT_LEFT,MOD_SHIFT_RIGHT,MOD_NONE,MOD_CONTROL_LEFT,MOD_ALT_LEFT,MOD_ALT_RIGHT, MOD_GUI_LEFT, MOD_GUI_RIGHT,
 };
 
 static uint8_t idleRate;
+static uint8_t reportIndex = 2;
 static uint8_t reportBuffer[8]; 
 
 void fillReportBuffer(uint8_t key_code) {
 	uint8_t key, modifier;
-	uint8_t reportIndex = 2; // reportBuffer[0] contains modifiers
-	memset(reportBuffer, 0, sizeof(reportBuffer)); // clear report buffer
+	key = pgm_read_byte(&keymatrix[key_code]);
+	if (key_code >= 0x60 && key_code < 0x68)
+		modifier = pgm_read_byte(&modmatrix[key_code - 0x60]);
+	else
+		modifier = MOD_NONE;
+	if (key != KEY_Reserved && reportIndex < 8) {
+		reportBuffer[reportIndex] = key; // set next available entry
+		reportIndex++;
+		if (key == KEY_capslock)
+			pressingCaps = 1;
+	}
+	reportBuffer[0] |= modifier;
+}
+
+
+void emptyReportBuffer(uint8_t key_code) {
+	
+	uint8_t key, modifier;
+	uint8_t i;
 	key = pgm_read_byte(&keymatrix[key_code]);
 	if (key_code >= 0x60 && key_code < 0x68)
 		modifier = pgm_read_byte(&modmatrix[key_code - 0x60]);
 	else
 		modifier = MOD_NONE;
 	if (key != KEY_Reserved) {
-		reportBuffer[reportIndex] = key; // set next available entry
-		reportIndex++;
+		for (i = 2; i < reportIndex; i++) {
+			if (reportBuffer[i] == key) {
+				for (; i < 7; i++)
+					reportBuffer[i] = reportBuffer[i+1];
+				reportBuffer[7] = 0;
+				reportIndex--;
+			}
+		}
 	}
-	reportBuffer[0] |= modifier;
+	reportBuffer[0] &= ~modifier;
 }
 
 
@@ -71,10 +96,12 @@ int main() {
     TCCR0 = 5;          // timer 0 prescaler: 1024
 
 	//debug LED - output
-	DDRD |= (1<<PD6);
+	DDRC |= (1<<PC5);
+	DDRC |= (1<<PC4);
 
 	// Keyboard
-	uint8_t key_code = 0;
+	uint8_t key_code = 255;
+	memset(reportBuffer, 0, sizeof(reportBuffer)); // clear report buffer
 
 	// USB
 	usbInit();
@@ -89,6 +116,15 @@ int main() {
 
 		if (char_waiting) {
 			key_code = ak_read_scancode();
+			PORTC ^= (1<<PC4);
+			PORTC ^= (1<<PC5);
+			// if an update is needed, send the report
+			if ((key_code & 1) == 0)
+				fillReportBuffer(key_code>>1);
+			else
+				emptyReportBuffer(key_code>>1);
+			if (usbInterruptIsReady())
+				usbSetInterrupt(reportBuffer, sizeof(reportBuffer));
 		}
 
 		// check timer if we need periodic reports
@@ -98,19 +134,16 @@ int main() {
 				if(idleCounter > 4){ // yes, but not yet
 					idleCounter -= 5; // 22ms in units of 4ms
 				} else { // yes, it is time now
-					updateNeeded = 1;
 					idleCounter = idleRate;
+					if (pressingCaps) {
+						emptyReportBuffer(0x62);
+						pressingCaps = 0;
+					}
+					if (usbInterruptIsReady())
+						usbSetInterrupt(reportBuffer, sizeof(reportBuffer));
 				}
 			}
 
-		}
-		// if an update is needed, send the report
-		if (updateNeeded && usbInterruptIsReady()) {
-			updateNeeded = 0;
-			//fillReportBuffer(key_code);
-			fillReportBuffer(KEY_Y);
-			usbSetInterrupt(reportBuffer, sizeof(reportBuffer));
-			PORTD ^= (1<<PD6);
 		}
 	}
 

@@ -20,3 +20,6 @@ keyboard.o: ../../libs/amiga_keyboard/amiga_keyboard.c ../../libs/amiga_keyboard
 
 .c.o:
 	$(COMPILE) -std=c99 -c $< -o $@
+
+flash:
+	avrdude -c usbasp -p atmega8 -Uflash:w:keyboard.hex
