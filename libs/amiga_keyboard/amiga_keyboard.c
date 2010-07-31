@@ -9,6 +9,7 @@
 #include <avr/pgmspace.h>
 #include <util/delay.h>
 
+#include "amiga_keyboard.h"
 #include "keymap.h"
 
 
@@ -106,10 +107,14 @@ char ak_scancode_to_ascii(uint8_t data){
 }
 
 
-uint8_t ak_read_scancode(){
+uint8_t ak_wait_scancode(){
 	while(!char_waiting);
+	return ak_read_scancode();
+}
 
-	while (AK_PORT & (1<<AK_CLK) == 0);
+
+uint8_t ak_read_scancode() {
+	while ((AK_PORT & (1<<AK_CLK)) == 0);
 	_delay_us(30);
 	acknowledge_char();
 
