@@ -1,8 +1,3 @@
-<<<<<<< .mine
-update=30/07/2010 20:11:18
-=======
-update=12/07/2010 19:07:33
->>>>>>> .r2
 version=1
 last_client=pcbnew
 [general]
