@@ -2,15 +2,13 @@
  * Copyright 2010, Adrien Destugues <pulkomandy@pulkomandy.ath.cx>
  * Distributed under the terms of the MIT Licence */
 
-#define F_CPU 16000000UL
-
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <avr/pgmspace.h>
 #include <util/delay.h>
 
 #include "amiga_keyboard.h"
-#include "keymap.h"
+// #include "keymap.h"
 
 
 //PIN configuration
@@ -48,8 +46,6 @@ inline void acknowledge_char()
 // Interrupt vector - Triggered when there is activity on the clock line
 ISR(INT1_vect)
 {
-	PORTD ^= (1<<PD6);
-
 	//make sure clock line is low, if not ignore this transition
 	if(AK_PORT & (1<<AK_CLK)){
 		return;
@@ -100,12 +96,13 @@ ISR(INT1_vect)
 }
 
 
+/*
 char ak_scancode_to_ascii(uint8_t data){
 	char to_ret = pgm_read_byte(&(keymap[data])); //grab character from array
 	if(shift) to_ret -= 0x20;
 	return to_ret;
 }
-
+*/
 
 uint8_t ak_wait_scancode(){
 	while(!char_waiting);

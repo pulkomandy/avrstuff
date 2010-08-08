@@ -1,0 +1,136 @@
+Cmp-Mod V01 Created by CvPCB (2010-05-05 BZR 2356)-stable date = 02/08/2010 09:41:52
+
+BeginCmp
+TimeStamp = /4C20AD6D;
+Reference = C1;
+ValeurCmp = 27pF;
+IdModule  = SM1206;
+EndCmp
+
+BeginCmp
+TimeStamp = /4C20AD73;
+Reference = C2;
+ValeurCmp = 27pF;
+IdModule  = SM1206;
+EndCmp
+
+BeginCmp
+TimeStamp = /4C20B56F;
+Reference = C4;
+ValeurCmp = 100nF;
+IdModule  = SM1206;
+EndCmp
+
+BeginCmp
+TimeStamp = /4C52C709;
+Reference = C5;
+ValeurCmp = 10µF;
+IdModule  = C1V7;
+EndCmp
+
+BeginCmp
+TimeStamp = /4C20B393;
+Reference = D2;
+ValeurCmp = LED;
+IdModule  = LED-0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4C21F044;
+Reference = D3;
+ValeurCmp = 3.6V;
+IdModule  = D3;
+EndCmp
+
+BeginCmp
+TimeStamp = /4C21F047;
+Reference = D4;
+ValeurCmp = 3.6V;
+IdModule  = SM1206;
+EndCmp
+
+BeginCmp
+TimeStamp = /4C209A59;
+Reference = IC1;
+ValeurCmp = ATMEGA8-P;
+IdModule  = DIP-28__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /4C5307D0;
+Reference = JP1;
+ValeurCmp = FWUP;
+IdModule  = SIL-2;
+EndCmp
+
+BeginCmp
+TimeStamp = /4C20A3B4;
+Reference = PS2;
+ValeurCmp = CONN_6;
+IdModule  = Mini_din6;
+EndCmp
+
+BeginCmp
+TimeStamp = /4C20B267;
+Reference = R1;
+ValeurCmp = 10K;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4C20B383;
+Reference = R2;
+ValeurCmp = 470R;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4C21F015;
+Reference = R4;
+ValeurCmp = 2.2KR;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4C21EEDC;
+Reference = R5;
+ValeurCmp = 480R;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4C21EFE5;
+Reference = R6;
+ValeurCmp = 68R;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4C21EFE9;
+Reference = R7;
+ValeurCmp = 68R;
+IdModule  = R3;
+EndCmp
+
+BeginCmp
+TimeStamp = /4C5307BB;
+Reference = R8;
+ValeurCmp = 10K;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4C21EF7A;
+Reference = USB1;
+ValeurCmp = CONN_4;
+IdModule  = USB_B;
+EndCmp
+
+BeginCmp
+TimeStamp = /4C20AD34;
+Reference = X1;
+ValeurCmp = 16MHz;
+IdModule  = Q_49U3HMS;
+EndCmp
+
+EndListe
