@@ -1,6 +1,6 @@
 version=1
 last_client=pcbnew
-update=14/08/2010 15:48:31
+update=30/08/2010 19:46:40
 [cvpcb]
 version=1
 NetIExt=net

@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date 30/07/2010 20:15:21
+EESchema Schematic File Version 2  date 30/08/2010 19:46:30
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -35,7 +35,7 @@ EELAYER END
 $Descr User 6000 6000
 Sheet 1 1
 Title "PS/2 to serial converter"
-Date "30 jul 2010"
+Date "30 aug 2010"
 Rev "2010.06.22"
 Comp "PulkoTronics"
 Comment1 ""
@@ -43,6 +43,11 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+Connection ~ 4550 4000
+Wire Wire Line
+	5050 4100 5050 4000
+Wire Wire Line
+	5050 4000 4350 4000
 Wire Wire Line
 	4500 2350 4250 2350
 Wire Wire Line
@@ -176,13 +181,13 @@ Wire Wire Line
 Wire Wire Line
 	1900 650  1900 1150
 Connection ~ 4550 3600
-Wire Wire Line
-	4350 4100 5050 4100
 Connection ~ 4550 4100
 Wire Wire Line
 	3750 2600 3350 2600
 Wire Wire Line
 	4350 2600 4500 2600
+Wire Wire Line
+	4350 4000 4350 4100
 $Comp
 L JUMPER JP1
 U 1 1 4C5307D0
