@@ -1,6 +1,6 @@
 version=1
-last_client=kicad
-update=02/08/2010 09:46:23
+last_client=pcbnew
+update=14/08/2010 15:48:31
 [cvpcb]
 version=1
 NetIExt=net
@@ -72,6 +72,8 @@ LibName27=opto
 LibName28=atmel
 LibName29=contrib
 LibName30=valves
+[general]
+version=1
 [pcbnew]
 version=1
 PadDrlX=320
@@ -104,5 +106,3 @@ LibName9=led
 LibName10=dip_sockets
 LibName11=r_mini_din
 LibName12=ENSSAT_robotique
-[general]
-version=1

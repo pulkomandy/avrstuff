@@ -44,6 +44,7 @@ void fillReportBuffer(uint8_t key_code) {
 		modifier = pgm_read_byte(&modmatrix[key_code - 0x60]);
 	else
 		modifier = MOD_NONE;
+
 	if (key != KEY_Reserved && reportIndex < 8) {
 		reportBuffer[reportIndex] = key; // set next available entry
 		reportIndex++;
@@ -63,7 +64,14 @@ void emptyReportBuffer(uint8_t key_code) {
 		modifier = pgm_read_byte(&modmatrix[key_code - 0x60]);
 	else
 		modifier = MOD_NONE;
-	if (key != KEY_Reserved) {
+
+	if (key == KEY_capslock) {
+		if (reportIndex < 8) {
+			reportBuffer[reportIndex] = key; // set next available entry
+			reportIndex++;
+			pressingCaps = 1;
+		}
+	} else if (key != KEY_Reserved) {
 		for (i = 2; i < reportIndex; i++) {
 			if (reportBuffer[i] == key) {
 				for (; i < 7; i++)
@@ -90,14 +98,14 @@ void usbSendReport(uint8_t mode, uint8_t key) {
 int main() {
 	uint8_t idleCounter = 0;
     uint8_t updateNeeded = 0;
+	int capsDelay = 16;
 
 	wdt_enable(WDTO_2S);
     // configure timer 0 for a rate of 12M/(1024 * 256) = 45.78Hz (~22ms)
     TCCR0 = 5;          // timer 0 prescaler: 1024
 
 	//debug LED - output
-	DDRC |= (1<<PC5);
-	DDRC |= (1<<PC4);
+	DDRD |= (1<<PD6);
 
 	// Keyboard
 	uint8_t key_code = 255;
@@ -116,8 +124,6 @@ int main() {
 
 		if (char_waiting) {
 			key_code = ak_read_scancode();
-			PORTC ^= (1<<PC4);
-			PORTC ^= (1<<PC5);
 			// if an update is needed, send the report
 			if ((key_code & 1) == 0)
 				fillReportBuffer(key_code>>1);
@@ -127,9 +133,34 @@ int main() {
 				usbSetInterrupt(reportBuffer, sizeof(reportBuffer));
 		}
 
+
 		// check timer if we need periodic reports
 		if (TIFR & (1 << TOV0)) {
 			TIFR = (1 << TOV0); // reset flag
+
+			// PORTD ^= (1<<PD6); // blink del : we are alive !
+			if (pressingCaps)
+				PORTD |= 1<<PD6;
+			else
+				PORTD &= ~(1<<PD6);
+
+			if (pressingCaps) {
+				if (--capsDelay == 0) {
+					capsDelay = 16;
+					pressingCaps = 0;
+
+					int i;
+					for (i = 2; i < reportIndex; i++) {
+						if (reportBuffer[i] == KEY_capslock) {
+							for (; i < 7; i++)
+								reportBuffer[i] = reportBuffer[i+1];
+							reportBuffer[7] = 0;
+							reportIndex--;
+						}
+					}				
+				}
+			}
+
 			if (idleRate != 0) { // do we need periodic reports?
 				if(idleCounter > 4){ // yes, but not yet
 					idleCounter -= 5; // 22ms in units of 4ms
