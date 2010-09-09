@@ -1,5 +1,5 @@
 #Set vars
-COMPILE = avr-gcc -Wall -Os -Iusbdrv -I. -mmcu=atmega8 -DF_CPU=16000000 
+COMPILE = avr-gcc -Wall -Os -Iusbdrv -I. -std=c99 -mmcu=atmega8 -DF_CPU=16000000 
 
 #Rules
 keyboard.hex: keyboard.bin

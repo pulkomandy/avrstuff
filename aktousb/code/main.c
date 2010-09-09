@@ -5,22 +5,27 @@
 #include <util/delay.h>
 
 #include <string.h>
+#include <stdbool.h>
 
 #include "amiga_keyboard/amiga_keyboard.h"
 #include "usbdrv/usbdrv.h"
 #include "keycodes.h"
 
+#define LEDSWAP PORTD ^= (1<<PD6)
+#define LEDON PORTD |= 1<<PD6
+#define LEDOFF PORTD &= ~(1<<PD6)
+
 static uint8_t pressingCaps = 0;
 
 const uint8_t PROGMEM keymatrix[0x70] = {
-// 0         1            2            3            4          5          6           7            8            9              A             B             C             D             E              F
-KEY_grave,   KEY_1,       KEY_2,       KEY_3,       KEY_4,     KEY_5,     KEY_6,      KEY_7,       KEY_8,       KEY_9,         KEY_0,        KEY_minus,    KEY_equals,   KEY_F11,       KEY_Reserved,  KEY_KP0,      //0
-KEY_Q,       KEY_W,       KEY_E,       KEY_R,       KEY_T,     KEY_Y,     KEY_U,      KEY_I,       KEY_O,       KEY_P,         KEY_lbracket, KEY_rbracket, KEY_Reserved, KEY_KP1,       KEY_KP2,       KEY_KP3,      //1
-KEY_A,       KEY_S,       KEY_D,       KEY_F,       KEY_G,     KEY_H,     KEY_J,      KEY_K,       KEY_L,       KEY_semicolon, KEY_apostroph,KEY_hash,     KEY_Reserved, KEY_KP4,       KEY_KP5,       KEY_KP6,      //2
-KEY_Euro,    KEY_Z,       KEY_X,       KEY_C,       KEY_V,     KEY_B,     KEY_N,      KEY_M,       KEY_comma,   KEY_dot,       KEY_slash,    KEY_Reserved, KEY_KPcomma,  KEY_KP7,       KEY_KP8,       KEY_KP9,      //3
+// 0         1            2            3            4          5          6                 7            8            9              A             B             C             D             E              F
+KEY_grave,   KEY_1,       KEY_2,       KEY_3,       KEY_4,     KEY_5,     KEY_6,            KEY_7,       KEY_8,       KEY_9,         KEY_0,        KEY_minus,    KEY_equals,   KEY_F11,       KEY_Reserved,  KEY_KP0,      //0
+KEY_Q,       KEY_W,       KEY_E,       KEY_R,       KEY_T,     KEY_Y,     KEY_U,            KEY_I,       KEY_O,       KEY_P,         KEY_lbracket, KEY_rbracket, KEY_Reserved, KEY_KP1,       KEY_KP2,       KEY_KP3,      //1
+KEY_A,       KEY_S,       KEY_D,       KEY_F,       KEY_G,     KEY_H,     KEY_J,            KEY_K,       KEY_L,       KEY_semicolon, KEY_apostroph,KEY_hash,     KEY_Reserved, KEY_KP4,       KEY_KP5,       KEY_KP6,      //2
+KEY_Euro,    KEY_Z,       KEY_X,       KEY_C,       KEY_V,     KEY_B,     KEY_N,            KEY_M,       KEY_comma,   KEY_dot,       KEY_slash,    KEY_Reserved, KEY_KPcomma,  KEY_KP7,       KEY_KP8,       KEY_KP9,      //3
 KEY_Spacebar,KEY_DELETE,  KEY_Tab,     KEY_KPenter, KEY_Return,KEY_ESCAPE,KEY_DeleteForward,KEY_Reserved,KEY_Reserved,KEY_Reserved,  KEY_KPminus,  KEY_Reserved, KEY_UpArrow,  KEY_DownArrow, KEY_RightArrow,KEY_LeftArrow,//4
-KEY_F1,      KEY_F2,      KEY_F3,      KEY_F4,      KEY_F5,    KEY_F6,    KEY_F7,     KEY_F8,      KEY_F9,      KEY_F10,       KEY_Home, KEY_End, KEY_KPslash,  KEY_KPasterisk,KEY_KPplus,    KEY_F12,     //5
-KEY_Reserved,KEY_Reserved,KEY_capslock,KEY_Reserved,KEY_Reserved,KEY_Reserved,KEY_Reserved,KEY_Reserved,KEY_Reserved,KEY_Reserved,KEY_Reserved,KEY_Reserved,KEY_Reserved,KEY_Reserved,  KEY_Reserved,  KEY_Reserved, //6
+KEY_F1,      KEY_F2,      KEY_F3,      KEY_F4,      KEY_F5,    KEY_F6,    KEY_F7,           KEY_F8,      KEY_F9,      KEY_F10,       KEY_KPLParen, KEY_KPRParen, KEY_KPslash,  KEY_KPasterisk,KEY_KPplus,    KEY_Help,     //5
+KEY_Reserved,KEY_Reserved,KEY_capslock,KEY_Reserved,KEY_Reserved,KEY_Reserved,KEY_Reserved, KEY_Reserved,KEY_Reserved,KEY_Reserved,  KEY_Reserved, KEY_Reserved, KEY_Reserved, KEY_Reserved,  KEY_Reserved,  KEY_Reserved, //6
 };
 
 /**
@@ -85,6 +90,7 @@ void emptyReportBuffer(uint8_t key_code) {
 }
 
 
+/*
 void usbSendReport(uint8_t mode, uint8_t key) {
     // buffer for HID reports. we use a private one, so nobody gets disturbed
     uint8_t repBuffer[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -93,7 +99,7 @@ void usbSendReport(uint8_t mode, uint8_t key) {
     while (!usbInterruptIsReady()); // wait
     usbSetInterrupt(repBuffer, sizeof(repBuffer)); // send
 }
-
+*/
 
 int main() {
 	uint8_t idleCounter = 0;
@@ -101,8 +107,8 @@ int main() {
 	int capsDelay = 16;
 
 	wdt_enable(WDTO_2S);
-    // configure timer 0 for a rate of 12M/(1024 * 256) = 45.78Hz (~22ms)
-    TCCR0 = 5;          // timer 0 prescaler: 1024
+    // configure timer 0 for a rate of 16M/(256 * 256) = ~244Hz
+    TCCR0 = 4;          // timer 0 prescaler: 256
 
 	//debug LED - output
 	DDRD |= (1<<PD6);
@@ -115,6 +121,8 @@ int main() {
 	usbInit();
 	ak_init_keyboard(); 
 	sei();
+	bool doReport = false;
+	bool doRelease = false;
 
 	while(1) {
 		wdt_reset();
@@ -125,24 +133,26 @@ int main() {
 		if (char_waiting) {
 			key_code = ak_read_scancode();
 			// if an update is needed, send the report
-			if ((key_code & 1) == 0)
+			if ((key_code & 1) == 0) {
 				fillReportBuffer(key_code>>1);
-			else
+				LEDON;
+				doReport = true;
+			} else {
 				emptyReportBuffer(key_code>>1);
-			if (usbInterruptIsReady())
-				usbSetInterrupt(reportBuffer, sizeof(reportBuffer));
+				doRelease = true;
+			}
+		}
+
+		if (doReport && usbInterruptIsReady()) {
+			usbSetInterrupt(reportBuffer, sizeof(reportBuffer));
+			LEDOFF;
+			doReport = false;
 		}
 
 
 		// check timer if we need periodic reports
 		if (TIFR & (1 << TOV0)) {
 			TIFR = (1 << TOV0); // reset flag
-
-			// PORTD ^= (1<<PD6); // blink del : we are alive !
-			if (pressingCaps)
-				PORTD |= 1<<PD6;
-			else
-				PORTD &= ~(1<<PD6);
 
 			if (pressingCaps) {
 				if (--capsDelay == 0) {
@@ -161,20 +171,22 @@ int main() {
 				}
 			}
 
-			if (idleRate != 0) { // do we need periodic reports?
-				if(idleCounter > 4){ // yes, but not yet
-					idleCounter -= 5; // 22ms in units of 4ms
-				} else { // yes, it is time now
-					idleCounter = idleRate;
-					if (pressingCaps) {
-						emptyReportBuffer(0x62);
-						pressingCaps = 0;
-					}
-					if (usbInterruptIsReady())
-						usbSetInterrupt(reportBuffer, sizeof(reportBuffer));
+			++idleCounter;
+			if(idleCounter > 4){ // yes, but not yet
+				idleCounter -= 5; // 22ms in units of 4ms
+			} else { // yes, it is time now
+				idleCounter = idleRate;
+				/*
+				if (pressingCaps) {
+					emptyReportBuffer(0x62);
+					pressingCaps = 0;
+				}
+				*/
+				if (doRelease && usbInterruptIsReady()) {
+					usbSetInterrupt(reportBuffer, sizeof(reportBuffer));
+					doRelease = false;
 				}
 			}
-
 		}
 	}
 
