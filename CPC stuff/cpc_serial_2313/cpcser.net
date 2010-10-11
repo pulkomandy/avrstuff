@@ -1,0 +1,288 @@
+# EESchema Netlist Version 1.1 created  07/10/2010 19:06:59
+(
+ ( /4CACDD28 SM1206 C1 1µF
+  ( 1 N-000039 )
+  ( 2 N-000038 )
+ )
+ ( /4CACDD2D SM1206 C2 1µF
+  ( 1 N-000037 )
+  ( 2 N-000036 )
+ )
+ ( /4CACDD41 SM1206 C3 1µF
+  ( 1 N-000014 )
+  ( 2 GND )
+ )
+ ( /4CACDD34 SM1206 C4 1µF
+  ( 1 GND )
+  ( 2 N-000035 )
+ )
+ ( /4CACDC46 SM1206 C5 22pF
+  ( 1 N-000016 )
+  ( 2 GND )
+ )
+ ( /4CACDC41 SM1206 C6 22pF
+  ( 1 N-000015 )
+  ( 2 GND )
+ )
+ ( /4CACDDC9 SM1206 C7 C
+  ( 1 GND )
+  ( 2 VCC )
+ )
+ ( /4CACD9B5 LED-3MM D1 LED
+  ( 1 GND )
+  ( 2 N-000001 )
+ )
+ ( /4CADB4AE SM0805 D2 DIODE
+  ( 1 N-000079 )
+  ( 2 N-000073 )
+ )
+ ( /4CADB1F7 SM0805 D3 DIODE
+  ( 1 N-000079 )
+  ( 2 N-000075 )
+ )
+ ( /4CADB1FB SM0805 D4 DIODE
+  ( 1 N-000079 )
+  ( 2 N-000020 )
+ )
+ ( /4CADB1FE SM0805 D5 DIODE
+  ( 1 N-000079 )
+  ( 2 N-000077 )
+ )
+ ( /4CADB201 SM0805 D6 DIODE
+  ( 1 N-000079 )
+  ( 2 N-000004 )
+ )
+ ( /4CADB241 SM0805 D7 DIODE
+  ( 1 N-000079 )
+  ( 2 N-000078 )
+ )
+ ( /4CADB240 SM0805 D8 DIODE
+  ( 1 N-000079 )
+  ( 2 N-000005 )
+ )
+ ( /4CACD835 DB9FC J1 DB9
+  ( 1 ? )
+  ( 2 N-000029 )
+  ( 3 N-000071 )
+  ( 4 ? )
+  ( 5 ? )
+  ( 6 ? )
+  ( 7 ? )
+  ( 8 ? )
+  ( 9 ? )
+ )
+ ( /4CACCCFC HE10_50D P1 CONN_25X2
+  ( 1 ? )
+  ( 2 GND )
+  ( 3 ? )
+  ( 4 ? )
+  ( 5 ? )
+  ( 6 ? )
+  ( 7 ? )
+  ( 8 ? )
+  ( 9 ? )
+  ( 10 N-000075 )
+  ( 11 N-000006 )
+  ( 12 N-000005 )
+  ( 13 N-000078 )
+  ( 14 N-000004 )
+  ( 15 N-000077 )
+  ( 16 N-000023 )
+  ( 17 N-000020 )
+  ( 18 N-000053 )
+  ( 19 N-000044 )
+  ( 20 N-000045 )
+  ( 21 N-000046 )
+  ( 22 N-000047 )
+  ( 23 N-000048 )
+  ( 24 N-000049 )
+  ( 25 N-000050 )
+  ( 26 N-000051 )
+  ( 27 VCC )
+  ( 28 ? )
+  ( 29 ? )
+  ( 30 ? )
+  ( 31 N-000074 )
+  ( 32 N-000056 )
+  ( 33 N-000055 )
+  ( 34 ? )
+  ( 35 ? )
+  ( 36 ? )
+  ( 37 ? )
+  ( 38 ? )
+  ( 39 ? )
+  ( 40 ? )
+  ( 41 N-000058 )
+  ( 42 ? )
+  ( 43 ? )
+  ( 44 ? )
+  ( 45 ? )
+  ( 46 ? )
+  ( 47 ? )
+  ( 48 ? )
+  ( 49 GND )
+  ( 50 ? )
+ )
+ ( /4CACD9E4 SIL-2 P2 FWUP
+  ( 1 N-000002 )
+  ( 2 N-000052 )
+ )
+ ( /4CACD9BF R4 R1 10MR
+  ( 1 GND )
+  ( 2 N-000002 )
+ )
+ ( /4CACD9BD R3-5 R2 470R
+  ( 1 N-000001 )
+  ( 2 N-000052 )
+ )
+ ( /4CACCD81 SO20L U2 ATTINY2313MLF
+  ( 1 N-000058 )
+  ( 2 N-000057 )
+  ( 3 N-000030 )
+  ( 4 N-000016 )
+  ( 5 N-000015 )
+  ( 6 N-000056 )
+  ( 7 N-000055 )
+  ( 8 N-000054 )
+  ( 9 N-000053 )
+  ( 10 GND )
+  ( 11 N-000052 )
+  ( 12 N-000051 )
+  ( 13 N-000050 )
+  ( 14 N-000049 )
+  ( 15 N-000048 )
+  ( 16 N-000047 )
+  ( 17 N-000046 )
+  ( 18 N-000045 )
+  ( 19 N-000044 )
+  ( 20 VCC )
+ )
+ ( /4CACCC83 SO20L U3 MAX232
+  ( 1 N-000039 )
+  ( 2 N-000014 )
+  ( 3 N-000038 )
+  ( 4 N-000037 )
+  ( 5 N-000036 )
+  ( 6 N-000035 )
+  ( 7 ? )
+  ( 8 ? )
+  ( 9 ? )
+  ( 10 ? )
+  ( 11 N-000030 )
+  ( 12 N-000057 )
+  ( 13 N-000029 )
+  ( 14 N-000071 )
+  ( 15 GND )
+  ( 16 VCC )
+ )
+ ( /4CADB1E6 SO14N U4 74LS02
+  ( 1 N-000073 )
+  ( 2 N-000023 )
+  ( 3 N-000006 )
+  ( 4 N-000076 )
+  ( 5 N-000079 )
+  ( 6 GND )
+  ( 7 GND )
+  ( 8 N-000074 )
+  ( 9 N-000076 )
+  ( 10 N-000054 )
+  ( 14 VCC )
+ )
+ ( /4CACDC05 Q_49U3HMS X1 20MHz
+  ( 1 N-000016 )
+  ( 3 N-000015 )
+ )
+)
+*
+{ Allowed footprints by component:
+$component C1
+ CP*
+ SM*
+$endlist
+$component C2
+ CP*
+ SM*
+$endlist
+$component C3
+ CP*
+ SM*
+$endlist
+$component C4
+ CP*
+ SM*
+$endlist
+$component C5
+ SM*
+ C?
+ C1-1
+$endlist
+$component C6
+ SM*
+ C?
+ C1-1
+$endlist
+$component C7
+ SM*
+ C?
+ C1-1
+$endlist
+$component D1
+ LED-3MM
+ LED-5MM
+ LED-10MM
+ LED-0603
+ LED-0805
+ LED-1206
+ LEDV
+$endlist
+$component D2
+ D?
+ S*
+$endlist
+$component D3
+ D?
+ S*
+$endlist
+$component D4
+ D?
+ S*
+$endlist
+$component D5
+ D?
+ S*
+$endlist
+$component D6
+ D?
+ S*
+$endlist
+$component D7
+ D?
+ S*
+$endlist
+$component D8
+ D?
+ S*
+$endlist
+$component J1
+ DB9*
+$endlist
+$component R1
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R2
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component U4
+ SO14*
+ 14DIP*
+$endlist
+$endfootprintlist
+}
