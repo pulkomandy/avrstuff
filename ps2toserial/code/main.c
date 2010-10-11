@@ -1,12 +1,14 @@
 #include <avr/io.h>
 
-#include "keyboard.h"
-#include "usart.h"
+#include "../../libs/ps2_keyboard/ps2_keyboard.h"
+#include "../../libs/usart/usart.h"
 
 int main() {
 
-  USARTInit(51);
+  USARTInit(8);
   init_keyboard(); 
+
+  USARTWriteChar('r');
   
   //debug LED - output
   DDRD |= (1<<PD6);
