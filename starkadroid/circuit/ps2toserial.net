@@ -1,0 +1,276 @@
+# EESchema Netlist Version 1.1 created  30/08/2010 19:43:29
+(
+ ( /4C5307D0 $noname  JP1 FWUP {Lib=JUMPER}
+  (    1 N-000030 )
+  (    2 GND )
+ )
+ ( /4C5307BB $noname  R8 10K {Lib=R}
+  (    1 N-000030 )
+  (    2 +5V )
+ )
+ ( /4C52C709 $noname  C5 10µF {Lib=CP1}
+  (    1 +5V )
+  (    2 GND )
+ )
+ ( /4C21F047 $noname  D4 3.6V {Lib=ZENER}
+  (    1 GND )
+  (    2 N-000031 )
+ )
+ ( /4C21F044 $noname  D3 3.6V {Lib=ZENER}
+  (    1 GND )
+  (    2 N-000006 )
+ )
+ ( /4C21F015 $noname  R4 2.2KR {Lib=R}
+  (    1 +5V )
+  (    2 N-000006 )
+ )
+ ( /4C21EFE9 $noname  R7 68R {Lib=R}
+  (    1 N-000031 )
+  (    2 N-000008 )
+ )
+ ( /4C21EFE5 $noname  R6 68R {Lib=R}
+  (    1 N-000006 )
+  (    2 N-000007 )
+ )
+ ( /4C21EF7A $noname  USB1 CONN_4 {Lib=CONN_4}
+  (    1 +5V )
+  (    2 N-000006 )
+  (    3 N-000031 )
+  (    4 GND )
+ )
+ ( /4C21EEDC $noname  R5 480R {Lib=R}
+  (    1 N-000025 )
+  (    2 +5V )
+ )
+ ( /4C20B56F $noname  C4 100nF {Lib=C}
+  (    1 GND )
+  (    2 +5V )
+ )
+ ( /4C20B393 $noname  D2 LED {Lib=LED}
+  (    1 N-000002 )
+  (    2 GND )
+ )
+ ( /4C20B383 $noname  R2 470R {Lib=R}
+  (    1 N-000011 )
+  (    2 N-000002 )
+ )
+ ( /4C20B267 $noname  R1 10K {Lib=R}
+  (    1 N-000003 )
+  (    2 +5V )
+ )
+ ( /4C20AD73 $noname  C2 27pF {Lib=C}
+  (    1 N-000005 )
+  (    2 GND )
+ )
+ ( /4C20AD6D $noname  C1 27pF {Lib=C}
+  (    1 N-000004 )
+  (    2 GND )
+ )
+ ( /4C20AD34 $noname  X1 16MHz {Lib=CRYSTAL}
+  (    1 N-000004 )
+  (    2 N-000005 )
+ )
+ ( /4C20A3B4 Mini_din6  PS2 CONN_6 {Lib=CONN_6}
+  (    1 N-000025 )
+  (    2 GND )
+  (    3 N-000029 )
+  (    4 ? )
+  (    5 +5V )
+  (    6 ? )
+ )
+ ( /4C209A59 DIP-28__300  IC1 ATMEGA8-P {Lib=ATMEGA8-P}
+  (    1 N-000003 )
+  (    2 N-000030 )
+  (    3 ? )
+  (    4 N-000008 )
+  (    5 N-000025 )
+  (    6 N-000029 )
+  (    7 +5V )
+  (    8 GND )
+  (    9 N-000004 )
+  (   10 N-000005 )
+  (   11 N-000007 )
+  (   12 N-000011 )
+  (   13 ? )
+  (   14 ? )
+  (   15 ? )
+  (   16 ? )
+  (   17 ? )
+  (   18 ? )
+  (   19 ? )
+  (   20 +5V )
+  (   21 ? )
+  (   22 GND )
+  (   23 ? )
+  (   24 ? )
+  (   25 ? )
+  (   26 ? )
+  (   27 ? )
+  (   28 ? )
+ )
+)
+*
+{ Allowed footprints by component:
+$component R8
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component C5
+ CP*
+ SM*
+$endlist
+$component D4
+ D?
+ SO*
+ SM*
+$endlist
+$component D3
+ D?
+ SO*
+ SM*
+$endlist
+$component R4
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R7
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R6
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R5
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component C4
+ SM*
+ C?
+ C1-1
+$endlist
+$component D2
+ LED-3MM
+ LED-5MM
+ LED-10MM
+ LED-0603
+ LED-0805
+ LED-1206
+ LEDV
+$endlist
+$component R2
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R1
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component C2
+ SM*
+ C?
+ C1-1
+$endlist
+$component C1
+ SM*
+ C?
+ C1-1
+$endlist
+$component IC1
+ 28DIP-ELL600
+ 28dip600
+$endlist
+$endfootprintlist
+}
+{ Pin List by Nets
+Net 1 "GND" "GND"
+ PS2 2
+ IC1 22
+ IC1 8
+ C4 1
+ D3 1
+ D4 1
+ C5 2
+ JP1 2
+ C1 2
+ C2 2
+ D2 2
+ USB1 4
+Net 2 "" ""
+ D2 1
+ R2 2
+Net 3 "" ""
+ R1 1
+ IC1 1
+Net 4 "" ""
+ C1 1
+ X1 1
+ IC1 9
+Net 5 "" ""
+ X1 2
+ C2 1
+ IC1 10
+Net 6 "" ""
+ D3 2
+ USB1 2
+ R4 2
+ R6 1
+Net 7 "" ""
+ IC1 11
+ R6 2
+Net 8 "" ""
+ IC1 4
+ R7 2
+Net 9 "+5V" "+5V"
+ PS2 5
+ R4 1
+ R5 2
+ C4 2
+ IC1 20
+ R1 2
+ R8 2
+ C5 1
+ USB1 1
+ IC1 7
+Net 11 "" ""
+ R2 1
+ IC1 12
+Net 25 "" ""
+ R5 1
+ IC1 5
+ PS2 1
+Net 29 "" ""
+ PS2 3
+ IC1 6
+Net 30 "" ""
+ JP1 1
+ IC1 2
+ R8 1
+Net 31 "" ""
+ USB1 3
+ R7 1
+ D4 2
+}
+#End
