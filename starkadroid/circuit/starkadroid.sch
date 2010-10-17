@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date 16/10/2010 15:14:04
+EESchema Schematic File Version 2  date 17/10/2010 21:54:16
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -35,7 +35,7 @@ EELAYER END
 $Descr User 6000 6000
 Sheet 1 1
 Title "Starkadroid USB Arcade buttons device"
-Date "16 oct 2010"
+Date "17 oct 2010"
 Rev "2010.10.16"
 Comp "PulkoTronics"
 Comment1 ""
@@ -43,6 +43,63 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+$Comp
+L CONN_1 P?
+U 1 1 4CBB4DB2
+P 3550 3300
+AR Path="/4CBB4DAA" Ref="P?"  Part="1" 
+AR Path="/4CBB4DB2" Ref="P6"  Part="1" 
+F 0 "P6" H 3630 3300 40  0000 L CNN
+F 1 "CONN_1" H 3550 3355 30  0001 C CNN
+	1    3550 3300
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_1 P?
+U 1 1 4CBB4DB1
+P 3550 3200
+AR Path="/4CBB4DAA" Ref="P?"  Part="1" 
+AR Path="/4CBB4DB1" Ref="P5"  Part="1" 
+F 0 "P5" H 3630 3200 40  0000 L CNN
+F 1 "CONN_1" H 3550 3255 30  0001 C CNN
+	1    3550 3200
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_1 P?
+U 1 1 4CBB4DAE
+P 3550 3000
+AR Path="/4CBB4DAA" Ref="P?"  Part="1" 
+AR Path="/4CBB4DAE" Ref="P4"  Part="1" 
+F 0 "P4" H 3630 3000 40  0000 L CNN
+F 1 "CONN_1" H 3550 3055 30  0001 C CNN
+	1    3550 3000
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_1 P3
+U 1 1 4CBB4DAA
+P 3550 2900
+F 0 "P3" H 3630 2900 40  0000 L CNN
+F 1 "CONN_1" H 3550 2955 30  0001 C CNN
+	1    3550 2900
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_1 P2
+U 1 1 4CBB4DA3
+P 3550 2700
+F 0 "P2" H 3630 2700 40  0000 L CNN
+F 1 "CONN_1" H 3550 2755 30  0001 C CNN
+	1    3550 2700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3350 3300 3400 3300
+Wire Wire Line
+	3400 3000 3350 3000
+Wire Wire Line
+	3350 2900 3400 2900
 Wire Wire Line
 	4900 3800 5000 3800
 Wire Wire Line
@@ -78,7 +135,7 @@ Wire Wire Line
 Wire Wire Line
 	3750 2350 3750 2600
 Wire Wire Line
-	600  650  1000 650 
+	1000 650  600  650 
 Wire Wire Line
 	600  650  600  4300
 Wire Wire Line
@@ -97,7 +154,7 @@ Wire Notes Line
 	2750 600  2750 1400
 Connection ~ 4200 1650
 Wire Wire Line
-	4300 1650 4300 1350
+	4300 1350 4300 1650
 Wire Wire Line
 	4300 1650 4100 1650
 Wire Wire Line
@@ -105,7 +162,7 @@ Wire Wire Line
 Wire Wire Line
 	3300 1150 3400 1150
 Wire Wire Line
-	4300 650  4300 1050
+	4300 1050 4300 650 
 Connection ~ 4100 1150
 Connection ~ 600  1150
 Wire Wire Line
@@ -123,17 +180,17 @@ Connection ~ 1100 2200
 Wire Wire Line
 	1000 2200 1450 2200
 Wire Wire Line
-	1450 2800 1450 2600
+	1450 2600 1450 2800
 Connection ~ 2350 4300
 Wire Wire Line
-	2350 2100 1450 2100
+	1450 2100 2350 2100
 Wire Wire Line
-	2350 1100 2350 2100
+	2350 2100 2350 1100
 Connection ~ 2350 1400
 Wire Wire Line
 	1450 2200 1450 2400
 Wire Wire Line
-	1000 2800 1450 2800
+	1450 2800 1000 2800
 Connection ~ 1100 2800
 Connection ~ 1450 1900
 Connection ~ 600  2200
@@ -153,7 +210,7 @@ Wire Wire Line
 	4300 1250 3900 1250
 Connection ~ 4200 1250
 Wire Wire Line
-	3900 650  4300 650 
+	4300 650  3900 650 
 Connection ~ 4000 650 
 Wire Wire Line
 	3300 1250 3400 1250
@@ -193,6 +250,10 @@ Wire Wire Line
 	3350 3700 3500 3700
 Wire Wire Line
 	3350 3900 3500 3900
+Wire Wire Line
+	3350 2700 3400 2700
+Wire Wire Line
+	3350 3200 3400 3200
 Text GLabel 4900 3300 0    60   Input ~ 0
 J3D
 Text GLabel 4900 3400 0    60   Input ~ 0

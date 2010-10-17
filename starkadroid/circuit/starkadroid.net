@@ -1,126 +1,144 @@
-# EESchema Netlist Version 1.1 created  16/10/2010 14:43:48
+# EESchema Netlist Version 1.1 created  17/10/2010 21:29:53
 (
- ( /4CB98E65 CONN_14  P1 CONN_12 {Lib=CONN_14}
-  (    1 N-000024 )
-  (    2 N-000005 )
-  (    3 N-000022 )
-  (    4 N-000023 )
-  (    5 N-000020 )
-  (    6 N-000021 )
-  (    7 ? )
-  (    8 ? )
-  (    9 N-000008 )
-  (   10 N-000009 )
-  (   11 N-000010 )
-  (   12 N-000011 )
-  (   13 N-000012 )
-  (   14 N-000013 )
+ ( /4C20AD6D SM1206 C1 27pF
+  ( 1 N-000022 )
+  ( 2 GND )
  )
- ( /4C5307D0 $noname  JP1 FWUP {Lib=JUMPER}
-  (    1 N-000027 )
-  (    2 GND )
+ ( /4C20AD73 SM1206 C2 27pF
+  ( 1 N-000023 )
+  ( 2 GND )
  )
- ( /4C5307BB $noname  R8 10K {Lib=R}
-  (    1 N-000027 )
-  (    2 +5V )
+ ( /4C20B56F SM1206 C4 100nF
+  ( 1 GND )
+  ( 2 +5V )
  )
- ( /4C52C709 $noname  C5 10µF {Lib=CP1}
-  (    1 +5V )
-  (    2 GND )
+ ( /4C52C709 C1V7 C5 10µF
+  ( 1 +5V )
+  ( 2 GND )
  )
- ( /4C21F047 $noname  D4 3.6V {Lib=ZENER}
-  (    1 GND )
-  (    2 N-000001 )
+ ( /4C21F044 D3 D3 3.6V
+  ( 1 GND )
+  ( 2 N-000004 )
  )
- ( /4C21F044 $noname  D3 3.6V {Lib=ZENER}
-  (    1 GND )
-  (    2 N-000002 )
+ ( /4C21F047 SM1206 D4 3.6V
+  ( 1 GND )
+  ( 2 N-000003 )
  )
- ( /4C21F015 $noname  R4 2.2KR {Lib=R}
-  (    1 +5V )
-  (    2 N-000002 )
+ ( /4C209A59 DIP-28__300 IC1 ATMEGA8-P
+  ( 1 N-000030 )
+  ( 2 N-000024 )
+  ( 3 N-000029 )
+  ( 4 N-000006 )
+  ( 5 N-000028 )
+  ( 6 N-000027 )
+  ( 7 +5V )
+  ( 8 GND )
+  ( 9 N-000022 )
+  ( 10 N-000023 )
+  ( 11 N-000005 )
+  ( 12 N-000026 )
+  ( 13 N-000025 )
+  ( 14 N-000018 )
+  ( 15 N-000017 )
+  ( 16 N-000016 )
+  ( 17 N-000015 )
+  ( 18 N-000014 )
+  ( 19 N-000013 )
+  ( 20 +5V )
+  ( 21 ? )
+  ( 22 GND )
+  ( 23 N-000009 )
+  ( 24 N-000010 )
+  ( 25 N-000007 )
+  ( 26 N-000008 )
+  ( 27 N-000020 )
+  ( 28 N-000021 )
  )
- ( /4C21EFE9 $noname  R7 68R {Lib=R}
-  (    1 N-000001 )
-  (    2 N-000004 )
+ ( /4C5307D0 SIL-2 JP1 FWUP
+  ( 1 N-000024 )
+  ( 2 GND )
  )
- ( /4C21EFE5 $noname  R6 68R {Lib=R}
-  (    1 N-000002 )
-  (    2 N-000003 )
+ ( /4CB98E65 he10-14d P1 CONN_12
+  ( 1 N-000020 )
+  ( 2 N-000021 )
+  ( 3 N-000007 )
+  ( 4 N-000008 )
+  ( 5 N-000009 )
+  ( 6 N-000010 )
+  ( 7 ? )
+  ( 8 ? )
+  ( 9 N-000013 )
+  ( 10 N-000014 )
+  ( 11 N-000015 )
+  ( 12 N-000016 )
+  ( 13 N-000017 )
+  ( 14 N-000018 )
  )
- ( /4C21EF7A $noname  USB1 CONN_4 {Lib=CONN_4}
-  (    1 +5V )
-  (    2 N-000002 )
-  (    3 N-000001 )
-  (    4 GND )
+ ( /4CBB4DA3 PINTST P2 CONN_1
+  ( 1 N-000029 )
  )
- ( /4C20B56F $noname  C4 100nF {Lib=C}
-  (    1 GND )
-  (    2 +5V )
+ ( /4CBB4DAA PINTST P3 CONN_1
+  ( 1 N-000028 )
  )
- ( /4C20B267 $noname  R1 10K {Lib=R}
-  (    1 N-000030 )
-  (    2 +5V )
+ ( /4CBB4DAE PINTST P4 CONN_1
+  ( 1 N-000027 )
  )
- ( /4C20AD73 $noname  C2 27pF {Lib=C}
-  (    1 N-000026 )
-  (    2 GND )
+ ( /4CBB4DB1 PINTST P5 CONN_1
+  ( 1 N-000026 )
  )
- ( /4C20AD6D $noname  C1 27pF {Lib=C}
-  (    1 N-000025 )
-  (    2 GND )
+ ( /4CBB4DB2 PINTST P6 CONN_1
+  ( 1 N-000025 )
  )
- ( /4C20AD34 $noname  X1 16MHz {Lib=CRYSTAL}
-  (    1 N-000025 )
-  (    2 N-000026 )
+ ( /4C20B267 SM0805 R1 10K
+  ( 1 N-000030 )
+  ( 2 +5V )
  )
- ( /4C209A59 DIP-28__300  IC1 ATMEGA8-P {Lib=ATMEGA8-P}
-  (    1 N-000030 )
-  (    2 N-000027 )
-  (    3 ? )
-  (    4 N-000004 )
-  (    5 ? )
-  (    6 ? )
-  (    7 +5V )
-  (    8 GND )
-  (    9 N-000025 )
-  (   10 N-000026 )
-  (   11 N-000003 )
-  (   12 ? )
-  (   13 ? )
-  (   14 N-000013 )
-  (   15 N-000012 )
-  (   16 N-000011 )
-  (   17 N-000010 )
-  (   18 N-000009 )
-  (   19 N-000008 )
-  (   20 +5V )
-  (   21 ? )
-  (   22 GND )
-  (   23 N-000020 )
-  (   24 N-000021 )
-  (   25 N-000022 )
-  (   26 N-000023 )
-  (   27 N-000024 )
-  (   28 N-000005 )
+ ( /4C21F015 SM0805 R4 2.2KR
+  ( 1 +5V )
+  ( 2 N-000004 )
+ )
+ ( /4C21EFE5 SM0805 R6 68R
+  ( 1 N-000004 )
+  ( 2 N-000005 )
+ )
+ ( /4C21EFE9 R4 R7 68R
+  ( 1 N-000003 )
+  ( 2 N-000006 )
+ )
+ ( /4C5307BB SM0805 R8 10K
+  ( 1 N-000024 )
+  ( 2 +5V )
+ )
+ ( /4C21EF7A USB_B USB1 CONN_4
+  ( 1 +5V )
+  ( 2 N-000004 )
+  ( 3 N-000003 )
+  ( 4 GND )
+ )
+ ( /4C20AD34 Q_49U3HMS X1 16MHz
+  ( 1 N-000022 )
+  ( 2 N-000023 )
  )
 )
 *
 { Allowed footprints by component:
-$component R8
- R?
- SM0603
- SM0805
- R?-*
- SM1206
+$component C1
+ SM*
+ C?
+ C1-1
+$endlist
+$component C2
+ SM*
+ C?
+ C1-1
+$endlist
+$component C4
+ SM*
+ C?
+ C1-1
 $endlist
 $component C5
  CP*
- SM*
-$endlist
-$component D4
- D?
- SO*
  SM*
 $endlist
 $component D3
@@ -128,14 +146,23 @@ $component D3
  SO*
  SM*
 $endlist
-$component R4
+$component D4
+ D?
+ SO*
+ SM*
+$endlist
+$component IC1
+ 28DIP-ELL600
+ 28dip600
+$endlist
+$component R1
  R?
  SM0603
  SM0805
  R?-*
  SM1206
 $endlist
-$component R7
+$component R4
  R?
  SM0603
  SM0805
@@ -149,120 +176,19 @@ $component R6
  R?-*
  SM1206
 $endlist
-$component C4
- SM*
- C?
- C1-1
-$endlist
-$component R1
+$component R7
  R?
  SM0603
  SM0805
  R?-*
  SM1206
 $endlist
-$component C2
- SM*
- C?
- C1-1
-$endlist
-$component C1
- SM*
- C?
- C1-1
-$endlist
-$component IC1
- 28DIP-ELL600
- 28dip600
+$component R8
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
 $endlist
 $endfootprintlist
 }
-{ Pin List by Nets
-Net 1 "" ""
- D4 2
- USB1 3
- R7 1
-Net 2 "" ""
- USB1 2
- D3 2
- R4 2
- R6 1
-Net 3 "" ""
- IC1 11
- R6 2
-Net 4 "" ""
- IC1 4
- R7 2
-Net 5 "" ""
- P1 2
- IC1 28
-Net 8 "" ""
- P1 9
- IC1 19
-Net 9 "" ""
- P1 10
- IC1 18
-Net 10 "" ""
- P1 11
- IC1 17
-Net 11 "" ""
- IC1 16
- P1 12
-Net 12 "" ""
- IC1 15
- P1 13
-Net 13 "" ""
- P1 14
- IC1 14
-Net 14 "GND" "GND"
- C1 2
- C5 2
- D4 1
- D3 1
- C2 2
- C4 1
- USB1 4
- IC1 22
- IC1 8
- JP1 2
-Net 15 "+5V" "+5V"
- R1 2
- C4 2
- IC1 20
- IC1 7
- R8 2
- USB1 1
- R4 1
- C5 1
-Net 20 "" ""
- P1 5
- IC1 23
-Net 21 "" ""
- P1 6
- IC1 24
-Net 22 "" ""
- IC1 25
- P1 3
-Net 23 "" ""
- P1 4
- IC1 26
-Net 24 "" ""
- P1 1
- IC1 27
-Net 25 "" ""
- C1 1
- IC1 9
- X1 1
-Net 26 "" ""
- IC1 10
- X1 2
- C2 1
-Net 27 "" ""
- IC1 2
- JP1 1
- R8 1
-Net 30 "" ""
- IC1 1
- R1 1
-}
-#End

@@ -119,7 +119,7 @@
  * you use obdev's free shared VID/PID pair. Be sure to read the rules in
  * USBID-License.txt!
  */
-#define  USB_CFG_DEVICE_ID       0x31, 0xe1
+#define  USB_CFG_DEVICE_ID       0x31, 0x17
 /** Version number of the device: Minor number first, then major number.
  */
 #define USB_CFG_DEVICE_VERSION  0x00, 0x01
@@ -138,10 +138,10 @@
 /** Same as above for the device name. If you don't want a device name, undefine
  * the macros. See the file USBID-License.txt before you assign a name.
  */
-#define USB_CFG_DEVICE_NAME     'A','m','i','k','e','y','2','u','s','b'
+#define USB_CFG_DEVICE_NAME     'S','t','a','r','k','a','d','r','o','i','d'
 /** Length of USB_CFG_DEVICE_NAME
  */
-#define USB_CFG_DEVICE_NAME_LEN 10
+#define USB_CFG_DEVICE_NAME_LEN 11
 /** See USB specification if you want to conform to an existing device class.
  * This setting means to specify the class at the interface level.
  */
@@ -154,17 +154,17 @@
  */
 #define USB_CFG_INTERFACE_CLASS     0x03
 /** See USB specification if you want to conform to an existing device class or
- * protocol. This is a boot device.
+ * protocol. This is not a boot device.
  */
-#define USB_CFG_INTERFACE_SUBCLASS  0x01
+#define USB_CFG_INTERFACE_SUBCLASS  0x00
 /** See USB specification if you want to conform to an existing device class or
- * protocol. This is keyboard protocol.
+ * protocol.
  */
-#define USB_CFG_INTERFACE_PROTOCOL  0x01
+#define USB_CFG_INTERFACE_PROTOCOL  0x00
 /** Define this to the length of the HID report descriptor, if you implement
  * an HID device. Otherwise don't define it or define it to 0.
  */
-#define USB_CFG_HID_REPORT_DESCRIPTOR_LENGTH    63
+#define USB_CFG_HID_REPORT_DESCRIPTOR_LENGTH    42
 
 /* ------------------- Fine Control over USB Descriptors ------------------- */
 /* If you don't want to use the driver's default USB descriptors, you can
