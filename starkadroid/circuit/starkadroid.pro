@@ -1,6 +1,6 @@
 version=1
 last_client=pcbnew
-update=03/10/2010 13:49:42
+update=16/10/2010 15:13:59
 [cvpcb]
 version=1
 NetIExt=net
@@ -91,7 +91,7 @@ DrawLar=150
 EdgeLar=150
 TxtLar=120
 MSegLar=150
-LastNetListRead=ps2toserial.net
+LastNetListRead=starkadroid.net
 [pcbnew/libraries]
 LibDir=
 LibName1=sockets
