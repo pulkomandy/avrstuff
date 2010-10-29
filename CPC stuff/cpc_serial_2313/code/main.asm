@@ -13,7 +13,14 @@
 .EQU DATAIN = PINB
 
 .EQU CTRLIN = PIND
-.EQU A0 = PIND4
+.EQU CTRLOUT = PORTD
+.EQU CTRLDIR = DDRD
+
+.EQU A0 = PIND5
+.EQU _READ = PIND3
+.EQU _WRITE = PIND2
+.EQU DEL = PIND6
+.EQU INT = PIND4
 
 .EQU curregbak = SRAM_START
 
@@ -73,9 +80,9 @@ cpc_read:
 	LDS R27,curregbak
 
 ; release the bus
-	LDI R16,ALL_IN
+	SER R16
 	OUT DATADIR, R16
-	LDI R16,ALL_OUT
+	CLR R16
 
 ; Restore R27 to selected reg. (we erased it to do the OUT)
 	RETI
@@ -111,12 +118,35 @@ intEnd:
 ; At a bare minimum :
 ; * Set up the INT0 and INT1 so the CPC can do the rest of the setup itself
 init:
-	; setup ctrl port : RW and A0 as inputs, INT as output
-	; led on (will be turned off by software at init)
-	; init serial port speed and io
-	; check for bootloader jumper and jump to bootload code if needed
+	CLI
+	; setup ctrl port : RW and A0 as inputs, INT and DEL as output
+	LDI R16,0x28
+	OUT CTRLDIR,R16
 
+	; setup dataport as input
+	CLR R0
+	OUT DATADIR,R0
+
+	; led on (will be turned off by software at init)
+	SBI CTRLOUT,DEL
+
+	; init serial port speed and io
+	LDI R16,10
+	OUT UBRR,R16
+
+	; check for bootloader jumper and jump to bootload code if needed
+	; TODO
+
+	; setup interrupts (enable INT0 and INT1 on falling edge)
+	LDI R16,0x0A
+	OUT MCUCR,R16
+
+	LDI R16,0xC0
+	OUT GIMSK,R16
+
+	; we can now enable interrupts
 	SEI
+
 mainloop:
 	; maybe we will have to handle a buffer for the serial port
 	; and 'fake' registers in SRAM
