@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date 07/10/2010 19:01:35
+EESchema Schematic File Version 2  date 13/10/2010 18:34:24
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -36,23 +36,41 @@ EELAYER END
 $Descr User 8000 7500
 Sheet 1 1
 Title "Micro-serial RS232 interface for CPC"
-Date "7 oct 2010"
-Rev ""
+Date "13 oct 2010"
+Rev "0.2"
 Comp "Shinra/PulkoTronics"
 Comment1 ""
 Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+$Comp
+L CRYSTAL X1
+U 1 1 4CB35A37
+P 3050 1350
+F 0 "X1" H 3050 1500 60  0000 C CNN
+F 1 "CRYSTAL" H 3050 1200 60  0000 C CNN
+	1    3050 1350
+	0    1    1    0   
+$EndComp
 Wire Wire Line
-	4100 5700 4300 5700
+	7100 2950 7500 2950
+Wire Wire Line
+	7500 2950 7500 5150
+Wire Wire Line
+	7500 5150 6200 5150
+Wire Wire Line
+	4500 6000 4650 6000
+Wire Wire Line
+	3150 6100 3300 6100
+Wire Wire Line
+	3300 5600 2900 5600
+Connection ~ 2900 5900
 Connection ~ 1550 5800
 Wire Wire Line
 	1550 5650 1550 6250
 Wire Wire Line
 	1450 5300 1650 5300
-Wire Wire Line
-	1700 6350 1700 6550
 Connection ~ 1550 5950
 Connection ~ 1550 6400
 Connection ~ 1550 6250
@@ -266,56 +284,94 @@ Connection ~ 1550 6150
 Wire Wire Line
 	1450 5100 1650 5100
 Wire Wire Line
-	2900 6250 2900 5800
-Wire Wire Line
 	1150 5650 1150 5450
 Wire Wire Line
 	1150 5450 2850 5450
 Wire Wire Line
 	2850 5450 2850 5200
 Wire Wire Line
-	2750 5600 2900 5600
+	1700 6350 1700 6800
+Wire Wire Line
+	1700 6800 1600 6800
+Wire Wire Line
+	2900 5600 2900 6250
+Wire Wire Line
+	3150 5400 3300 5400
+Wire Wire Line
+	3300 5900 2900 5900
+Wire Wire Line
+	4500 5500 4650 5500
+Wire Wire Line
+	5700 5150 5800 5150
 $Comp
-L DIODE D?
+L DIODE D9
+U 1 1 4CB347C7
+P 6000 5150
+F 0 "D9" H 6000 5250 40  0000 C CNN
+F 1 "DIODE" H 6000 5050 40  0000 C CNN
+	1    6000 5150
+	-1   0    0    1   
+$EndComp
+Text GLabel 5700 5150 0    60   Input ~ 0
+INT
+Text GLabel 4650 5500 2    60   Output ~ 0
+READ
+Text GLabel 4650 6000 2    60   Output ~ 0
+WRITE
+Text GLabel 5650 1250 2    60   Input ~ 0
+WRITE
+Text GLabel 5650 1450 2    60   Input ~ 0
+READ
+$Comp
+L 74LS02 U4
+U 3 1 4CB34649
+P 3900 5500
+F 0 "U4" H 3900 5550 60  0000 C CNN
+F 1 "74LS02" H 3950 5450 60  0000 C CNN
+	3    3900 5500
+	1    0    0    -1  
+$EndComp
+$Comp
+L DIODE D2
 U 1 1 4CADB4AE
 P 1350 5650
-F 0 "D?" H 1350 5750 40  0000 C CNN
+F 0 "D2" H 1350 5750 40  0000 C CNN
 F 1 "DIODE" H 1350 5550 40  0000 C CNN
 	1    1350 5650
 	-1   0    0    1   
 $EndComp
 $Comp
-L DIODE D?
+L DIODE D7
 U 1 1 4CADB241
 P 1350 6400
-F 0 "D?" H 1350 6500 40  0000 C CNN
+F 0 "D7" H 1350 6500 40  0000 C CNN
 F 1 "DIODE" V 1350 6300 40  0000 C CNN
 	1    1350 6400
 	-1   0    0    1   
 $EndComp
 $Comp
-L DIODE D?
+L DIODE D8
 U 1 1 4CADB240
 P 1350 6550
-F 0 "D?" H 1350 6650 40  0000 C CNN
+F 0 "D8" H 1350 6650 40  0000 C CNN
 F 1 "DIODE" H 1350 6450 40  0000 C CNN
 	1    1350 6550
 	-1   0    0    1   
 $EndComp
 $Comp
-L DIODE D?
+L DIODE D6
 U 1 1 4CADB201
 P 1350 6250
-F 0 "D?" H 1350 6350 40  0000 C CNN
+F 0 "D6" H 1350 6350 40  0000 C CNN
 F 1 "DIODE" H 1350 6150 40  0000 C CNN
 	1    1350 6250
 	-1   0    0    1   
 $EndComp
 $Comp
-L DIODE D?
+L DIODE D5
 U 1 1 4CADB1FE
 P 1350 6100
-F 0 "D?" H 1350 6200 40  0000 C CNN
+F 0 "D5" H 1350 6200 40  0000 C CNN
 F 1 "DIODE" H 1350 6000 40  0000 C CNN
 	1    1350 6100
 	-1   0    0    1   
@@ -325,30 +381,30 @@ L DIODE D?
 U 1 1 4CADB1FB
 P 1350 5950
 AR Path="/4CADB1F7" Ref="D?"  Part="1" 
-AR Path="/4CADB1FB" Ref="D?"  Part="1" 
-F 0 "D?" H 1350 6050 40  0000 C CNN
+AR Path="/4CADB1FB" Ref="D4"  Part="1" 
+F 0 "D4" H 1350 6050 40  0000 C CNN
 F 1 "DIODE" H 1350 5850 40  0000 C CNN
 	1    1350 5950
 	-1   0    0    1   
 $EndComp
 $Comp
-L DIODE D?
+L DIODE D3
 U 1 1 4CADB1F7
 P 1350 5800
-F 0 "D?" H 1350 5900 40  0000 C CNN
+F 0 "D3" H 1350 5900 40  0000 C CNN
 F 1 "DIODE" H 1350 5700 40  0000 C CNN
 	1    1350 5800
 	-1   0    0    1   
 $EndComp
 $Comp
 L 74LS02 U?
-U 2 1 4CADB1E6
-P 3500 5700
+U 4 1 4CADB1E6
+P 3900 6000
 AR Path="/4CADB1E1" Ref="U?"  Part="1" 
-AR Path="/4CADB1E6" Ref="U?"  Part="2" 
-F 0 "U?" H 3500 5750 60  0000 C CNN
-F 1 "74LS02" H 3550 5650 60  0000 C CNN
-	2    3500 5700
+AR Path="/4CADB1E6" Ref="U4"  Part="4" 
+F 0 "U4" H 3900 6050 60  0000 C CNN
+F 1 "74LS02" H 3950 5950 60  0000 C CNN
+	4    3900 6000
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -356,19 +412,19 @@ L 74LS02 U?
 U 1 1 4CADB1E4
 P 2250 5200
 AR Path="/4CADB1E1" Ref="U?"  Part="1" 
-AR Path="/4CADB1E4" Ref="U?"  Part="1" 
-F 0 "U?" H 2250 5250 60  0000 C CNN
+AR Path="/4CADB1E4" Ref="U4"  Part="1" 
+F 0 "U4" H 2250 5250 60  0000 C CNN
 F 1 "74LS02" H 2300 5150 60  0000 C CNN
 	1    2250 5200
 	1    0    0    -1  
 $EndComp
 $Comp
-L 74LS02 U?
-U 1 1 4CADB1E1
+L 74LS02 U4
+U 2 1 4CADB1E1
 P 2300 6250
-F 0 "U?" H 2300 6300 60  0000 C CNN
+F 0 "U4" H 2300 6300 60  0000 C CNN
 F 1 "74LS02" H 2350 6200 60  0000 C CNN
-	1    2300 6250
+	2    2300 6250
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -477,7 +533,7 @@ L C C7
 U 1 1 4CACDDC9
 P 2400 2500
 F 0 "C7" H 2450 2600 50  0000 L CNN
-F 1 "C" H 2450 2400 50  0000 L CNN
+F 1 "1µF" H 2450 2400 50  0000 L CNN
 	1    2400 2500
 	1    0    0    -1  
 $EndComp
@@ -547,15 +603,6 @@ F 1 "22pF" H 2900 1650 50  0000 L CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L QUARTZCMS4 X1
-U 1 1 4CACDC05
-P 3050 1350
-F 0 "X1" H 3050 1500 60  0000 C CNN
-F 1 "20MHz" H 3050 1200 60  0000 C CNN
-	1    3050 1350
-	0    1    1    0   
-$EndComp
-$Comp
 L GND #PWR07
 U 1 1 4CACDB1A
 P 2900 3350
@@ -620,8 +667,8 @@ F 1 "LED" H 6100 900 50  0000 C CNN
 	1    6100 1000
 	0    1    1    0   
 $EndComp
-Text GLabel 5650 1650 2    60   Input ~ 0
-MATCH
+Text GLabel 5650 1650 2    60   Output ~ 0
+INT
 Text GLabel 5650 3750 2    60   BiDi ~ 0
 D7
 Text GLabel 5650 3550 2    60   BiDi ~ 0
@@ -640,9 +687,9 @@ Text GLabel 5650 2350 2    60   BiDi ~ 0
 D0
 Text GLabel 5650 1850 2    60   Input ~ 0
 A0
-Text GLabel 5650 1450 2    60   Input ~ 0
+Text GLabel 3150 6100 0    60   Input ~ 0
 WR
-Text GLabel 5650 1250 2    60   Input ~ 0
+Text GLabel 3150 5400 0    60   Input ~ 0
 RD
 Text GLabel 650  3900 0    60   Input ~ 0
 TX
@@ -661,18 +708,7 @@ Text GLabel 5650 1050 2    60   Output ~ 0
 TX
 Text GLabel 5650 850  2    60   Input ~ 0
 RX
-Text GLabel 4300 5700 2    60   Output ~ 0
-MATCH
-$Comp
-L GND #PWR011
-U 1 1 4CACD740
-P 1700 6550
-F 0 "#PWR011" H 1700 6550 30  0001 C CNN
-F 1 "GND" H 1700 6480 30  0001 C CNN
-	1    1700 6550
-	1    0    0    -1  
-$EndComp
-Text GLabel 2750 5600 0    60   Input ~ 0
+Text GLabel 1600 6800 0    60   Input ~ 0
 IORQ
 Text GLabel 1050 5800 0    60   Input ~ 0
 A8

@@ -1,0 +1,299 @@
+# EESchema Netlist Version 1.1 created  25/10/2010 11:42:17
+(
+ ( /4CACDD28 SM1206 C1 1µF
+  ( 1 N-000040 )
+  ( 2 N-000039 )
+ )
+ ( /4CACDD2D SM1206 C2 1µF
+  ( 1 N-000038 )
+  ( 2 N-000037 )
+ )
+ ( /4CACDD41 SM1206 C3 1µF
+  ( 1 N-000016 )
+  ( 2 VSS )
+ )
+ ( /4CACDD34 SM1206 C4 1µF
+  ( 1 VSS )
+  ( 2 N-000036 )
+ )
+ ( /4CACDC46 SM1206 C5 22pF
+  ( 1 N-000005 )
+  ( 2 VSS )
+ )
+ ( /4CACDC41 SM1206 C6 22pF
+  ( 1 N-000004 )
+  ( 2 VSS )
+ )
+ ( /4CACDDC9 SM1206 C7 C
+  ( 1 VSS )
+  ( 2 +5V )
+ )
+ ( /4CACD9B5 LED-3MM D1 LED
+  ( 1 VSS )
+  ( 2 N-000001 )
+ )
+ ( /4CADB4AE SM0805 D2 DIODE
+  ( 1 N-000080 )
+  ( 2 N-000078 )
+ )
+ ( /4CADB1F7 SM0805 D3 DIODE
+  ( 1 N-000080 )
+  ( 2 N-000062 )
+ )
+ ( /4CADB1FB SM0805 D4 DIODE
+  ( 1 N-000080 )
+  ( 2 N-000019 )
+ )
+ ( /4CADB1FE SM0805 D5 DIODE
+  ( 1 N-000080 )
+  ( 2 N-000024 )
+ )
+ ( /4CADB201 SM0805 D6 DIODE
+  ( 1 N-000080 )
+  ( 2 N-000027 )
+ )
+ ( /4CADB241 SM0805 D7 DIODE
+  ( 1 N-000080 )
+  ( 2 N-000029 )
+ )
+ ( /4CADB240 SM0805 D8 DIODE
+  ( 1 N-000080 )
+  ( 2 N-000056 )
+ )
+ ( /4CB347C7 SM0805 D9 DIODE
+  ( 1 N-000076 )
+  ( 2 N-000051 )
+ )
+ ( /4CACD835 DB9FC J1 DB9
+  ( 1 ? )
+  ( 2 N-000031 )
+  ( 3 N-000013 )
+  ( 4 ? )
+  ( 5 ? )
+  ( 6 ? )
+  ( 7 ? )
+  ( 8 ? )
+  ( 9 ? )
+ )
+ ( /4CACCCFC HE10_50D P1 CONN_25X2
+  ( 1 ? )
+  ( 2 VSS )
+  ( 3 ? )
+  ( 4 ? )
+  ( 5 ? )
+  ( 6 ? )
+  ( 7 ? )
+  ( 8 ? )
+  ( 9 ? )
+  ( 10 N-000062 )
+  ( 11 N-000058 )
+  ( 12 N-000056 )
+  ( 13 N-000029 )
+  ( 14 N-000027 )
+  ( 15 N-000024 )
+  ( 16 N-000022 )
+  ( 17 N-000019 )
+  ( 18 N-000050 )
+  ( 19 N-000071 )
+  ( 20 N-000072 )
+  ( 21 N-000073 )
+  ( 22 N-000074 )
+  ( 23 N-000075 )
+  ( 24 N-000046 )
+  ( 25 N-000047 )
+  ( 26 N-000048 )
+  ( 27 +5V )
+  ( 28 ? )
+  ( 29 ? )
+  ( 30 ? )
+  ( 31 N-000006 )
+  ( 32 N-000077 )
+  ( 33 N-000015 )
+  ( 34 ? )
+  ( 35 N-000076 )
+  ( 36 ? )
+  ( 37 ? )
+  ( 38 ? )
+  ( 39 ? )
+  ( 40 ? )
+  ( 41 N-000057 )
+  ( 42 ? )
+  ( 43 ? )
+  ( 44 ? )
+  ( 45 ? )
+  ( 46 ? )
+  ( 47 ? )
+  ( 48 ? )
+  ( 49 VSS )
+  ( 50 ? )
+ )
+ ( /4CACD9E4 SIL-2 P2 FWUP
+  ( 1 N-000002 )
+  ( 2 N-000049 )
+ )
+ ( /4CACD9BF R4 R1 10MR
+  ( 1 VSS )
+  ( 2 N-000002 )
+ )
+ ( /4CACD9BD R3-5 R2 470R
+  ( 1 N-000001 )
+  ( 2 N-000049 )
+ )
+ ( /4CACCD81 SO20L U2 ATTINY2313MLF
+  ( 1 N-000057 )
+  ( 2 N-000055 )
+  ( 3 N-000054 )
+  ( 4 N-000005 )
+  ( 5 N-000004 )
+  ( 6 N-000053 )
+  ( 7 N-000052 )
+  ( 8 N-000051 )
+  ( 9 N-000050 )
+  ( 10 VSS )
+  ( 11 N-000049 )
+  ( 12 N-000048 )
+  ( 13 N-000047 )
+  ( 14 N-000046 )
+  ( 15 N-000075 )
+  ( 16 N-000074 )
+  ( 17 N-000073 )
+  ( 18 N-000072 )
+  ( 19 N-000071 )
+  ( 20 +5V )
+ )
+ ( /4CACCC83 SO16L U3 MAX232
+  ( 1 N-000040 )
+  ( 2 N-000016 )
+  ( 3 N-000039 )
+  ( 4 N-000038 )
+  ( 5 N-000037 )
+  ( 6 N-000036 )
+  ( 7 ? )
+  ( 8 ? )
+  ( 9 ? )
+  ( 10 ? )
+  ( 11 N-000054 )
+  ( 12 N-000055 )
+  ( 13 N-000031 )
+  ( 14 N-000013 )
+  ( 15 VSS )
+  ( 16 +5V )
+ )
+ ( /4CB34649 SO14N U4 74LS02
+  ( 1 N-000078 )
+  ( 2 N-000022 )
+  ( 3 N-000058 )
+  ( 4 N-000079 )
+  ( 5 N-000080 )
+  ( 6 N-000006 )
+  ( 7 VSS )
+  ( 8 N-000077 )
+  ( 9 N-000079 )
+  ( 10 N-000052 )
+  ( 11 N-000079 )
+  ( 12 N-000015 )
+  ( 13 N-000053 )
+  ( 14 +5V )
+ )
+ ( /4CB35A37 Q_49U3HMS X1 CRYSTAL
+  ( 1 N-000005 )
+  ( 2 N-000004 )
+ )
+)
+*
+{ Allowed footprints by component:
+$component C1
+ CP*
+ SM*
+$endlist
+$component C2
+ CP*
+ SM*
+$endlist
+$component C3
+ CP*
+ SM*
+$endlist
+$component C4
+ CP*
+ SM*
+$endlist
+$component C5
+ SM*
+ C?
+ C1-1
+$endlist
+$component C6
+ SM*
+ C?
+ C1-1
+$endlist
+$component C7
+ SM*
+ C?
+ C1-1
+$endlist
+$component D1
+ LED-3MM
+ LED-5MM
+ LED-10MM
+ LED-0603
+ LED-0805
+ LED-1206
+ LEDV
+$endlist
+$component D2
+ D?
+ S*
+$endlist
+$component D3
+ D?
+ S*
+$endlist
+$component D4
+ D?
+ S*
+$endlist
+$component D5
+ D?
+ S*
+$endlist
+$component D6
+ D?
+ S*
+$endlist
+$component D7
+ D?
+ S*
+$endlist
+$component D8
+ D?
+ S*
+$endlist
+$component D9
+ D?
+ S*
+$endlist
+$component J1
+ DB9*
+$endlist
+$component R1
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R2
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component U4
+ SO14*
+ 14DIP*
+$endlist
+$endfootprintlist
+}

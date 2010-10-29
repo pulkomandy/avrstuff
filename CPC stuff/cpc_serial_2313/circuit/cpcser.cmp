@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPCB (2010-05-05 BZR 2356)-stable date = 07/10/2010 19:06:59
+Cmp-Mod V01 Created by CvPCB (2010-05-05 BZR 2356)-stable date = 25/10/2010 11:42:17
 
 BeginCmp
 TimeStamp = /4CACDD28;
@@ -106,6 +106,13 @@ IdModule  = SM0805;
 EndCmp
 
 BeginCmp
+TimeStamp = /4CB347C7;
+Reference = D9;
+ValeurCmp = DIODE;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
 TimeStamp = /4CACD835;
 Reference = J1;
 ValeurCmp = DB9;
@@ -151,20 +158,20 @@ BeginCmp
 TimeStamp = /4CACCC83;
 Reference = U3;
 ValeurCmp = MAX232;
-IdModule  = SO20L;
+IdModule  = SO16L;
 EndCmp
 
 BeginCmp
-TimeStamp = /4CADB1E6;
+TimeStamp = /4CB34649;
 Reference = U4;
 ValeurCmp = 74LS02;
 IdModule  = SO14N;
 EndCmp
 
 BeginCmp
-TimeStamp = /4CACDC05;
+TimeStamp = /4CB35A37;
 Reference = X1;
-ValeurCmp = 20MHz;
+ValeurCmp = CRYSTAL;
 IdModule  = Q_49U3HMS;
 EndCmp
 
