@@ -16,7 +16,13 @@ int main() {
 	//debug LED - output
 	DDRD |= 255;
 
-	PORTD = 0xAA;
+	PORTD = 0;
+
+	// Serial PORT
+	UBRRH = 10;
+	UBRRL = 0;
+
+	UCSRB = (1<<RXEN) |(1<<TXEN);
 
 	while(1) {
 		wdt_reset();
@@ -25,7 +31,9 @@ int main() {
 		// check timer if we need periodic reports
 		if (TIFR & (1 << TOV0)) {
 			TIFR = (1 << TOV0); // reset flag
-			PORTD++;
+			PORTD ^= (1<<PD6);
+
+			UDR = 'H';
 		}
 	}
 
