@@ -1,0 +1,467 @@
+# EESchema Netlist Version 1.1 created  07/11/2010 23:41:46
+(
+ ( /4CB35A37 $noname  X1 CRYSTAL {Lib=CRYSTAL}
+  (    1 N-000004 )
+  (    2 N-000003 )
+ )
+ ( /4CB347C7 $noname  D9 DIODE {Lib=DIODE}
+  (    1 N-000021 )
+  (    2 N-000049 )
+ )
+ ( /4CB34649 $noname  U4 74LS02 {Lib=74LS02}
+  (    1 N-000075 )
+  (    2 N-000019 )
+  (    3 N-000055 )
+  (    4 N-000076 )
+  (    5 N-000078 )
+  (    6 N-000054 )
+  (    7 GND )
+  (    8 N-000012 )
+  (    9 N-000076 )
+  (   10 N-000050 )
+  (   11 N-000076 )
+  (   12 N-000079 )
+  (   13 N-000051 )
+  (   14 VCC )
+ )
+ ( /4CADB4AE $noname  D2 DIODE {Lib=DIODE}
+  (    1 N-000078 )
+  (    2 N-000075 )
+ )
+ ( /4CADB241 $noname  D7 DIODE {Lib=DIODE}
+  (    1 N-000078 )
+  (    2 N-000027 )
+ )
+ ( /4CADB240 $noname  D8 DIODE {Lib=DIODE}
+  (    1 N-000078 )
+  (    2 N-000029 )
+ )
+ ( /4CADB201 $noname  D6 DIODE {Lib=DIODE}
+  (    1 N-000078 )
+  (    2 N-000025 )
+ )
+ ( /4CADB1FE $noname  D5 DIODE {Lib=DIODE}
+  (    1 N-000078 )
+  (    2 N-000022 )
+ )
+ ( /4CADB1FB $noname  D4 DIODE {Lib=DIODE}
+  (    1 N-000078 )
+  (    2 N-000016 )
+ )
+ ( /4CADB1F7 $noname  D3 DIODE {Lib=DIODE}
+  (    1 N-000078 )
+  (    2 N-000059 )
+ )
+ ( /4CACDDC9 $noname  C7 1µF {Lib=C}
+  (    1 GND )
+  (    2 VCC )
+ )
+ ( /4CACDD41 $noname  C3 1µF {Lib=CP1}
+  (    1 N-000039 )
+  (    2 GND )
+ )
+ ( /4CACDD34 $noname  C4 1µF {Lib=CP1}
+  (    1 GND )
+  (    2 N-000035 )
+ )
+ ( /4CACDD2D $noname  C2 1µF {Lib=CP1}
+  (    1 N-000037 )
+  (    2 N-000036 )
+ )
+ ( /4CACDD28 $noname  C1 1µF {Lib=CP1}
+  (    1 N-000040 )
+  (    2 N-000038 )
+ )
+ ( /4CACDC46 $noname  C5 22pF {Lib=C}
+  (    1 N-000004 )
+  (    2 GND )
+ )
+ ( /4CACDC41 $noname  C6 22pF {Lib=C}
+  (    1 N-000003 )
+  (    2 GND )
+ )
+ ( /4CACD9E4 $noname  P2 FWUP {Lib=CONN_2}
+  (    1 N-000002 )
+  (    2 N-000080 )
+ )
+ ( /4CACD9BF $noname  R1 10MR {Lib=R}
+  (    1 GND )
+  (    2 N-000002 )
+ )
+ ( /4CACD9BD $noname  R2 470R {Lib=R}
+  (    1 N-000001 )
+  (    2 N-000080 )
+ )
+ ( /4CACD9B5 $noname  D1 LED {Lib=LED}
+  (    1 GND )
+  (    2 N-000001 )
+ )
+ ( /4CACD835 $noname  J1 DB9 {Lib=DB9}
+  (    1 ? )
+  (    2 N-000010 )
+  (    3 N-000077 )
+  (    4 ? )
+  (    5 GND )
+  (    6 ? )
+  (    7 ? )
+  (    8 ? )
+  (    9 ? )
+ )
+ ( /4CACCD81 $noname  U2 ATTINY2313MLF {Lib=ATTINY2313MLF}
+  (    1 N-000053 )
+  (    2 N-000030 )
+  (    3 N-000052 )
+  (    4 N-000004 )
+  (    5 N-000003 )
+  (    6 N-000051 )
+  (    7 N-000050 )
+  (    8 N-000049 )
+  (    9 N-000048 )
+  (   10 GND )
+  (   11 N-000080 )
+  (   12 N-000047 )
+  (   13 N-000046 )
+  (   14 N-000073 )
+  (   15 N-000072 )
+  (   16 N-000071 )
+  (   17 N-000070 )
+  (   18 N-000069 )
+  (   19 N-000068 )
+  (   20 VCC )
+ )
+ ( /4CACCCFC $noname  P1 CONN_25X2 {Lib=CONN_25X2}
+  (    1 ? )
+  (    2 GND )
+  (    3 ? )
+  (    4 ? )
+  (    5 ? )
+  (    6 ? )
+  (    7 ? )
+  (    8 ? )
+  (    9 ? )
+  (   10 N-000059 )
+  (   11 N-000055 )
+  (   12 N-000029 )
+  (   13 N-000027 )
+  (   14 N-000025 )
+  (   15 N-000022 )
+  (   16 N-000019 )
+  (   17 N-000016 )
+  (   18 N-000048 )
+  (   19 N-000068 )
+  (   20 N-000069 )
+  (   21 N-000070 )
+  (   22 N-000071 )
+  (   23 N-000072 )
+  (   24 N-000073 )
+  (   25 N-000046 )
+  (   26 N-000047 )
+  (   27 VCC )
+  (   28 ? )
+  (   29 ? )
+  (   30 ? )
+  (   31 N-000054 )
+  (   32 N-000012 )
+  (   33 N-000079 )
+  (   34 ? )
+  (   35 N-000021 )
+  (   36 ? )
+  (   37 ? )
+  (   38 ? )
+  (   39 ? )
+  (   40 ? )
+  (   41 N-000053 )
+  (   42 ? )
+  (   43 ? )
+  (   44 ? )
+  (   45 ? )
+  (   46 ? )
+  (   47 ? )
+  (   48 ? )
+  (   49 GND )
+  (   50 ? )
+ )
+ ( /4CACCC83 $noname  U3 MAX232 {Lib=MAX232}
+  (    1 N-000040 )
+  (    2 N-000039 )
+  (    3 N-000038 )
+  (    4 N-000037 )
+  (    5 N-000036 )
+  (    6 N-000035 )
+  (    7 ? )
+  (    8 ? )
+  (    9 ? )
+  (   10 ? )
+  (   11 N-000052 )
+  (   12 N-000030 )
+  (   13 N-000077 )
+  (   14 N-000010 )
+  (   15 GND )
+  (   16 VCC )
+ )
+)
+*
+{ Allowed footprints by component:
+$component D9
+ D?
+ S*
+$endlist
+$component U4
+ SO14*
+ 14DIP*
+$endlist
+$component D2
+ D?
+ S*
+$endlist
+$component D7
+ D?
+ S*
+$endlist
+$component D8
+ D?
+ S*
+$endlist
+$component D6
+ D?
+ S*
+$endlist
+$component D5
+ D?
+ S*
+$endlist
+$component D4
+ D?
+ S*
+$endlist
+$component D3
+ D?
+ S*
+$endlist
+$component C7
+ SM*
+ C?
+ C1-1
+$endlist
+$component C3
+ CP*
+ SM*
+$endlist
+$component C4
+ CP*
+ SM*
+$endlist
+$component C2
+ CP*
+ SM*
+$endlist
+$component C1
+ CP*
+ SM*
+$endlist
+$component C5
+ SM*
+ C?
+ C1-1
+$endlist
+$component C6
+ SM*
+ C?
+ C1-1
+$endlist
+$component R1
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R2
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component D1
+ LED-3MM
+ LED-5MM
+ LED-10MM
+ LED-0603
+ LED-0805
+ LED-1206
+ LEDV
+$endlist
+$component J1
+ DB9*
+$endlist
+$endfootprintlist
+}
+{ Pin List by Nets
+Net 1 "" ""
+ D1 2
+ R2 1
+Net 2 "" ""
+ R1 2
+ P2 1
+Net 3 "" ""
+ U2 5
+ X1 2
+ C6 1
+Net 4 "" ""
+ X1 1
+ C5 1
+ U2 4
+Net 10 "" ""
+ U3 14
+ J1 2
+Net 12 "" ""
+ P1 32
+ U4 8
+Net 13 "VCC" "VCC"
+ U4 14
+ C7 2
+ U4 14
+ U2 20
+ U3 16
+ U4 14
+ U4 14
+ P1 27
+Net 16 "" ""
+ P1 17
+ D4 2
+Net 19 "" ""
+ U4 2
+ P1 16
+Net 21 "" ""
+ P1 35
+ D9 1
+Net 22 "" ""
+ D5 2
+ P1 15
+Net 25 "" ""
+ P1 14
+ D6 2
+Net 27 "" ""
+ D7 2
+ P1 13
+Net 29 "" ""
+ D8 2
+ P1 12
+Net 30 "" ""
+ U2 2
+ U3 12
+Net 35 "" ""
+ C4 2
+ U3 6
+Net 36 "" ""
+ C2 2
+ U3 5
+Net 37 "" ""
+ C2 1
+ U3 4
+Net 38 "" ""
+ U3 3
+ C1 2
+Net 39 "" ""
+ U3 2
+ C3 1
+Net 40 "" ""
+ U3 1
+ C1 1
+Net 46 "" ""
+ P1 25
+ U2 13
+Net 47 "" ""
+ P1 26
+ U2 12
+Net 48 "" ""
+ U2 9
+ P1 18
+Net 49 "" ""
+ U2 8
+ D9 2
+Net 50 "" ""
+ U2 7
+ U4 10
+Net 51 "" ""
+ U4 13
+ U2 6
+Net 52 "" ""
+ U2 3
+ U3 11
+Net 53 "" ""
+ U2 1
+ P1 41
+Net 54 "" ""
+ P1 31
+ U4 6
+Net 55 "" ""
+ P1 11
+ U4 3
+Net 59 "" ""
+ D3 2
+ P1 10
+Net 68 "" ""
+ U2 19
+ P1 19
+Net 69 "" ""
+ P1 20
+ U2 18
+Net 70 "" ""
+ U2 17
+ P1 21
+Net 71 "" ""
+ U2 16
+ P1 22
+Net 72 "" ""
+ U2 15
+ P1 23
+Net 73 "" ""
+ U2 14
+ P1 24
+Net 74 "GND" "GND"
+ U4 7
+ C5 2
+ D1 1
+ U4 7
+ C6 2
+ U4 7
+ R1 1
+ J1 5
+ U3 15
+ P1 49
+ U2 10
+ P1 2
+ U4 7
+ C7 1
+ C3 2
+ C4 1
+Net 75 "" ""
+ D2 2
+ U4 1
+Net 76 "" ""
+ U4 11
+ U4 9
+ U4 4
+Net 77 "" ""
+ U3 13
+ J1 3
+Net 78 "" ""
+ D2 1
+ D7 1
+ D3 1
+ D4 1
+ D5 1
+ U4 5
+ D8 1
+ D6 1
+Net 79 "" ""
+ U4 12
+ P1 33
+Net 80 "" ""
+ U2 11
+ R2 2
+ P2 2
+}
+#End
