@@ -67,7 +67,7 @@
  * interval. The value is in milliseconds and must not be less than 10 ms for
  * low speed devices.
  */
-#define USB_CFG_INTR_POLL_INTERVAL      10
+#define USB_CFG_INTR_POLL_INTERVAL      20
 /** Define this to 1 if the device has its own power supply. Set it to 0 if the
  * device is powered from the USB bus.
  */
@@ -81,7 +81,7 @@
  * transfers. Set it to 0 if you don't need it and want to save a couple of
  * bytes.
  */
-#define USB_CFG_IMPLEMENT_FN_WRITE      1
+#define USB_CFG_IMPLEMENT_FN_WRITE      0
 /** Set this to 1 if you need to send control replies which are generated
  * "on the fly" when usbFunctionRead() is called. If you only want to send
  * data from a static buffer, set it to 0 and return the data from
@@ -164,7 +164,7 @@
 /** Define this to the length of the HID report descriptor, if you implement
  * an HID device. Otherwise don't define it or define it to 0.
  */
-#define USB_CFG_HID_REPORT_DESCRIPTOR_LENGTH    42
+#define USB_CFG_HID_REPORT_DESCRIPTOR_LENGTH    26
 
 /* ------------------- Fine Control over USB Descriptors ------------------- */
 /* If you don't want to use the driver's default USB descriptors, you can
