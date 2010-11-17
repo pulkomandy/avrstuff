@@ -164,7 +164,7 @@
 /** Define this to the length of the HID report descriptor, if you implement
  * an HID device. Otherwise don't define it or define it to 0.
  */
-#define USB_CFG_HID_REPORT_DESCRIPTOR_LENGTH    26
+#define USB_CFG_HID_REPORT_DESCRIPTOR_LENGTH    44
 
 /* ------------------- Fine Control over USB Descriptors ------------------- */
 /* If you don't want to use the driver's default USB descriptors, you can
