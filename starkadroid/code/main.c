@@ -16,13 +16,11 @@
 #define DDROUT DDRC
 #define PORTOUT PORTC
 
-static uint8_t reportBuffer[6]; 
+static uint8_t reportBuffer[5];
+static uint8_t buttons[6];
 static uint8_t idleRate;
 
 void main() {
-	bool which = false;
-	uint8_t idleCounter = 0;
-
 	wdt_enable(WDTO_2S);
 
 	// USB
@@ -33,27 +31,48 @@ void main() {
 	DDROUT = 0; // Keyboard matrix out
 	PORTOUT = 255; // Enable pull up
 		// We put all pins as input then output a 0 in only one at a time.
-		// All the other pins are high-Z to avoid short circuits when many buttons are pressed.
+		// All the other pins are high-Z to avoid short circuits when many
+		// buttons are pressed.
 	DDRIN = 0; // Keyboard matrix in
 	PORTIN = 255; // Enable pull up
 
     // configure timer 0 for a rate of 16M/(256 * 256) = ~244Hz
     TCCR0 = 4;          // timer 0 prescaler: 256
 
+	reportBuffer[0] = 0;
+	doReport = false;
+
 	while(1) {
 		wdt_reset();
 		usbPoll();
 
-		doReport = false;
-		for(char i = 0; i != 6; i++) {
+		for(int i = 0; i != 6; i++) {
 			DDROUT = 1<<i;
 			PORTOUT = ~(1<<i);
-			if (reportBuffer[i] != ((~PININ)&0x3F))
+			_delay_us(63);
+			if (buttons[i] != ((~PININ)&0x3F))
+			{
 				doReport = true;
-			reportBuffer[i] = (~PININ)&0x3F;
+				buttons[i] = (~PININ)&0x3F;
+			}
 		}
 		DDROUT = 0;
 		PORTOUT = 255;
+
+		// Copy lines 1 to 3 to the same lines in the report
+		for(int i=1; i != 4; i++) {
+			reportBuffer[i] = buttons[i];
+		}
+
+		// Dispatch line 0 to report 1,2,3 (2 buttons each)
+		reportBuffer[1] |= (buttons[0] << 4)&0xC0;
+		reportBuffer[2] |= (buttons[0] << 2)&0xC0;
+		reportBuffer[3] |= (buttons[0])&0xC0;
+
+		// Copy part line 6
+		reportBuffer[4] = buttons[5]; // 2 btns left here
+		//reportBuffer[0] = buttons[4]; // this line is unused anyway, report as
+									  // axis
 
 		if (doReport && usbInterruptIsReady()) {
 			usbSetInterrupt(reportBuffer, sizeof(reportBuffer));
@@ -69,16 +88,27 @@ uint8_t expectReport = 0;
 
 char PROGMEM usbHidReportDescriptor[USB_CFG_HID_REPORT_DESCRIPTOR_LENGTH] = {
 	0x05, 0x01,                    // USAGE_PAGE (Generic Desktop)
-    0x09, 0x05,                    // USAGE (Game Pad)
+    0x09, 0x04,                    // USAGE (Joystick)
     0xa1, 0x01,                    // COLLECTION (Application)
-    0xa1, 0x00,                    //   COLLECTION (Physical)
+    0xa1, 0x02,                    //   COLLECTION (Logical)
+
+    0x75, 0x04,	                   //     REPORT_SIZE (8)
+    0x95, 0x02,                    //     REPORT_COUNT (2)
+    0x15, 0x00,                    //     LOGICAL_MINIMUM (0)
+    0x25, 0x0F,                    //     LOGICAL_MAXIMUM (15)
+    0x35, 0x00,                    //     PHYS_MINIMUM (0)
+    0x45, 0x0F,                    //     PHYS_MAXIMUM (15)
+    0x09, 0x30,                    //     USAGE (X)
+    0x09, 0x31,                    //     USAGE (Y)
+    0x81, 0x02,                    //     INPUT (Data,Var,Abs)
+
+    0x75, 0x01,                    //     REPORT_SIZE (1)
+    0x95, 0x20,                    //     REPORT_COUNT (32)
+    0x25, 0x01,                    //     LOGICAL_MAXIMUM (1)
+    0x45, 0x01,                    //     PHYSMAX (1)
     0x05, 0x09,                    //     USAGE_PAGE (Button)
     0x19, 0x01,                    //     USAGE_MINIMUM (Button 1)
-    0x29, 0x30,                    //     USAGE_MAXIMUM (Button 40)
-    0x15, 0x00,                    //     LOGICAL_MINIMUM (0)
-    0x25, 0x01,                    //     LOGICAL_MAXIMUM (1)
-    0x95, 0x30,                    //     REPORT_COUNT (40)
-    0x75, 0x01,                    //     REPORT_SIZE (1)
+    0x29, 0x20,                    //     USAGE_MAXIMUM (Button 32)
     0x81, 0x02,                    //     INPUT (Data,Var,Abs)
     0xc0,                          //   END_COLLECTION
     0xc0                           // END_COLLECTION
