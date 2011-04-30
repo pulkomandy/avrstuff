@@ -10,12 +10,13 @@
 int main() {
 	wdt_enable(WDTO_2S);
     // configure timer 0 for a rate of 16M/(256 * 256) = ~244Hz
-    TCCR0 = 4;          // timer 0 prescaler: 256
+    TCCR0A = 0;          // timer 0 prescaler: 256
+	TCCR0B = 4;
 
 	//debug LED - output
-	DDRB |= 255;
+	DDRD |= 255;
 
-	PORTB = 0xAA;
+	PORTD = 0xAA;
 
 	while(1) {
 		wdt_reset();
@@ -24,7 +25,7 @@ int main() {
 		// check timer if we need periodic reports
 		if (TIFR & (1 << TOV0)) {
 			TIFR = (1 << TOV0); // reset flag
-			PORTB++;
+			PORTD++;
 		}
 	}
 

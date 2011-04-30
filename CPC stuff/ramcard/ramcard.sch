@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date 03/10/2010 19:38:50
+EESchema Schematic File Version 2  date 24/11/2010 11:54:35
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -37,7 +37,7 @@ EELAYER END
 $Descr A4 11700 8267
 Sheet 1 1
 Title ""
-Date "3 oct 2010"
+Date "24 nov 2010"
 Rev ""
 Comp ""
 Comment1 ""
@@ -45,18 +45,20 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-Text Notes 1600 5050 0    60   ~ 0
-register
-Text Notes 1700 1500 1    60   ~ 0
-demultiplexer
-Text Label 500  1050 0    60   ~ 0
-A[0..3]
-Entry Wire Line
-	800  1100 900  1200
-Entry Wire Line
-	800  1000 900  1100
-Entry Wire Line
-	800  900  900  1000
+Connection ~ 8150 2300
+Wire Wire Line
+	8150 2300 8150 2150
+Connection ~ 8000 2800
+Wire Wire Line
+	8300 2800 8000 2800
+Connection ~ 7500 3350
+Wire Wire Line
+	7500 2950 7500 3800
+Connection ~ 7700 3800
+Wire Wire Line
+	7500 3800 7800 3800
+Wire Wire Line
+	7700 3800 7700 3950
 Wire Bus Line
 	800  900  800  1100
 Wire Wire Line
@@ -317,6 +319,50 @@ Wire Wire Line
 	800  1000 1050 1000
 Wire Wire Line
 	800  1100 1050 1100
+Wire Wire Line
+	9150 3750 8200 3750
+Wire Wire Line
+	8200 3750 8200 3800
+Wire Wire Line
+	8000 3500 8000 3350
+Wire Wire Line
+	7900 2950 8000 2950
+Wire Wire Line
+	8000 2950 8000 2750
+Wire Wire Line
+	8300 2300 8000 2300
+Wire Wire Line
+	8000 2300 8000 2350
+$Comp
+L VCC #PWR?
+U 1 1 4CECEA88
+P 8150 2150
+F 0 "#PWR?" H 8150 2250 30  0001 C CNN
+F 1 "VCC" H 8150 2250 30  0000 C CNN
+	1    8150 2150
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR?
+U 1 1 4CECE95E
+P 7700 3950
+F 0 "#PWR?" H 7700 3950 30  0001 C CNN
+F 1 "GND" H 7700 3880 30  0001 C CNN
+	1    7700 3950
+	1    0    0    -1  
+$EndComp
+Text Notes 1600 5050 0    60   ~ 0
+register
+Text Notes 1700 1500 1    60   ~ 0
+demultiplexer
+Text Label 500  1050 0    60   ~ 0
+A[0..3]
+Entry Wire Line
+	800  1100 900  1200
+Entry Wire Line
+	800  1000 900  1100
+Entry Wire Line
+	800  900  900  1000
 Text Label 850  1100 0    60   ~ 0
 A2
 Text Label 850  1000 0    60   ~ 0
@@ -568,10 +614,10 @@ Individual ROM selection
 $Comp
 L BATTERY BT?
 U 1 1 4CA87798
-P 7450 3000
-F 0 "BT?" H 7450 3200 50  0000 C CNN
-F 1 "BATTERY" H 7450 2810 50  0000 C CNN
-	1    7450 3000
+P 8550 5550
+F 0 "BT?" H 8550 5750 50  0000 C CNN
+F 1 "BATTERY" H 8550 5360 50  0000 C CNN
+	1    8550 5550
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -586,11 +632,11 @@ $EndComp
 $Comp
 L BC307 Q?
 U 1 1 4CA87175
-P 5600 6550
-F 0 "Q?" H 5800 6450 50  0000 C CNN
-F 1 "BC307" H 5850 6700 50  0000 C CNN
-	1    5600 6550
-	1    0    0    -1  
+P 8000 3700
+F 0 "Q?" H 8200 3600 50  0000 C CNN
+F 1 "BC307" H 8250 3850 50  0000 C CNN
+	1    8000 3700
+	0    1    1    0   
 $EndComp
 $Comp
 L C C?
@@ -613,11 +659,11 @@ $EndComp
 $Comp
 L CP1 C?
 U 1 1 4CA87148
-P 4650 7000
-F 0 "C?" H 4700 7100 50  0000 L CNN
-F 1 "CP1" H 4700 6900 50  0000 L CNN
-	1    4650 7000
-	1    0    0    -1  
+P 7700 2950
+F 0 "C?" H 7750 3050 50  0000 L CNN
+F 1 "1µF" H 7750 2850 50  0000 L CNN
+	1    7700 2950
+	0    1    1    0   
 $EndComp
 $Comp
 L CP1 C?
@@ -658,19 +704,19 @@ $EndComp
 $Comp
 L R R?
 U 1 1 4CA870DC
-P 4650 6300
-F 0 "R?" V 4730 6300 50  0000 C CNN
-F 1 "R" V 4650 6300 50  0000 C CNN
-	1    4650 6300
-	1    0    0    -1  
+P 7750 3350
+F 0 "R?" V 7830 3350 50  0000 C CNN
+F 1 "10K" V 7750 3350 50  0000 C CNN
+	1    7750 3350
+	0    1    1    0   
 $EndComp
 $Comp
 L R R?
 U 1 1 4CA870DB
-P 4400 6300
-F 0 "R?" V 4480 6300 50  0000 C CNN
-F 1 "R" V 4400 6300 50  0000 C CNN
-	1    4400 6300
+P 8300 2550
+F 0 "R?" V 8380 2550 50  0000 C CNN
+F 1 "1K" V 8300 2550 50  0000 C CNN
+	1    8300 2550
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -739,20 +785,20 @@ $EndComp
 $Comp
 L DIODE D?
 U 1 1 4CA870B3
-P 7200 2500
-F 0 "D?" H 7200 2600 40  0000 C CNN
-F 1 "DIODE" H 7200 2400 40  0000 C CNN
-	1    7200 2500
+P 7150 1300
+F 0 "D?" H 7150 1400 40  0000 C CNN
+F 1 "DIODE" H 7150 1200 40  0000 C CNN
+	1    7150 1300
 	1    0    0    -1  
 $EndComp
 $Comp
 L DIODE D?
 U 1 1 4CA870AF
-P 7150 2000
-F 0 "D?" H 7150 2100 40  0000 C CNN
-F 1 "DIODE" H 7150 1900 40  0000 C CNN
-	1    7150 2000
-	1    0    0    -1  
+P 8000 2550
+F 0 "D?" H 8000 2650 40  0000 C CNN
+F 1 "1N4148" H 8000 2450 40  0000 C CNN
+	1    8000 2550
+	0    -1   -1   0   
 $EndComp
 $Comp
 L DIODE D?
@@ -775,11 +821,11 @@ $EndComp
 $Comp
 L DIODE D?
 U 1 1 4CA870A4
-P 8400 2300
-F 0 "D?" H 8400 2400 40  0000 C CNN
-F 1 "DIODE" H 8400 2200 40  0000 C CNN
-	1    8400 2300
-	1    0    0    -1  
+P 8000 3150
+F 0 "D?" H 8000 3250 40  0000 C CNN
+F 1 "BZX55C" H 8000 3050 40  0000 C CNN
+	1    8000 3150
+	0    -1   -1   0   
 $EndComp
 $Comp
 L DIODE D?
