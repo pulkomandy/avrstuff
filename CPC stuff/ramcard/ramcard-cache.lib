@@ -1,4 +1,17 @@
-EESchema-LIBRARY Version 2.3  Date: 24/11/2010 11:54:35
+EESchema-LIBRARY Version 2.3  Date: 30/04/2011 21:47:42
+#encoding utf-8
+#
+# +BATT
+#
+DEF +BATT #PWR 0 0 Y Y 1 F P
+F0 "#PWR" 0 -50 20 H I C CNN
+F1 "+BATT" 0 100 30 H V C CNN
+DRAW
+X +BATT 1 0 0 0 U 20 20 0 0 W N
+C 0 60 20 0 1 0 N
+P 3 0 1 0  0 0  0 40  0 40 N
+ENDDRAW
+ENDDEF
 #
 # 74LS00
 #
