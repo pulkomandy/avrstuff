@@ -1,0 +1,798 @@
+# EESchema Netlist Version 1.1 created  01/05/2011 14:51:09
+(
+ ( /4DBD59C0 $noname  U1 74LS00 {Lib=74LS00}
+  (    1 /A15 )
+  (    2 /A14 )
+  (    3 ROM_ACC )
+  (    4 N-000021 )
+  (    5 N-000021 )
+  (    6 N-000075 )
+  (    7 GND )
+  (    8 ? )
+  (    9 GND )
+  (   10 N-000021 )
+  (   11 _A3 )
+  (   12 /AC4 )
+  (   13 /AC4 )
+  (   14 VCC )
+ )
+ ( /4CA89162 $noname  U3 74LS32 {Lib=74LS32}
+  (    1 IORQ )
+  (    2 WR )
+  (    3 N-000004 )
+  (    4 WR )
+  (    5 ROM_ACTIVE )
+  (    6 WRITE )
+  (    7 GND )
+  (    8 N-000021 )
+  (    9 ROMEN )
+  (   10 ROM_ACTIVE )
+  (   11 ROMSEL )
+  (   12 N-000004 )
+  (   13 /A13 )
+  (   14 VCC )
+ )
+ ( /4CA87798 $noname  BT1 CR2032 {Lib=BATTERY}
+  (    1 N-000074 )
+  (    2 GND )
+ )
+ ( /4CA871FB $noname  U6 SRAM_512KO {Lib=SRAM_512KO}
+  (    1 ? )
+  (    2 /IS1 )
+  (    3 /IS0 )
+  (    4 /A13 )
+  (    5 /A11 )
+  (    6 /A9 )
+  (    7 /A7 )
+  (    8 /A5 )
+  (    9 /A3 )
+  (   10 /A2 )
+  (   11 /A0 )
+  (   12 /A1 )
+  (   13 /D2 )
+  (   14 /D5 )
+  (   15 /D7 )
+  (   16 GND )
+  (   17 /D4 )
+  (   18 /D6 )
+  (   19 /D3 )
+  (   20 /D1 )
+  (   21 /D0 )
+  (   22 N-000010 )
+  (   23 /A4 )
+  (   24 ROM_ACTIVE )
+  (   25 /A6 )
+  (   26 /A8 )
+  (   27 /A10 )
+  (   28 /A12 )
+  (   29 WRITE_EN )
+  (   30 +BATT )
+  (   31 /IS2 )
+  (   32 +BATT )
+ )
+ ( /4CA87175 $noname  Q1 BC307 {Lib=BC307}
+  (    B N-000049 )
+  (    C N-000010 )
+  (    E GND )
+ )
+ ( /4CA87152 $noname  C4 C {Lib=C}
+  (    1 VCC )
+  (    2 GND )
+ )
+ ( /4CA87151 $noname  C3 C {Lib=C}
+  (    1 VCC )
+  (    2 GND )
+ )
+ ( /4CA87148 $noname  C1 1µF {Lib=CP1}
+  (    1 N-000085 )
+  (    2 GND )
+ )
+ ( /4CA87146 $noname  C5 CP1 {Lib=CP1}
+  (    1 VCC )
+  (    2 GND )
+ )
+ ( /4CA8712F $noname  P1 CONN_25X2 {Lib=CONN_25X2}
+  (    1 ? )
+  (    2 ? )
+  (    3 /A15 )
+  (    4 /A14 )
+  (    5 /A13 )
+  (    6 /A12 )
+  (    7 /A11 )
+  (    8 /A10 )
+  (    9 /A9 )
+  (   10 /A8 )
+  (   11 /A7 )
+  (   12 /A6 )
+  (   13 /A5 )
+  (   14 /A4 )
+  (   15 /A3 )
+  (   16 /A2 )
+  (   17 /A1 )
+  (   18 /A0 )
+  (   19 /D0 )
+  (   20 /D1 )
+  (   21 /D2 )
+  (   22 /D3 )
+  (   23 /D4 )
+  (   24 /D5 )
+  (   25 /D6 )
+  (   26 /D7 )
+  (   27 VCC )
+  (   28 MREQ )
+  (   29 ? )
+  (   30 ? )
+  (   31 IORQ )
+  (   32 ? )
+  (   33 WR )
+  (   34 ? )
+  (   35 ? )
+  (   36 ? )
+  (   37 ? )
+  (   38 ? )
+  (   39 ? )
+  (   40 ? )
+  (   41 ? )
+  (   42 ROMEN )
+  (   43 ROMDIS )
+  (   44 ? )
+  (   45 ? )
+  (   46 ? )
+  (   47 ? )
+  (   48 ? )
+  (   49 GND )
+  (   50 ? )
+ )
+ ( /4CA870EF $noname  C2 C {Lib=C}
+  (    1 +BATT )
+  (    2 GND )
+ )
+ ( /4CA870E2 $noname  R9 R {Lib=R}
+  (    1 /AC4 )
+  (    2 N-000048 )
+ )
+ ( /4CA870DC $noname  R1 10K {Lib=R}
+  (    1 N-000049 )
+  (    2 GND )
+ )
+ ( /4CA870DB $noname  R7 1K {Lib=R}
+  (    1 VCC )
+  (    2 N-000085 )
+ )
+ ( /4CA870DA $noname  R10 R {Lib=R}
+  (    1 +BATT )
+  (    2 N-000010 )
+ )
+ ( /4CA870D9 $noname  R2 10KR {Lib=R}
+  (    1 VCC )
+  (    2 WRITE_EN )
+ )
+ ( /4CA870D8 $noname  R6 10KR {Lib=R}
+  (    1 VCC )
+  (    2 /I4 )
+ )
+ ( /4CA870D0 $noname  R5 10KR {Lib=R}
+  (    1 VCC )
+  (    2 /I3 )
+ )
+ ( /4CA870CB $noname  R4 10KR {Lib=R}
+  (    1 VCC )
+  (    2 /I2 )
+ )
+ ( /4CA870C7 $noname  R3 10KR {Lib=R}
+  (    1 VCC )
+  (    2 /I1 )
+ )
+ ( /4CA870C2 $noname  R8 R {Lib=R}
+  (    1 VCC )
+  (    2 ROM_ACTIVE )
+ )
+ ( /4CA870B3 $noname  D11 DIODE {Lib=DIODE}
+  (    1 VCC )
+  (    2 +BATT )
+ )
+ ( /4CA870AF $noname  D1 1N4148 {Lib=DIODE}
+  (    1 N-000085 )
+  (    2 VCC )
+ )
+ ( /4CA870AC $noname  D12 BAT85 {Lib=DIODE}
+  (    1 N-000074 )
+  (    2 +BATT )
+ )
+ ( /4CA870AA $noname  D13 DIODE {Lib=DIODE}
+  (    1 N-000075 )
+  (    2 ROMDIS )
+ )
+ ( /4CA870A4 $noname  D2 BZX55C {Lib=DIODE}
+  (    1 N-000049 )
+  (    2 N-000085 )
+ )
+ ( /4CA8709A $noname  D10 DIODE {Lib=DIODE}
+  (    1 ROM_ACTIVE )
+  (    2 N-000076 )
+ )
+ ( /4CA87098 $noname  D9 DIODE {Lib=DIODE}
+  (    1 ROM_ACTIVE )
+  (    2 N-000077 )
+ )
+ ( /4CA87095 $noname  D8 DIODE {Lib=DIODE}
+  (    1 ROM_ACTIVE )
+  (    2 N-000078 )
+ )
+ ( /4CA87093 $noname  D7 DIODE {Lib=DIODE}
+  (    1 ROM_ACTIVE )
+  (    2 N-000079 )
+ )
+ ( /4CA87092 $noname  D6 DIODE {Lib=DIODE}
+  (    1 ROM_ACTIVE )
+  (    2 N-000061 )
+ )
+ ( /4CA87090 $noname  D5 DIODE {Lib=DIODE}
+  (    1 ROM_ACTIVE )
+  (    2 N-000063 )
+ )
+ ( /4CA8708D $noname  D4 DIODE {Lib=DIODE}
+  (    1 ROM_ACTIVE )
+  (    2 N-000064 )
+ )
+ ( /4CA87086 $noname  D3 DIODE {Lib=DIODE}
+  (    1 ROM_ACTIVE )
+  (    2 N-000065 )
+ )
+ ( /4CA87071 $noname  SW_CFG1 DIPS_08 {Lib=DIPS_08}
+  (    1 /I1 )
+  (    2 /I2 )
+  (    3 /I3 )
+  (    4 /I4 )
+  (    5 N-000048 )
+  (    6 ? )
+  (    7 ? )
+  (    8 WRITE )
+  (    9 WRITE_EN )
+  (   10 ? )
+  (   11 ? )
+  (   12 _A3 )
+  (   13 GND )
+  (   14 GND )
+  (   15 GND )
+  (   16 GND )
+ )
+ ( /4CA8706E $noname  SW_ROMEN1 DIPS_08 {Lib=DIPS_08}
+  (    1 N-000043 )
+  (    2 N-000042 )
+  (    3 N-000041 )
+  (    4 N-000040 )
+  (    5 N-000039 )
+  (    6 N-000038 )
+  (    7 N-000037 )
+  (    8 N-000036 )
+  (    9 N-000076 )
+  (   10 N-000077 )
+  (   11 N-000078 )
+  (   12 N-000079 )
+  (   13 N-000061 )
+  (   14 N-000063 )
+  (   15 N-000064 )
+  (   16 N-000065 )
+ )
+ ( /4CA86E70 $noname  U5 74LS85 {Lib=74LS85}
+  (    1 /I3 )
+  (    2 GND )
+  (    3 N-000048 )
+  (    4 GND )
+  (    5 ? )
+  (    6 MATCH )
+  (    7 ? )
+  (    8 GND )
+  (    9 /AC3 )
+  (   10 /I4 )
+  (   11 /I1 )
+  (   12 /AC0 )
+  (   13 /I2 )
+  (   14 /AC1 )
+  (   15 /AC2 )
+  (   16 VCC )
+ )
+ ( /4CA86E68 $noname  U4 74LS374 {Lib=74LS374}
+  (    1 GND )
+  (    2 /AC0 )
+  (    3 /D0 )
+  (    4 /D2 )
+  (    5 /AC2 )
+  (    6 /IS1 )
+  (    7 /D6 )
+  (    8 /D4 )
+  (    9 /AC4 )
+  (   10 GND )
+  (   11 ROMSEL )
+  (   12 /IS2 )
+  (   13 /D5 )
+  (   14 /D7 )
+  (   15 /IS0 )
+  (   16 /AC3 )
+  (   17 /D3 )
+  (   18 /D1 )
+  (   19 /AC1 )
+  (   20 VCC )
+ )
+ ( /4CA86E2A $noname  U2 74LS138 {Lib=74LS138}
+  (    1 /IS0 )
+  (    2 /IS1 )
+  (    3 /IS2 )
+  (    4 MREQ )
+  (    5 ROM_ACC )
+  (    6 MATCH )
+  (    7 N-000036 )
+  (    8 GND )
+  (    9 N-000037 )
+  (   10 N-000038 )
+  (   11 N-000039 )
+  (   12 N-000040 )
+  (   13 N-000041 )
+  (   14 N-000042 )
+  (   15 N-000043 )
+  (   16 VCC )
+ )
+)
+*
+{ Allowed footprints by component:
+$component U1
+ 14DIP300*
+ SO14*
+$endlist
+$component Q1
+ TO92-EBC
+$endlist
+$component C4
+ SM*
+ C?
+ C1-1
+$endlist
+$component C3
+ SM*
+ C?
+ C1-1
+$endlist
+$component C1
+ CP*
+ SM*
+$endlist
+$component C5
+ CP*
+ SM*
+$endlist
+$component C2
+ SM*
+ C?
+ C1-1
+$endlist
+$component R9
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R1
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R7
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R10
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R2
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R6
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R5
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R4
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R3
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R8
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component D11
+ D?
+ S*
+$endlist
+$component D1
+ D?
+ S*
+$endlist
+$component D12
+ D?
+ S*
+$endlist
+$component D13
+ D?
+ S*
+$endlist
+$component D2
+ D?
+ S*
+$endlist
+$component D10
+ D?
+ S*
+$endlist
+$component D9
+ D?
+ S*
+$endlist
+$component D8
+ D?
+ S*
+$endlist
+$component D7
+ D?
+ S*
+$endlist
+$component D6
+ D?
+ S*
+$endlist
+$component D5
+ D?
+ S*
+$endlist
+$component D4
+ D?
+ S*
+$endlist
+$component D3
+ D?
+ S*
+$endlist
+$endfootprintlist
+}
+{ Pin List by Nets
+Net 1 "/D1" "D1"
+ P1 20
+ U4 18
+ U6 20
+Net 2 "/D0" "D0"
+ U4 3
+ U6 21
+ P1 19
+Net 3 "VCC" "VCC"
+ C3 1
+ C4 1
+ R3 1
+ R2 1
+ R6 1
+ R5 1
+ U2 16
+ R4 1
+ D11 1
+ U1 14
+ D1 2
+ R8 1
+ R7 1
+ C5 1
+ U3 14
+ P1 27
+ U5 16
+ U4 20
+Net 4 "" ""
+ U3 12
+ U3 3
+Net 5 "GND" "GND"
+ U2 8
+ U4 10
+ U4 1
+ SW_CFG1 15
+ SW_CFG1 16
+ U5 4
+ U5 2
+ U3 7
+ U5 8
+ R1 2
+ C1 2
+ C5 2
+ C3 2
+ C4 2
+ Q1 E
+ SW_CFG1 14
+ SW_CFG1 13
+ U1 7
+ BT1 2
+ U6 16
+ P1 49
+ U1 9
+ C2 2
+Net 6 "/A15" "A15"
+ P1 3
+ U1 1
+Net 7 "/A14" "A14"
+ P1 4
+ U1 2
+Net 8 "/A13" "A13"
+ U3 13
+ U6 4
+ P1 5
+Net 9 "/A11" "A11"
+ U6 5
+ P1 7
+Net 10 "" ""
+ U6 22
+ R10 2
+ Q1 C
+Net 11 "/D2" "D2"
+ P1 21
+ U4 4
+ U6 13
+Net 12 "/D5" "D5"
+ U4 13
+ U6 14
+ P1 24
+Net 13 "/D7" "D7"
+ U4 14
+ P1 26
+ U6 15
+Net 14 "/D4" "D4"
+ P1 23
+ U6 17
+ U4 8
+Net 15 "/D6" "D6"
+ U4 7
+ U6 18
+ P1 25
+Net 16 "/D3" "D3"
+ P1 22
+ U6 19
+ U4 17
+Net 17 "WRITE_EN" "WRITE_EN"
+ U6 29
+ R2 2
+ SW_CFG1 9
+Net 19 "IORQ" "IORQ"
+ P1 31
+ U3 1
+Net 20 "ROMSEL" "ROMSEL"
+ U3 11
+ U4 11
+Net 21 "" ""
+ U3 8
+ U1 4
+ U1 5
+ U1 10
+Net 22 "ROMEN" "ROMEN"
+ U3 9
+ P1 42
+Net 27 "MATCH" "MATCH"
+ U2 6
+ U5 6
+Net 29 "/AC3" "AC3"
+ U5 9
+ U4 16
+Net 30 "/I4" "I4"
+ U5 10
+ SW_CFG1 4
+ R6 2
+Net 31 "/AC0" "AC0"
+ U4 2
+ U5 12
+Net 32 "/AC1" "AC1"
+ U5 14
+ U4 19
+Net 33 "/AC2" "AC2"
+ U5 15
+ U4 5
+Net 34 "MREQ" "MREQ"
+ P1 28
+ U2 4
+Net 35 "ROM_ACC" "ROM_ACC"
+ U2 5
+ U1 3
+Net 36 "" ""
+ U2 7
+ SW_ROMEN1 8
+Net 37 "" ""
+ SW_ROMEN1 7
+ U2 9
+Net 38 "" ""
+ U2 10
+ SW_ROMEN1 6
+Net 39 "" ""
+ U2 11
+ SW_ROMEN1 5
+Net 40 "" ""
+ U2 12
+ SW_ROMEN1 4
+Net 41 "" ""
+ U2 13
+ SW_ROMEN1 3
+Net 42 "" ""
+ SW_ROMEN1 2
+ U2 14
+Net 43 "" ""
+ U2 15
+ SW_ROMEN1 1
+Net 44 "WR" "WR"
+ P1 33
+ U3 4
+ U3 2
+Net 48 "" ""
+ SW_CFG1 5
+ R9 2
+ U5 3
+Net 49 "" ""
+ Q1 B
+ D2 1
+ R1 1
+Net 50 "ROMDIS" "ROMDIS"
+ D13 2
+ P1 43
+Net 52 "/A3" "A3"
+ P1 15
+ U6 9
+Net 55 "/A2" "A2"
+ U6 10
+ P1 16
+Net 57 "/A1" "A1"
+ P1 17
+ U6 12
+Net 60 "/A0" "A0"
+ P1 18
+ U6 11
+Net 61 "" ""
+ D6 2
+ SW_ROMEN1 13
+Net 62 "ROM_ACTIVE" "ROM_ACTIVE"
+ D6 1
+ D5 1
+ D4 1
+ D3 1
+ D9 1
+ D10 1
+ R8 2
+ D8 1
+ D7 1
+ U6 24
+ U3 10
+ U3 5
+Net 63 "" ""
+ SW_ROMEN1 14
+ D5 2
+Net 64 "" ""
+ SW_ROMEN1 15
+ D4 2
+Net 65 "" ""
+ D3 2
+ SW_ROMEN1 16
+Net 66 "/I3" "I3"
+ U5 1
+ SW_CFG1 3
+ R5 2
+Net 71 "_A3" "_A3"
+ SW_CFG1 12
+ U1 11
+Net 72 "/I2" "I2"
+ SW_CFG1 2
+ U5 13
+ R4 2
+Net 73 "/I1" "I1"
+ R3 2
+ U5 11
+ SW_CFG1 1
+Net 74 "" ""
+ D12 1
+ BT1 1
+Net 75 "" ""
+ D13 1
+ U1 6
+Net 76 "" ""
+ SW_ROMEN1 9
+ D10 2
+Net 77 "" ""
+ D9 2
+ SW_ROMEN1 10
+Net 78 "" ""
+ SW_ROMEN1 11
+ D8 2
+Net 79 "" ""
+ SW_ROMEN1 12
+ D7 2
+Net 80 "WRITE" "WRITE"
+ U3 6
+ SW_CFG1 8
+Net 81 "/IS2" "IS2"
+ U4 12
+ U6 31
+ U2 3
+Net 82 "/IS0" "IS0"
+ U4 15
+ U2 1
+ U6 3
+Net 83 "/IS1" "IS1"
+ U6 2
+ U2 2
+ U4 6
+Net 85 "" ""
+ C1 1
+ D1 1
+ D2 2
+ R7 2
+Net 86 "+BATT" "+BATT"
+ D11 2
+ U6 30
+ D12 2
+ C2 1
+ U6 32
+ R10 1
+Net 94 "/A10" "A10"
+ P1 8
+ U6 27
+Net 95 "/A9" "A9"
+ P1 9
+ U6 6
+Net 96 "/A8" "A8"
+ P1 10
+ U6 26
+Net 97 "/A7" "A7"
+ U6 7
+ P1 11
+Net 98 "/A6" "A6"
+ U6 25
+ P1 12
+Net 99 "/A5" "A5"
+ P1 13
+ U6 8
+Net 100 "/A4" "A4"
+ P1 14
+ U6 23
+Net 101 "/A12" "A12"
+ P1 6
+ U6 28
+Net 102 "/AC4" "AC4"
+ U1 13
+ U1 12
+ U4 9
+ R9 1
+}
+#End
