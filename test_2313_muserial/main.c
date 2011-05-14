@@ -19,10 +19,11 @@ int main() {
 	PORTD = 0;
 
 	// Serial PORT
-	UBRRH = 10;
-	UBRRL = 0;
+	UBRRH = 0;
+	UBRRL = 10;
 
 	UCSRB = (1<<RXEN) |(1<<TXEN);
+	UCSRC = (1 << UCSZ1) | (1 << UCSZ0);  
 
 	while(1) {
 		wdt_reset();

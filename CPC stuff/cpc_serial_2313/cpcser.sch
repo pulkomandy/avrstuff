@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date 07/11/2010 23:45:51
+EESchema Schematic File Version 2  date 14/05/2011 19:38:41
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -31,12 +31,13 @@ LIBS:contrib
 LIBS:valves
 LIBS:attiny
 LIBS:cpcser-cache
-EELAYER 24  0
+EELAYER 25  0
 EELAYER END
 $Descr User 8000 7500
+encoding utf-8
 Sheet 1 1
 Title "Micro-serial RS232 interface for CPC"
-Date "7 nov 2010"
+Date "14 may 2011"
 Rev "0.2"
 Comp "Shinra/PulkoTronics"
 Comment1 ""
@@ -44,6 +45,12 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+Wire Wire Line
+	1150 4800 1200 4800
+Wire Wire Line
+	1200 4800 1200 5000
+Wire Wire Line
+	1200 5000 1150 5000
 Wire Wire Line
 	1150 5300 1150 5350
 Wire Wire Line
@@ -311,6 +318,18 @@ Wire Wire Line
 	7500 2950 7100 2950
 Wire Wire Line
 	2500 3900 2500 4650
+Wire Wire Line
+	1150 4500 1150 4600
+Wire Wire Line
+	1150 4600 1400 4600
+Wire Wire Line
+	1400 4600 1400 4950
+Wire Wire Line
+	1400 4950 1250 4950
+Wire Wire Line
+	1250 4950 1250 5100
+Wire Wire Line
+	1250 5100 1150 5100
 $Comp
 L GND #PWR01
 U 1 1 4CD72B19
@@ -559,7 +578,7 @@ L C C7
 U 1 1 4CACDDC9
 P 2400 2500
 F 0 "C7" H 2450 2600 50  0000 L CNN
-F 1 "1µF" H 2450 2400 50  0000 L CNN
+F 1 "1ÂµF" H 2450 2400 50  0000 L CNN
 	1    2400 2500
 	1    0    0    -1  
 $EndComp
@@ -568,7 +587,7 @@ L CP1 C3
 U 1 1 4CACDD41
 P 2550 3000
 F 0 "C3" H 2600 3100 50  0000 L CNN
-F 1 "1µF" H 2600 2900 50  0000 L CNN
+F 1 "1ÂµF" H 2600 2900 50  0000 L CNN
 	1    2550 3000
 	1    0    0    -1  
 $EndComp
@@ -577,7 +596,7 @@ L CP1 C4
 U 1 1 4CACDD34
 P 2550 3500
 F 0 "C4" H 2600 3600 50  0000 L CNN
-F 1 "1µF" H 2600 3400 50  0000 L CNN
+F 1 "1ÂµF" H 2600 3400 50  0000 L CNN
 	1    2550 3500
 	1    0    0    -1  
 $EndComp
@@ -586,7 +605,7 @@ L CP1 C2
 U 1 1 4CACDD2D
 P 750 3500
 F 0 "C2" H 800 3600 50  0000 L CNN
-F 1 "1µF" H 800 3400 50  0000 L CNN
+F 1 "1ÂµF" H 800 3400 50  0000 L CNN
 	1    750  3500
 	1    0    0    -1  
 $EndComp
@@ -595,7 +614,7 @@ L CP1 C1
 U 1 1 4CACDD28
 P 750 3000
 F 0 "C1" H 800 3100 50  0000 L CNN
-F 1 "1µF" H 800 2900 50  0000 L CNN
+F 1 "1ÂµF" H 800 2900 50  0000 L CNN
 	1    750  3000
 	1    0    0    -1  
 $EndComp
