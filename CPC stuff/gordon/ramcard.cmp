@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPCB (2011-04-29 BZR 2986)-stable date = 03/05/2011 22:44:56
+Cmp-Mod V01 Created by CvPCB (2011-04-29 BZR 2986)-stable date = 28/05/2011 19:03:36
 
 BeginCmp
 TimeStamp = /4CA870EF;
@@ -102,7 +102,7 @@ BeginCmp
 TimeStamp = /4DBD84F1;
 Reference = D11;
 ValeurCmp = DIODE;
-IdModule  = D4.6;
+IdModule  = D4;
 EndCmp
 
 BeginCmp
@@ -113,10 +113,10 @@ IdModule  = D4.6;
 EndCmp
 
 BeginCmp
-TimeStamp = /4DBD842B;
-Reference = JP1;
-ValeurCmp = JUMPER;
-IdModule  = PIN_ARRAY_2X1;
+TimeStamp = /4DE12670;
+Reference = K1;
+ValeurCmp = CONN_3;
+IdModule  = SIL-3;
 EndCmp
 
 BeginCmp
@@ -130,7 +130,7 @@ BeginCmp
 TimeStamp = /4CA870D9;
 Reference = R2;
 ValeurCmp = 10KR;
-IdModule  = R4;
+IdModule  = R3;
 EndCmp
 
 BeginCmp
@@ -141,13 +141,6 @@ IdModule  = R4;
 EndCmp
 
 BeginCmp
-TimeStamp = /4CA870E2;
-Reference = R9;
-ValeurCmp = R;
-IdModule  = SM0805;
-EndCmp
-
-BeginCmp
 TimeStamp = /4CA8706E;
 Reference = SW_ROMEN1;
 ValeurCmp = DIPS_08;
@@ -155,7 +148,7 @@ IdModule  = DIP-16__300_ELL;
 EndCmp
 
 BeginCmp
-TimeStamp = /4DBD59C0;
+TimeStamp = /4CA8A6F2;
 Reference = U1;
 ValeurCmp = 74LS00;
 IdModule  = DIP-14__300_ELL;
