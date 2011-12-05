@@ -1,0 +1,194 @@
+# EESchema Netlist Version 1.1 created  17/10/2010 21:29:53
+(
+ ( /4C20AD6D SM1206 C1 27pF
+  ( 1 N-000022 )
+  ( 2 GND )
+ )
+ ( /4C20AD73 SM1206 C2 27pF
+  ( 1 N-000023 )
+  ( 2 GND )
+ )
+ ( /4C20B56F SM1206 C4 100nF
+  ( 1 GND )
+  ( 2 +5V )
+ )
+ ( /4C52C709 C1V7 C5 10µF
+  ( 1 +5V )
+  ( 2 GND )
+ )
+ ( /4C21F044 D3 D3 3.6V
+  ( 1 GND )
+  ( 2 N-000004 )
+ )
+ ( /4C21F047 SM1206 D4 3.6V
+  ( 1 GND )
+  ( 2 N-000003 )
+ )
+ ( /4C209A59 DIP-28__300 IC1 ATMEGA8-P
+  ( 1 N-000030 )
+  ( 2 N-000024 )
+  ( 3 N-000029 )
+  ( 4 N-000006 )
+  ( 5 N-000028 )
+  ( 6 N-000027 )
+  ( 7 +5V )
+  ( 8 GND )
+  ( 9 N-000022 )
+  ( 10 N-000023 )
+  ( 11 N-000005 )
+  ( 12 N-000026 )
+  ( 13 N-000025 )
+  ( 14 N-000018 )
+  ( 15 N-000017 )
+  ( 16 N-000016 )
+  ( 17 N-000015 )
+  ( 18 N-000014 )
+  ( 19 N-000013 )
+  ( 20 +5V )
+  ( 21 ? )
+  ( 22 GND )
+  ( 23 N-000009 )
+  ( 24 N-000010 )
+  ( 25 N-000007 )
+  ( 26 N-000008 )
+  ( 27 N-000020 )
+  ( 28 N-000021 )
+ )
+ ( /4C5307D0 SIL-2 JP1 FWUP
+  ( 1 N-000024 )
+  ( 2 GND )
+ )
+ ( /4CB98E65 he10-14d P1 CONN_12
+  ( 1 N-000020 )
+  ( 2 N-000021 )
+  ( 3 N-000007 )
+  ( 4 N-000008 )
+  ( 5 N-000009 )
+  ( 6 N-000010 )
+  ( 7 ? )
+  ( 8 ? )
+  ( 9 N-000013 )
+  ( 10 N-000014 )
+  ( 11 N-000015 )
+  ( 12 N-000016 )
+  ( 13 N-000017 )
+  ( 14 N-000018 )
+ )
+ ( /4CBB4DA3 PINTST P2 CONN_1
+  ( 1 N-000029 )
+ )
+ ( /4CBB4DAA PINTST P3 CONN_1
+  ( 1 N-000028 )
+ )
+ ( /4CBB4DAE PINTST P4 CONN_1
+  ( 1 N-000027 )
+ )
+ ( /4CBB4DB1 PINTST P5 CONN_1
+  ( 1 N-000026 )
+ )
+ ( /4CBB4DB2 PINTST P6 CONN_1
+  ( 1 N-000025 )
+ )
+ ( /4C20B267 SM0805 R1 10K
+  ( 1 N-000030 )
+  ( 2 +5V )
+ )
+ ( /4C21F015 SM0805 R4 2.2KR
+  ( 1 +5V )
+  ( 2 N-000004 )
+ )
+ ( /4C21EFE5 SM0805 R6 68R
+  ( 1 N-000004 )
+  ( 2 N-000005 )
+ )
+ ( /4C21EFE9 R4 R7 68R
+  ( 1 N-000003 )
+  ( 2 N-000006 )
+ )
+ ( /4C5307BB SM0805 R8 10K
+  ( 1 N-000024 )
+  ( 2 +5V )
+ )
+ ( /4C21EF7A USB_B USB1 CONN_4
+  ( 1 +5V )
+  ( 2 N-000004 )
+  ( 3 N-000003 )
+  ( 4 GND )
+ )
+ ( /4C20AD34 Q_49U3HMS X1 16MHz
+  ( 1 N-000022 )
+  ( 2 N-000023 )
+ )
+)
+*
+{ Allowed footprints by component:
+$component C1
+ SM*
+ C?
+ C1-1
+$endlist
+$component C2
+ SM*
+ C?
+ C1-1
+$endlist
+$component C4
+ SM*
+ C?
+ C1-1
+$endlist
+$component C5
+ CP*
+ SM*
+$endlist
+$component D3
+ D?
+ SO*
+ SM*
+$endlist
+$component D4
+ D?
+ SO*
+ SM*
+$endlist
+$component IC1
+ 28DIP-ELL600
+ 28dip600
+$endlist
+$component R1
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R4
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R6
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R7
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R8
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$endfootprintlist
+}
