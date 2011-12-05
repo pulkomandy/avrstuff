@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPCB (2010-05-05 BZR 2356)-stable date = 17/10/2010 21:29:53
+Cmp-Mod V01 Created by CvPCB (2011-04-29 BZR 2986)-stable date = 05/12/2011 22:41:26
 
 BeginCmp
 TimeStamp = /4C20AD6D;
@@ -24,8 +24,15 @@ EndCmp
 BeginCmp
 TimeStamp = /4C52C709;
 Reference = C5;
-ValeurCmp = 10µF;
+ValeurCmp = 10ÂµF;
 IdModule  = C1V7;
+EndCmp
+
+BeginCmp
+TimeStamp = /4EDD3903;
+Reference = D1;
+ValeurCmp = DOUBLE_LED;
+IdModule  = TO18CBE;
 EndCmp
 
 BeginCmp
@@ -50,52 +57,10 @@ IdModule  = DIP-28__300;
 EndCmp
 
 BeginCmp
-TimeStamp = /4C5307D0;
-Reference = JP1;
-ValeurCmp = FWUP;
-IdModule  = SIL-2;
-EndCmp
-
-BeginCmp
 TimeStamp = /4CB98E65;
 Reference = P1;
 ValeurCmp = CONN_12;
 IdModule  = he10-14d;
-EndCmp
-
-BeginCmp
-TimeStamp = /4CBB4DA3;
-Reference = P2;
-ValeurCmp = CONN_1;
-IdModule  = PINTST;
-EndCmp
-
-BeginCmp
-TimeStamp = /4CBB4DAA;
-Reference = P3;
-ValeurCmp = CONN_1;
-IdModule  = PINTST;
-EndCmp
-
-BeginCmp
-TimeStamp = /4CBB4DAE;
-Reference = P4;
-ValeurCmp = CONN_1;
-IdModule  = PINTST;
-EndCmp
-
-BeginCmp
-TimeStamp = /4CBB4DB1;
-Reference = P5;
-ValeurCmp = CONN_1;
-IdModule  = PINTST;
-EndCmp
-
-BeginCmp
-TimeStamp = /4CBB4DB2;
-Reference = P6;
-ValeurCmp = CONN_1;
-IdModule  = PINTST;
 EndCmp
 
 BeginCmp
@@ -127,10 +92,10 @@ IdModule  = R4;
 EndCmp
 
 BeginCmp
-TimeStamp = /4C5307BB;
-Reference = R8;
-ValeurCmp = 10K;
-IdModule  = SM0805;
+TimeStamp = /4EDD28E4;
+Reference = SW1;
+ValeurCmp = DIPS_04;
+IdModule  = DIP-8__300;
 EndCmp
 
 BeginCmp
