@@ -133,8 +133,8 @@ enum keycodes {
     KEY_Application,
 
 	KEY_Help = 0x75,
-	KEY_KPLParen = 0x182,
-   KEY_KPRParen = 0x183,	
+	KEY_KPLParen, // should be 0x182, but windows XP doesn't accept keycodes above 7F...
+   KEY_KPRParen,	
 };
 
 #endif /* __keycodes_h_included__ */

@@ -77,13 +77,18 @@ void emptyReportBuffer(uint8_t key_code) {
 			pressingCaps = 1;
 		}
 	} else if (key != KEY_Reserved) {
+		int j = 0;
 		for (i = 2; i < reportIndex; i++) {
 			if (reportBuffer[i] == key) {
-				for (; i < 7; i++)
-					reportBuffer[i] = reportBuffer[i+1];
-				reportBuffer[7] = 0;
+				j++;
 				reportIndex--;
 			}
+			reportBuffer[i] = reportBuffer[i+j];
+		}
+
+		for (i = reportIndex; i < 8; i++)
+		{
+			reportBuffer[i] = 0;
 		}
 	}
 	reportBuffer[0] &= ~modifier;
@@ -130,7 +135,7 @@ int main() {
 
 		updateNeeded = char_waiting;
 
-		if (char_waiting) {
+		while (char_waiting) {
 			key_code = ak_read_scancode();
 			// if an update is needed, send the report
 			if ((key_code & 1) == 0) {

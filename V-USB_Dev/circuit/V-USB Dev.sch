@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date 05/12/2011 22:35:20
+EESchema Schematic File Version 2  date 06/12/2011 21:12:27
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -29,16 +29,13 @@ LIBS:opto
 LIBS:atmel
 LIBS:contrib
 LIBS:valves
-LIBS:dips-s
-LIBS:w_device
-LIBS:starkadroid-cache
 EELAYER 25  0
 EELAYER END
 $Descr User 6000 6000
 encoding utf-8
 Sheet 1 1
 Title "Starkadroid USB Arcade buttons device"
-Date "5 dec 2011"
+Date "6 dec 2011"
 Rev "2010.10.16"
 Comp "PulkoTronics"
 Comment1 ""
@@ -114,23 +111,19 @@ Wire Wire Line
 	1900 650  1400 650 
 Wire Wire Line
 	1200 1400 1200 1700
-Wire Notes Line
-	3750 1550 3750 1400
-Wire Notes Line
-	3750 1400 2750 1400
 Wire Wire Line
-	4100 1550 4100 1650
+	4800 1550 4800 1650
 Wire Wire Line
-	3300 1250 3400 1250
-Connection ~ 4000 650 
+	4000 1250 4100 1250
+Connection ~ 4700 650 
 Wire Wire Line
-	3900 650  4300 650 
-Connection ~ 4200 1250
+	4600 650  5000 650 
+Connection ~ 4900 1250
 Wire Wire Line
-	4300 1250 3900 1250
-Connection ~ 4000 1150
+	5000 1250 4600 1250
+Connection ~ 4700 1150
 Wire Wire Line
-	4300 1150 3900 1150
+	5000 1150 4600 1150
 Connection ~ 1900 1150
 Wire Wire Line
 	2350 1150 1400 1150
@@ -162,30 +155,18 @@ Wire Wire Line
 Wire Wire Line
 	600  1150 1000 1150
 Connection ~ 600  1150
-Connection ~ 4100 1150
+Connection ~ 4800 1150
 Wire Wire Line
-	4300 650  4300 1050
+	5000 650  5000 1050
 Wire Wire Line
-	3300 1150 3400 1150
+	4000 1150 4100 1150
 Wire Wire Line
-	4100 1550 3850 1550
+	4800 1550 4550 1550
 Wire Wire Line
-	4100 1650 4300 1650
+	4800 1650 5000 1650
 Wire Wire Line
-	4300 1650 4300 1350
-Connection ~ 4200 1650
-Wire Notes Line
-	2750 1400 2750 600 
-Wire Notes Line
-	2750 600  4800 600 
-Wire Notes Line
-	4800 600  4800 1650
-Wire Notes Line
-	4800 1650 4350 1650
-Wire Notes Line
-	2750 700  2950 700 
-Wire Notes Line
-	2950 700  2950 600 
+	5000 1650 5000 1350
+Connection ~ 4900 1650
 Wire Wire Line
 	600  4300 600  650 
 Wire Wire Line
@@ -241,13 +222,13 @@ F 1 "+5V" H 1350 1990 30  0000 C CNN
 	1    1350 1900
 	1    0    0    -1  
 $EndComp
-Text Label 4050 3450 0    60   ~ 0
+Text Label 4050 3450 2    60   ~ 0
 SW3
-Text Label 4050 3350 0    60   ~ 0
+Text Label 4050 3350 2    60   ~ 0
 SW2
-Text Label 4050 3250 0    60   ~ 0
+Text Label 4050 3250 2    60   ~ 0
 SW1
-Text Label 4050 3150 0    60   ~ 0
+Text Label 4050 3150 2    60   ~ 0
 SW0
 Text Label 3350 3500 0    60   ~ 0
 SW0
@@ -276,53 +257,53 @@ F 1 "DIPS_04" V 4500 3300 60  0000 C CNN
 	0    1    1    0   
 $EndComp
 Text GLabel 4900 2600 0    60   Input ~ 0
-J3D
+C5
 Text GLabel 4900 2500 0    60   Input ~ 0
-J3B
+C4
 Text GLabel 4900 2800 0    60   Input ~ 0
-J2D
+C3
 Text GLabel 4900 2700 0    60   Input ~ 0
-J2B
+C2
 Text GLabel 4900 3000 0    60   Input ~ 0
-J1D
+C1
 Text GLabel 4900 2900 0    60   Input ~ 0
-J1B
+C0
 Text GLabel 3500 2900 2    60   Output ~ 0
-J3D
+C5
 Text GLabel 3500 2800 2    60   Output ~ 0
-J3B
+C4
 Text GLabel 3500 2600 2    60   Output ~ 0
-J2B
+C2
 Text GLabel 3500 2700 2    60   Output ~ 0
-J2D
+C3
 Text GLabel 3500 2500 2    60   Output ~ 0
-J1D
+C1
 Text GLabel 3500 2400 2    60   Output ~ 0
-J1B
+C0
 Text GLabel 4900 3300 0    60   Output ~ 0
-B6
+B5
 Text GLabel 4900 3400 0    60   Output ~ 0
-B5
+B4
 Text GLabel 4900 3500 0    60   Output ~ 0
-B4
+B3
 Text GLabel 4900 3600 0    60   Output ~ 0
-B3
+B2
 Text GLabel 4900 3700 0    60   Output ~ 0
-B2
+B1
 Text GLabel 4900 3800 0    60   Output ~ 0
-B1
+B0
 Text GLabel 3500 2200 2    60   Input ~ 0
-B6
-Text GLabel 3500 2100 2    60   Input ~ 0
 B5
-Text GLabel 3500 2000 2    60   Input ~ 0
+Text GLabel 3500 2100 2    60   Input ~ 0
 B4
-Text GLabel 3500 1900 2    60   Input ~ 0
+Text GLabel 3500 2000 2    60   Input ~ 0
 B3
-Text GLabel 3500 1800 2    60   Input ~ 0
+Text GLabel 3500 1900 2    60   Input ~ 0
 B2
-Text GLabel 3500 1700 2    60   Input ~ 0
+Text GLabel 3500 1800 2    60   Input ~ 0
 B1
+Text GLabel 3500 1700 2    60   Input ~ 0
+B0
 $Comp
 L CONN_14 P1
 U 1 1 4CB98E65
@@ -351,82 +332,80 @@ F 1 "10µF" H 1250 550 50  0000 L CNN
 	1    1200 650 
 	0    1    1    0   
 $EndComp
-Text Notes 2950 700  2    60   ~ 0
-USB
 $Comp
 L ZENER D4
 U 1 1 4C21F047
-P 4200 1450
-F 0 "D4" H 4150 1200 50  0000 C CNN
-F 1 "3.6V" H 4150 1300 40  0000 C CNN
-	1    4200 1450
+P 4900 1450
+F 0 "D4" H 4850 1200 50  0000 C CNN
+F 1 "3.6V" H 4850 1300 40  0000 C CNN
+	1    4900 1450
 	0    -1   -1   0   
 $EndComp
 $Comp
 L ZENER D3
 U 1 1 4C21F044
-P 4100 1350
-F 0 "D3" H 4100 1450 50  0000 C CNN
-F 1 "3.6V" H 4100 1550 40  0000 C CNN
-	1    4100 1350
+P 4800 1350
+F 0 "D3" H 4800 1450 50  0000 C CNN
+F 1 "3.6V" H 4800 1550 40  0000 C CNN
+	1    4800 1350
 	0    -1   -1   0   
 $EndComp
 $Comp
 L R R4
 U 1 1 4C21F015
-P 4000 900
-F 0 "R4" V 4080 900 50  0000 C CNN
-F 1 "2.2KR" V 4000 900 50  0000 C CNN
-	1    4000 900 
+P 4700 900
+F 0 "R4" V 4780 900 50  0000 C CNN
+F 1 "2.2KR" V 4700 900 50  0000 C CNN
+	1    4700 900 
 	1    0    0    -1  
 $EndComp
 $Comp
 L R R7
 U 1 1 4C21EFE9
-P 3650 1250
-F 0 "R7" V 3730 1250 50  0000 C CNN
-F 1 "68R" V 3650 1250 50  0000 C CNN
-	1    3650 1250
+P 4350 1250
+F 0 "R7" V 4430 1250 50  0000 C CNN
+F 1 "68R" V 4350 1250 50  0000 C CNN
+	1    4350 1250
 	0    1    1    0   
 $EndComp
 $Comp
 L R R6
 U 1 1 4C21EFE5
-P 3650 1150
-F 0 "R6" V 3550 1150 50  0000 C CNN
-F 1 "68R" V 3650 1150 50  0000 C CNN
-	1    3650 1150
+P 4350 1150
+F 0 "R6" V 4250 1150 50  0000 C CNN
+F 1 "68R" V 4350 1150 50  0000 C CNN
+	1    4350 1150
 	0    1    1    0   
 $EndComp
-Text GLabel 3300 1150 0    60   BiDi ~ 0
+Text GLabel 4000 1150 0    60   BiDi ~ 0
 USB_D-
-Text GLabel 3300 1250 0    60   BiDi ~ 0
+Text GLabel 4000 1250 0    60   BiDi ~ 0
 USB_D+
 $Comp
 L +5V #PWR04
 U 1 1 4C21EFA8
-P 3900 650
-F 0 "#PWR04" H 3900 740 20  0001 C CNN
-F 1 "+5V" H 3900 740 30  0000 C CNN
-	1    3900 650 
+P 4600 650
+F 0 "#PWR04" H 4600 740 20  0001 C CNN
+F 1 "+5V" H 4600 740 30  0000 C CNN
+	1    4600 650 
 	0    -1   -1   0   
 $EndComp
 $Comp
 L GND #PWR05
 U 1 1 4C21EFA1
-P 3850 1550
-F 0 "#PWR05" H 3850 1550 30  0001 C CNN
-F 1 "GND" H 3850 1480 30  0001 C CNN
-	1    3850 1550
+P 4550 1550
+F 0 "#PWR05" H 4550 1550 30  0001 C CNN
+F 1 "GND" H 4550 1480 30  0001 C CNN
+	1    4550 1550
 	0    1    1    0   
 $EndComp
 $Comp
 L CONN_4 USB1
 U 1 1 4C21EF7A
-P 4650 1200
-F 0 "USB1" V 4600 1200 50  0000 C CNN
-F 1 "CONN_4" V 4700 1200 50  0000 C CNN
-	1    4650 1200
+P 5350 1200
+F 0 "USB1" V 5300 1200 50  0000 C CNN
+F 1 "CONN_4" V 5400 1200 50  0000 C CNN
+	1    5350 1200
 	1    0    0    -1  
 $EndComp
 Text GLabel 3350 3600 2    60   BiDi ~ 0

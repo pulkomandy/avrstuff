@@ -24,7 +24,7 @@ uint8_t shift;
 
 
 // Notify the keyboard we got the last char right
-inline void acknowledge_char()
+static inline void acknowledge_char()
 {
 	// We have to pull down the "DATA" line
 	
@@ -46,6 +46,7 @@ inline void acknowledge_char()
 // Interrupt vector - Triggered when there is activity on the clock line
 ISR(INT1_vect)
 {
+	static char tmp_kdata;
 	//make sure clock line is low, if not ignore this transition
 	if(AK_PORT & (1<<AK_CLK)){
 		return;
@@ -55,13 +56,13 @@ ISR(INT1_vect)
 	if(!started){
 		started = 1;
 		bit_count = 0;
-		kbd_data = 0;
+		tmp_kdata = 0;
 	} 
 
 	if(bit_count < 8) { //we started, read in the new bit
 		//put a 1 in the right place of kdb_data if PC2 is high, leave
 		//a 0 otherwise
-		if(!(AK_PORT & (1<<AK_DATA))) kbd_data |= (128>>bit_count);
+		if(!(AK_PORT & (1<<AK_DATA))) tmp_kdata |= (128>>bit_count);
 		bit_count++;
 	} 
 	
@@ -91,6 +92,7 @@ ISR(INT1_vect)
 				char_waiting = 1;
 			}
 		}*/
+		kbd_data = tmp_kdata;
 		char_waiting=1;
 	}
 }
