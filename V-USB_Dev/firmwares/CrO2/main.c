@@ -31,7 +31,7 @@ int main() {
 	sei();
 
 	bit = 1;
-	bitpos = 0;
+	bitpos = 7;
 	readPos = 0;
 
 	// Generate sync header (this never changes)
@@ -72,8 +72,8 @@ int main() {
 	TCCR1A |= (1<<COM1A1); // Compare match will always SET OC1A instead of toggling it. Thus the output is always high.
 	// CTC mode with OCR1A as MAXregister
 	TCCR1B = (1<<WGM12);
-	OCR1A = 12800; // 800us bit clock
-	OCR1B = 6400; // Half-clock for 1 bits
+	OCR1A = 13063; // 800us bit clock
+	OCR1B = 6532; // Half-clock for 1 bits
 	TIMSK = (1 << OCIE1B) | (1 << OCIE1A); // interrupts on both timer matches.
 	TCCR1A |= (bit << FOC1A); // Force toggle of A (make sure output is a logic 1 to allow MO5 to detect tapedrive)
 
@@ -133,6 +133,7 @@ uint8_t usbFunctionWrite(uint8_t* data, uint8_t len)
 		// start generating
 		TCCR1A &= ~(1<<COM1A1);
 		TCCR1B |= (1<<CS10);
+		blksz = 35;
 		return 1;
 	} else {
 		return 0;
@@ -146,10 +147,10 @@ ISR (TIMER1_COMPA_vect, ISR_NOBLOCK)
 {
 	// generate next bit
 	bit = (ioblock[readPos] >> bitpos) & 1;
-	bitpos++;
-	if (bitpos > 7)
+	bitpos--;
+	if (bitpos > 7) // overflow ?
 	{
-		bitpos = 0;
+		bitpos = 7;
 		readPos++;
 		if (readPos > blksz)
 		{
