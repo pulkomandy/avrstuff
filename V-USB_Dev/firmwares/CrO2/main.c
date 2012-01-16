@@ -33,7 +33,7 @@ int main() {
 
 	bit = 1;
 	bitpos = 7;
-	readPos = 0;
+	readPos = 13;
 
 	// Generate sync header (this never changes)
 	int i;
@@ -49,8 +49,11 @@ int main() {
 	TCCR1A |= (1<<COM1A1); // Compare match will always SET OC1A instead of toggling it. Thus the output is always high.
 	// CTC mode with OCR1A as MAXregister
 	TCCR1B = (1<<WGM12);
-	OCR1A = 13063; // 800us bit clock
-	OCR1B = 6532; // Half-clock for 1 bits
+	// "Official" values : 13063/6532 (closest to MO5 specified rate)
+	// 9580 NOK
+	// 9582 OK
+	OCR1A = 9582; // 800us bit clock
+	OCR1B = 4750; // Half-clock for 1 bits
 	TIMSK = (1 << OCIE1B) | (1 << OCIE1A); // interrupts on both timer matches.
 	TCCR1A |= (bit << FOC1A); // Force toggle of A (make sure output is a logic 1 to allow MO5 to detect tapedrive)
 
@@ -75,7 +78,6 @@ static inline void startGen()
 uint8_t usbFunctionSetup(uint8_t data[8]) {
 	usbRequest_t *rq = (void *)data;
 
-	usbMsgPtr = ioblock;
 	switch(rq->bRequest)
 	{
 		case 0:
@@ -85,6 +87,7 @@ uint8_t usbFunctionSetup(uint8_t data[8]) {
 			}
 		case 1:
 			{  /* RECEIVE/POLL DATA (TAPE > USB) */
+				usbMsgPtr = ioblock;
 				return 254; 
 			}
 		case 2:
@@ -106,6 +109,13 @@ uint8_t usbFunctionSetup(uint8_t data[8]) {
 				} else {
 					return USB_NO_MSG; // Call usbFunctionWrite to send the data
 				}
+			}
+		case 3:
+			{
+				// Read status
+				status = PINC;
+				usbMsgPtr = &status;
+				return 1;
 			}
 	}
 	return 0;
@@ -152,7 +162,7 @@ ISR (TIMER1_COMPA_vect, ISR_NOBLOCK)
 
 			// Stop generating (and interrupts)
 			TCCR1B &= ~(1<<CS10);
-			readPos = 0;
+			readPos = 14;
 
 			// make sure output is high step 2 : force a match.
 			TCCR1A |= (1 << FOC1A);
