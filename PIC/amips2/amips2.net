@@ -1,0 +1,94 @@
+# EESchema Netlist Version 1.1 created  08/04/2012 15:37:46
+(
+ ( /4F8153FE SM0805 C1 C
+  ( 1 GND )
+  ( 2 VDD )
+ )
+ ( /4F8153EB DB9FC J1 DB9
+  ( 1 /YB )
+  ( 2 /XA )
+  ( 3 /YA )
+  ( 4 /XB )
+  ( 5 /MID )
+  ( 6 /LEFT )
+  ( 7 VDD )
+  ( 8 GND )
+  ( 9 /RIGHT )
+ )
+ ( /4F815840 SM0805 R1 R
+  ( 1 GND )
+  ( 2 /MID )
+ )
+ ( /4F815406 R4-LARGE_PADS R2 R
+  ( 1 /DATA )
+  ( 2 VDD )
+ )
+ ( /4F815408 SM0805 R3 R
+  ( 1 /CLK )
+  ( 2 VDD )
+ )
+ ( /4F8153D2 soic-18 U1 PIC16F628A
+  ( 1 ? )
+  ( 2 ? )
+  ( 3 ? )
+  ( 4 VDD )
+  ( 5 GND )
+  ( 6 /RIGHT )
+  ( 7 /MID )
+  ( 8 /XB )
+  ( 9 /YA )
+  ( 10 /XA )
+  ( 11 /YB )
+  ( 12 /LEFT )
+  ( 13 ? )
+  ( 14 VDD )
+  ( 15 ? )
+  ( 16 ? )
+  ( 17 /CLK )
+  ( 18 /DATA )
+ )
+ ( /4F816A73 mini_din-M_DIN6 X1 MINI_DIN_6
+  ( 1 /DATA )
+  ( 2 ? )
+  ( 3 GND )
+  ( 5 VDD )
+  ( 6 /CLK )
+  ( 8 ? )
+  ( SH1 ? )
+  ( SH2 ? )
+  ( SH3 ? )
+ )
+)
+*
+{ Allowed footprints by component:
+$component C1
+ SM*
+ C?
+ C1-1
+$endlist
+$component J1
+ DB9*
+$endlist
+$component R1
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R2
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R3
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$endfootprintlist
+}

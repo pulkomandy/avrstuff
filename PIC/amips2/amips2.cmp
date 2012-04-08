@@ -1,0 +1,52 @@
+Cmp-Mod V01 Created by CvPcb (2012-01-19 BZR 3256)-stable date = 08/04/2012 15:37:46
+
+BeginCmp
+TimeStamp = /4F8153FE;
+Reference = C1;
+ValeurCmp = C;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4F8153EB;
+Reference = J1;
+ValeurCmp = DB9;
+IdModule  = DB9FC;
+EndCmp
+
+BeginCmp
+TimeStamp = /4F815840;
+Reference = R1;
+ValeurCmp = R;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4F815406;
+Reference = R2;
+ValeurCmp = R;
+IdModule  = R4-LARGE_PADS;
+EndCmp
+
+BeginCmp
+TimeStamp = /4F815408;
+Reference = R3;
+ValeurCmp = R;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4F8153D2;
+Reference = U1;
+ValeurCmp = PIC16F628A;
+IdModule  = soic-18;
+EndCmp
+
+BeginCmp
+TimeStamp = /4F816A73;
+Reference = X1;
+ValeurCmp = MINI_DIN_6;
+IdModule  = mini_din-M_DIN6;
+EndCmp
+
+EndListe
