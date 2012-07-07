@@ -8,35 +8,25 @@
 // POSIX/XSI
 #include <getopt.h>
 
-// FreeBSD
-#include <osreldate.h>
-#include <sys/types.h>
-#include <machine/cpufunc.h>
-#include <machine/sysarch.h>
-
 #include "device.h"
 #include "at29c040.h"
 
-/* TODO
-Linux compatibility (ioperm, reversed outb)
-wrap IOs in a class to hide the mess (BSD/Linux)
-wrap ROM access in a class as well (read or write a byte/block, and so on)
-*/
 
 int main(int argc, char* argv[])
 {
 	char c;
-	const char* file;
+	const char* file = NULL;
 	char opcode = 0;
 	int port_base = 0x378;
 	Device* device = NULL;
+	int error = 0;
 
 	puts("EPRoxygen - UNIX driver for SEEIT EPR-02 ROM programmer\n"
 		"Copyright 2012, Adrien Destugues <pulkomandy@pulkomandy.tk>\n"
 		"Distributed under the terms of the MIT licence\n"
 	);
 
-	while(c = getopt(argc, argv, "p:d:r:w:e"))
+	while((c = getopt(argc, argv, "p:d:r:w:e")) >= 0)
 	{
 		switch(c)
 		{
@@ -44,13 +34,15 @@ int main(int argc, char* argv[])
 			case ':':
 				fprintf(stderr, "Unrecognized option -%c\n", optopt);
 				// TODO print help
-				exit(-1);
+				error = -1;
+				goto abort;
 			case 'p':
 				// Set port
 				if(sscanf(optarg, "%d", &port_base) != 1)
 				{
 					fprintf(stderr, "Invalid I/O port address\n");
-					exit(-4);
+					error = -4;
+					goto abort;
 				}
 				break;
 			case 'd':
@@ -58,7 +50,8 @@ int main(int argc, char* argv[])
 				if (strcmp(optarg, "AT29C040"))
 				{
 					fprintf(stderr,"Unknown device (only AT29C040 is supported)\n");
-					exit(-3);
+					error = -3;
+					goto abort;
 				}
 				device = new AT29C040();
 				break;
@@ -72,7 +65,8 @@ int main(int argc, char* argv[])
 				if (opcode != 0)
 				{
 					fprintf(stderr, "Multiple operations requested (only one of r,w,e is allowed)\n");
-					exit(-2);
+					error = -2;
+					goto abort;
 				}
 				opcode = c;
 		}
@@ -81,14 +75,29 @@ int main(int argc, char* argv[])
 	if (opcode == 0)
 	{
 		fprintf(stderr, "No operation specified (one of r,w,e). Aborting.\n");
-		exit(-5);
+		error = -5;
+		goto abort;
 	}
 
-	i386_set_ioperm(port_base, 3, true);
+	if (device == NULL)
+	{
+		fprintf(stderr, "No device specified.\n");
+		error = -6;
+		goto abort;
+	}
 
 	// Configure voltage and powerpins according to device
+	if(device->setup(port_base) != 0)
+	{
+		error = -7;
+		goto abort;
+	}
 
-	// Ask user to put ROM on socket
+	// TODO Ask user to put ROM on socket
+	puts("Now insert chip into socket, then press any key...");
+	getchar();
+
+	device->power();
 
 	// Do action (program/erase/write)	
 	switch(opcode)
@@ -102,10 +111,16 @@ int main(int argc, char* argv[])
 		case 'e':
 			device->erase();
 			break;
+		default:
+			fprintf(stderr, "!!? invalid operation ?!\n");
 	}
 
-	exit(0);
+abort:
+	device->shutdown();
+	delete device;
+
+	exit(error);
 }
 
-
+int Device::port;
 
