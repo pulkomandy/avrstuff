@@ -13,14 +13,15 @@ void AT29C040::power()
 {
 	Device::write(CTRL, 0b10011111 | CTRLmask);
 	Device::write(VOLT, 0b11001000 | VOLTmask);
+	outb(port + 2, NONE);
 }
 
 void Device::shutdown()
 {
 	// All pins of the ROM are put either in high-Z, or 0V when it's not
 	// possible
-	Device::write(CTRL, 0x62);
-	Device::write(VOLT, 0x7F);
+	Device::write(CTRL, 0b01100010);
+	Device::write(VOLT, 0b01111111);
 	outb(port + 2, NONE);
 }
 
@@ -50,7 +51,7 @@ void AT29C040::erase(void)
 bool AT29C040::checkId(void)
 {
 	// Chip enable
-	Device::write(CTRL, CTRLmask | CE);
+	Device::write(CTRL, CTRLmask | WE | OE | CE | A17);
 		// Address bits low, WE = 1, CE = 0, OE = 1
 		// TC and TD = 1
 	Device::write(VOLT, VOLTmask);
@@ -59,7 +60,7 @@ bool AT29C040::checkId(void)
 		// TA, TB, TE, TF = ?
 
 	wr16(0x5555, 0xAA);
-	wr16(0x2AAA, 0x55);
+	wr16(0xAAAA, 0x55);
 	wr16(0x5555, 0x90);
 
 	// clear DOE for reading
@@ -69,29 +70,37 @@ bool AT29C040::checkId(void)
 
 	// Read the result now
 	Device::write(ADR0, 0x00);
-	Device::write(ADR1, 0x00);
-	Device::write(CTRL, WE | CE | CTRLmask);
+			usleep(1000);
+	Device::write(ADR1, 0x00 ^ A13);
+			usleep(1000);
+	Device::write(CTRL, WE | A17 | CTRLmask);
+			usleep(1000);
 	uint8_t manufacturer = Device::read();
 
-	getchar();
 
-	Device::write(CTRL, OE | WE | CE | CTRLmask);
+	Device::write(CTRL, CE | OE | WE | A17 | CTRLmask);
+			usleep(1000);
 	Device::write(ADR0, 0x01);
-	Device::write(CTRL, WE | CE | CTRLmask);
+			usleep(1000);
+	Device::write(CTRL, WE | A17 | CTRLmask);
+			usleep(1000);
 
 	uint8_t product = Device::read();
 
+	Device::write(CTRL, CE | WE | OE | A17 | CTRLmask);
+			usleep(1000);
 	// re enable DOE, we are going to write again...
-	Device::write(CTRL, WE | OE | CE | CTRLmask);
 	Device::write(VOLT, VOLTmask);
+			usleep(1000);
 
 	wr16(0x5555, 0xAA);
-	wr16(0x2AAA, 0x55);
+	wr16(0xAAAA, 0x55);
 	wr16(0x5555, 0xF0);
 	usleep(10000);
 
 	// Chip disable - we're done !
 	Device::write(CTRL, 0xFF | CTRLmask);
+			usleep(1000);
 	
 	bool ok = (manufacturer == 0x1F && product == 0xA4);
 
