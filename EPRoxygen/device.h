@@ -19,6 +19,10 @@ class Device {
 		Device() 
 		{};
 
+		virtual ~Device() {
+			shutdown();
+		};
+
 		void shutdown();
 		virtual void power() = 0;
 
@@ -37,9 +41,6 @@ class Device {
 
 			return 0;
 		}
-
-		virtual ~Device() {};
-	
 	protected:
 		typedef enum {
 			NONE =  0b0011, /* Nothing selected */
@@ -130,8 +131,6 @@ class Device {
 			outb(port+2, NYBLE); 
 			usleep(1000);
 			byte |= inb(port + 1) >> 4;
-printf("R %X", byte ^ 0x88);
-getchar();
 			outb(port+2, NYBLE ^ 4); 
 			usleep(1000);
 			return byte ^ 0x88;
