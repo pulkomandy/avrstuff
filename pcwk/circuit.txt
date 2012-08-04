@@ -1,0 +1,1 @@
+The circuit used for ps2toserial is the same as the one for ak2serial, so see you there !
