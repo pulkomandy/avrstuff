@@ -1,8 +1,3 @@
-/* HEREPIC - AVR-based ICSP programmer for microchip PIC16F6xx and 16F8xx devices
- * Copyright 2012, Adrien Destugues <pulkomandy@pulkomandy.tk>
- *
- * This file is distributed under the terms of the MIT licence.
- */
 
 /* This project is targetted at the VUSBDev hacking board. */
 
@@ -16,6 +11,7 @@
 #include <stdbool.h>
 
 #include "usbdrv/usbdrv.h"
+#include "shared.h"
 
 // IO pins:
 // PIC <> AVR
@@ -38,34 +34,6 @@
 // communcations in the ICSP protocol. So we are bit banging bhe ICSP protocol.
 // Timers may make it easier to do that in parallel with the USB handling, since
 // timings are in the nanosecond range.
-
-
-// ICSP commands are 6-bit wide, for most of them (but not all) the 2 MSb are
-// ignored.
-// We also use these as USB commands for now, but we may do otherwise, since
-// transferring only 14 data bytes in an USB frame is quite a bit of waste.
-// We need some custom commands on USB side as well, to reset the PIC and such
-// things.
-typedef enum
-{
-	// HOST to DEVICE
-	LoadConfigWord 		=   0b0000,
-	LoadCodeWord 		=   0b0010,
-	LoadDataWord 		=   0b0011,
-
-	// Configuration
-	NextAddress			=   0b0110,
-	BeginEraseProgram 	= 0b001000,
-	BeginProgramOnly 	= 0b011000,
-	BulkEraseCode		=   0b1001,
-	BulkEraseData		=   0b1011,
-	BulkEraseConfig1	= 0b000001,
-	BulkEraseConfig2	= 0b000111,
-
-	// DEVICE to HOST
-	ReadCodeWord 		=   0b0100,
-	ReadDataWord		=   0b0101,
-} ICSPCommands;
 
 
 uint8_t command;

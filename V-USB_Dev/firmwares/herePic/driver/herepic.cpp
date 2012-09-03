@@ -14,11 +14,11 @@
 // Haiku
 #include <USBKit.h>
 
+#include "../shared.h"
+#include "icsp.h"
 
-// We need a subclass of USBRoster to enumerate devices. The Deviceadded hook
-// will be called for all plugged devices. If we don't find the correct one,
-// it will also be called later, as devices are plugged. So we can wait for the
-// right device to come in !
+
+// We need a subclass of USBRoster to enumerate devices.
 class MyUSBRoster: public BUSBRoster {
 	public:
 		MyUSBRoster(BUSBDevice*& device, sem_t& deviceLock)
@@ -34,15 +34,18 @@ class MyUSBRoster: public BUSBRoster {
 			Stop();
 		}
 
+		/* The DeviceAdded hook will be called for all plugged devices.
+		If we don't find the correct one, the method will also be called later,
+		as devices are plugged. So we can wait for the right device to come in!
+		*/
 		status_t DeviceAdded(BUSBDevice* device)
 		{
 			if(device->VendorID() == 0x16c0 && device->ProductID() == 0x05DC
 				&& strcmp(device->ManufacturerString(), "pulkomandy.tk") == 0
 				&& strcmp(device->ProductString(), "HerePic") == 0)
 			{
-				std::cout << "Programmer found !" << std::endl;
-				// TODO send message to main app to tell it we're ready to go.
 				fDevice = device;
+				// Notify main thread it's ok to continue
 				sem_post(&fDeviceLock);
 			}
 			return B_OK;
@@ -120,13 +123,15 @@ int main(int argc, char** argv)
 		}
 	} while(nextopt != -1);
 
-	if (action <= 0)
+	// If we found no valid action request, print usage and exit
+	if (action <= 0 || action == 'h')
 	{
 		usage(argv[0]);
-		exit(action);
+		// Exit code is EXIT_SUCCESS if we reach this by -h option. Otherwise
+		// the arguments are incorrect
+		exit(action < 0 ? action : 0);
 	}
 
-	// TODO take action depending on command request in CLI
 	// TODO handle the boring usb stuff... (might be nice to abstract it so we
 	// can use both libusb and haiku usb kit)
 
@@ -139,20 +144,36 @@ int main(int argc, char** argv)
 	usbRoster.Start();
 
 	int deviceAvailable;
+	// TODO we rely on the initial device scan being done when we get here. Is
+	// that always true ? If not, we may print this message in cases where it
+	// is not needed.
 	sem_getvalue(&deviceLock, &deviceAvailable);
 	if(deviceAvailable == 0)
 	{
-		std::cout << "Programmer not connected. Waiting for it..." << std::endl;
+		std::cout << "Programmer hardware not detected. Please connect it now..." << std::endl;
 	}
 
+	// Wait for the device
 	sem_wait(&deviceLock);
 
-	// Here, perform the programming cycle !
+	ICSP icsp(*theDevice);
+
+	// take action depending on command request in CLI
 	switch(action)
 	{
 		case 'r':
+			// read the chip
+			icsp.Read(filename);
+			break;
 		case 'w':
+			icsp.Write(filename);
+			// Here, perform the programming cycle !
+			break;
 		case 'e':
-			;
+			icsp.Erase();
+			// erase the chip
+			break;
 	}
+
+	exit(0);
 }
