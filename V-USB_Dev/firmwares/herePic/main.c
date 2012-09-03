@@ -26,6 +26,9 @@
 #define PGM 2
 #define VPP 1
 
+// VUSB leds (PD6 and PD7)
+#define RED 64
+#define GREEN 128
 
 // TODO is it wise to use a timer or two for bit patterns generation ? (see
 // CrO2 architecture)
@@ -55,7 +58,18 @@ int main() {
 	PORTB |= PGM; // Enable low voltage programming
 	PORTB |= VPP; // Enter programming mode
 
+	// Configure leds
+	DDRD |= RED | GREEN;
+	PORTD |= RED | GREEN;
+
+	int k = 0;
+
 	while(1) {
+		if (k-- < 0)
+		{
+			k = 20000;
+			PORTD ^= RED;
+		}
 		wdt_reset();
 		usbPoll();
 	}
@@ -66,11 +80,11 @@ void ICSP_command(uint8_t cmd)
 {
 	for(int i = 6; --i>= 0;)
 	{
-		PORTB |= PGC;
 		if(cmd & 1)
 			PORTB |= PGD;
 		else
 			PORTB &= ~PGD;
+		PORTB |= PGC;
 		PORTB &= ~PGC;
 
 		cmd >>= 1;
@@ -87,11 +101,11 @@ void ICSP_write(uint8_t cmd, uint16_t data)
 	// send data
 	for(int i = 16; --i>= 0;)
 	{
-		PORTB |= PGC;
 		if(data & 1)
 			PORTB |= PGD;
 		else
 			PORTB &= ~PGD;
+		PORTB |= PGC;
 		PORTB &= ~PGC;
 
 		data >>= 1;
@@ -104,22 +118,33 @@ void ICSP_read(uint8_t cmd, uint16_t *const data)
 {
 	ICSP_command(cmd);
 
+	// PGD as input
+	DDRB &= ~PGD;
+	PORTB |= PGD; //pull up
+
 	// get data
 	for(int i = 16; --i>= 0;)
 	{
 		PORTB |= PGC;
-		*data |= (PORTB & PGD) / PGD;
+		*data |= (PINB & PGD) / PGD;
 		PORTB &= ~PGC;
 
 		*data <<= 1;
 	}
 	_delay_us(1);
+
+	// PGD as output
+	PORTB &= ~PGD;
+	DDRB |= PGD;
 }
 
 
 uint8_t usbFunctionSetup(uint8_t data[8]) {
 	usbRequest_t *rq = (void *)data;
 
+	PORTD &= ~GREEN;
+
+	if ((rq->bmRequestType & USBRQ_TYPE_MASK) == USBRQ_TYPE_VENDOR)
 	switch(rq->bRequest)
 	{
 		/* HOST to DEVICE data transfers requests */
@@ -137,6 +162,7 @@ uint8_t usbFunctionSetup(uint8_t data[8]) {
 			ICSP_write(command, ICSP_data);
 
 			// Return the number of bytes we wrote (none here)
+			PORTD |= GREEN;
 			return 0;
 		}
 
@@ -152,8 +178,9 @@ uint8_t usbFunctionSetup(uint8_t data[8]) {
 			command = rq->bRequest;
 
 			// send the command
-			ICSP_command(command);
+			ICSP_write(command, 0);
 
+			PORTD |= GREEN;
 			return 0; 
 		}
 
@@ -166,9 +193,12 @@ uint8_t usbFunctionSetup(uint8_t data[8]) {
 			ICSP_read(command, &ICSP_data);
 			usbMsgPtr = (uint8_t*)&ICSP_data;
 
+			PORTD |= GREEN;
 			return 2; // We send 2 bytes back
 		}
 	}
+
+	// Unhandled commands leave the green led on.
 	return 0;
 }
 
