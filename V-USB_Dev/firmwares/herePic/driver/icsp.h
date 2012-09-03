@@ -4,6 +4,8 @@
  * This file is distributed under the terms of the MIT licence.
  */
 
+#include <assert.h>
+#include <errno.h>
 #include <string.h>
 
 class ICSP
@@ -16,28 +18,30 @@ class ICSP
 
 		uint16_t Execute(ICSPCommands command, uint16_t param = 0)
 		{
-			// TODO send the command to the device
+			//std::cout << "Sending command " << command << " " << param << " to the device" << std::endl; 
+
+			// send the command to the device
 			uint16 length;
 			uint8 reqType = USB_REQTYPE_VENDOR;
 			if(command == ReadCodeWord || command == ReadDataWord)
 			{
 				length = 2;
-				reqType |= USB_REQTYPE_DEVICE_OUT;
+				reqType |= USB_REQTYPE_DEVICE_IN; // Device to host
 			} else {
 				length = 0;
-				reqType |= USB_REQTYPE_DEVICE_IN;
+				reqType |= USB_REQTYPE_DEVICE_OUT; // Host to device
 			}
 
 			ssize_t result = fDevice.ControlTransfer(reqType, command, param, 0,
-				length, &param);
+				length, length == 0 ? NULL:&param);
 			if (result == length) {
 				// We transferred as much bytes as we wanted.
 				// Everyone is happy !
 				return param;
 			} else {
 				// Not enough bytes transferred, or the result is an error code
-				std::cerr << "USB communication error " << result
-					<< "(" << strerror(result) << ")" << std::endl;;
+				std::cerr << "USB communication error " << errno
+					<< "(" << strerror(errno) << ")" << std::endl;;
 				return result;
 			}
 		}
