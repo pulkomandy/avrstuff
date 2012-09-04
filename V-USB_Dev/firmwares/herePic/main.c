@@ -44,19 +44,18 @@ uint16_t ICSP_data;
 
 
 int main() {
+	// Enter Low Voltage ICSP mode on the PIC
+	PORTB &= ~(VPP|PGM|PGD|PGC); // Start with all pins low
+	DDRB |= VPP|PGM|PGD|PGC;	// set them as outputs
+	_delay_us(5); // Wait for some time
+	PORTB |= PGM | VPP; // Enter low voltage programming mode
+
 	// Init
 	wdt_enable(WDTO_2S);
 
 	// USB
 	usbInit();
 	sei();
-
-	// Enter Low Voltage ICSP mode on the PIC
-	PORTB &= ~(VPP|PGM|PGD|PGC); // Start with all pin low
-	DDRB |= VPP|PGM|PGD|PGC;	// set them as outputs
-	_delay_us(4); // Wait for some time
-	PORTB |= PGM; // Enable low voltage programming
-	PORTB |= VPP; // Enter programming mode
 
 	// Configure leds
 	DDRD |= RED | GREEN;
