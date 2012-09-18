@@ -1,4 +1,4 @@
-update=30/04/2011 19:19:16
+update=09/09/2012 13:54:58
 version=1
 last_client=eeschema
 [cvpcb]
@@ -85,4 +85,4 @@ LibName8=interface
 LibName9=contrib
 LibName10=valves
 LibName11=dips-s
-LibName12=flashmemory
+LibName12=byteeeprom
