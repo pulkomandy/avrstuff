@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date 19/09/2012 21:31:40
+EESchema Schematic File Version 2  date 22/09/2012 18:26:40
 LIBS:device
 LIBS:power
 LIBS:transistors
@@ -17,7 +17,7 @@ $Descr User 10000 6000
 encoding utf-8
 Sheet 1 1
 Title "Ramcard"
-Date "19 sep 2012"
+Date "22 sep 2012"
 Rev ""
 Comp "Ram7"
 Comment1 "Retro analyzed from PCB"
@@ -25,6 +25,7 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+Connection ~ 8400 3550
 Wire Wire Line
 	2000 1950 2000 1900
 Wire Wire Line

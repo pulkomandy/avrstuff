@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPCB (2011-07-08 BZR 3044)-stable date = 19/09/2012 18:54:07
+Cmp-Mod V01 Created by CvPCB (2011-07-08 BZR 3044)-stable date = 22/09/2012 17:38:54
 
 BeginCmp
 TimeStamp = /4CA870EF;
@@ -116,7 +116,7 @@ BeginCmp
 TimeStamp = /504C8586;
 Reference = U1;
 ValeurCmp = 74LS574;
-IdModule  = DIP-18__300_ELL;
+IdModule  = DIP-20__300_ELL;
 EndCmp
 
 BeginCmp
