@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPCB (2011-07-08 BZR 3044)-stable date = 22/09/2012 17:38:54
+Cmp-Mod V01 Created by CvPCB (2011-07-08 BZR 3044)-stable date = 25/09/2012 22:38:31
 
 BeginCmp
 TimeStamp = /4CA870EF;
@@ -53,7 +53,7 @@ BeginCmp
 TimeStamp = /4CA870AA;
 Reference = D13;
 ValeurCmp = DIODE;
-IdModule  = D4.6;
+IdModule  = D4;
 EndCmp
 
 BeginCmp
