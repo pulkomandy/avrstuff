@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPCB (2011-07-08 BZR 3044)-stable date = 25/09/2012 22:38:31
+Cmp-Mod V01 Created by CvPCB (2011-07-08 BZR 3044)-stable date = 29/09/2012 14:59:49
 
 BeginCmp
 TimeStamp = /4CA870EF;
@@ -32,7 +32,7 @@ BeginCmp
 TimeStamp = /5058E14C;
 Reference = D1;
 ValeurCmp = LED;
-IdModule  = D3;
+IdModule  = LED-3MM;
 EndCmp
 
 BeginCmp
@@ -92,24 +92,38 @@ IdModule  = R3;
 EndCmp
 
 BeginCmp
+TimeStamp = /5066ED0E;
+Reference = R5;
+ValeurCmp = 10KR;
+IdModule  = R3;
+EndCmp
+
+BeginCmp
 TimeStamp = /5059F50B;
 Reference = SW1;
-ValeurCmp = SWITCH_DSDP;
+ValeurCmp = WRITE;
 IdModule  = DIP-6__300_ELL;
 EndCmp
 
 BeginCmp
 TimeStamp = /5058E053;
 Reference = SW2;
-ValeurCmp = SWITCH_INV;
+ValeurCmp = ROM7;
 IdModule  = SIL-3;
 EndCmp
 
 BeginCmp
 TimeStamp = /5058E041;
 Reference = SW3;
-ValeurCmp = SWITCH_INV;
+ValeurCmp = ROM0;
 IdModule  = SIL-3;
+EndCmp
+
+BeginCmp
+TimeStamp = /5066EDE6;
+Reference = SW4;
+ValeurCmp = SW_PUSH;
+IdModule  = PINHEAD1-2;
 EndCmp
 
 BeginCmp
