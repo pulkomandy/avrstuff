@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date 06/10/2012 12:12:36
+EESchema Schematic File Version 2  date 17/11/2012 12:11:23
 LIBS:device
 LIBS:power
 LIBS:transistors
@@ -17,7 +17,7 @@ $Descr User 10000 6000
 encoding utf-8
 Sheet 1 1
 Title "Ramcard"
-Date "29 sep 2012"
+Date "17 nov 2012"
 Rev ""
 Comp "Ram7"
 Comment1 "Retro analyzed from PCB"
@@ -663,7 +663,7 @@ A13
 Text Label 9300 2000 0    60   ~ 0
 /CE
 Text Label 6950 3450 0    60   ~ 0
-CE
+/CE
 $Comp
 L VCC #PWR09
 U 1 1 4DDEB8E8
