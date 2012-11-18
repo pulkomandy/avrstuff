@@ -1,0 +1,92 @@
+; FLASH GORDON driver
+; Copyright 2012, Adrien Destugues <pulkomandy@gmail.com>
+; This program is distributed under the terms of the MIT licence
+
+; Start here.
+	DI
+
+; Move the screen to $8000 or $0000 so we can display things to the user, while
+; C000 will write to the ROM and 4000 will hold the data to write... That could
+; get a bit messy so maybe we will need to use the screen at 4000 as a buffer
+; for the ROM data as well. Or just use a bank for that ?
+
+; Map the ROM in
+; TODO
+
+; ask the user to enable writing
+; TODO
+
+; Check if we can read the ROM type
+	LD A, 0x90
+	CALL send_command
+
+	LD HL, 0xC000
+
+	LD A,(HL)
+	CALL printhex
+	INC L
+	LD A,(HL)
+	CALL printhex
+
+	; We should get 0x8F 87
+	; TODO check that before continuing with writing the data
+	JR $
+
+	; Now reuse and adapt the code from OUL guys !
+
+; That's all folks !
+	RET
+
+; Helper routines -----------------------------------------------------
+
+; Send a command to the ROM. The available commands are :
+ERASE		equ	0x80
+IDENTIFY	equ	0x90
+BYTEPROG	equ 0xA0
+RESET		equ	0xF0
+
+; Input: Commend to send in A register
+send_command:
+	; Select ROM 1
+	LD BC,0xDF01
+	LD HL,0xD555
+	LD DE,0xEAAA
+
+	; Select ROM 1 and write 0xAA to address 0xD555
+	OUT (C),C
+	LD (HL),E
+
+	; Select ROM 2 and write 0x55 to address 0xEAAA
+	INC C
+	OUT (C),C
+	EX DE,HL
+	LD (HL), E
+
+	; Select ROM 1 again and write the command to address 0xEAAA
+	DEC C
+	OUT (C),C
+	EX DE,HL
+	LD (HL), A
+
+	RET
+
+
+; Print value of A, as 2 hex digits
+printhex
+	PUSH	AF
+	RRA	
+	RRA	
+	RRA	
+	RRA		;divise A par 8 
+	CALL	PRNHEX1	;affiche le premier morceau
+	POP	AF	;r{cup la valeur originale pour la suit
+PRNHEX1			;affiche la valeur de A sur 1 chiffre
+;affiche A sur 1 chiffre en Hexa
+	AND	0xF	;ne prend que les unit{s
+	OR	A
+	DAA		;convertit en d{cimal  
+	ADD	A,0xF0	;ajoute 240
+	ADC	A,0x40	;ajoute 64+le carry (si >15)
+;on a le code ascii du chiffre @ afficher
+	JP	0xBB5A	;call-ret
+;
