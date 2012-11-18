@@ -9,30 +9,80 @@
 ; C000 will write to the ROM and 4000 will hold the data to write... That could
 ; get a bit messy so maybe we will need to use the screen at 4000 as a buffer
 ; for the ROM data as well. Or just use a bank for that ?
+	; TODO
 
 ; Map the ROM in
-; TODO
+	LD BC, 0x7F85
+	OUT (C),C
 
 ; ask the user to enable writing
-; TODO
+	; TODO
 
-; Check if we can read the ROM type
-	LD A, 0x90
+; Turns out with the MegaFlash design, we can't both read and write. When the
+; memory is in write mode, reading is disabled. This means we can't identify
+; the chip, or use the data polling features. And we have to go for the
+; worst-case timing given in the datasheet :(
+
+; ... anyway, start with erasing the sectors we need.
+	CALL 0xBD19
+	LD B, 4
+ERASE
+	PUSH BC
+
+	LD A, 0x80 ; ERASE
 	CALL send_command
 
+	CALL prepare_command
+	
+	LD B,0xDF
+	LD C,5 ; ROM number to write (FIXME get it as a RSX param)
+	OUT (C),C
+
+	; Compute address near start of sector
+	POP BC
+	LD A,B
+	DEC A
+	SLA A
+	SLA A
+	
+	ADD 0xC0
+
+	LD H,A
+
+	LD E, 0x30
+	LD (HL), E
+
+	; This will delay long enough - we need at least 25ms
+	CALL 0xBD19
+
+	DJNZ ERASE
+
+; Ok, now that we erased the 4 sectors we needed, we can write data to them
 	LD HL, 0xC000
+	LD IX, 0x4000
+PROGRAM
+	LD A, 0xA0 ; BYTE PROGRAM ;	2	10
+	PUSH HL					  ;	3	13
+	CALL send_command		  ; 5	18
 
-	LD A,(HL)
-	CALL printhex
-	INC L
-	LD A,(HL)
-	CALL printhex
+	LD B,0xDF
+	LD C,5 ; ROM number to write (FIXME get it as a RSX param)
+	OUT (C),C
 
-	; We should get 0x8F 87
-	; TODO check that before continuing with writing the data
+	POP HL
+
+	LD A,(IX + 0)
+	LD (HL),A		; Write occurs here. Need to wait 20 NOPs before next
+					; operation on ROM. Our code is slow enough already !
+
+	INC HL					;	2	2
+	INC IX					;	3	5
+	JR NC, PROGRAM			;	3	8
+
 	JR $
 
-	; Now reuse and adapt the code from OUL guys !
+; Now reuse and adapt the code from OUL guys !
+	; TODO
 
 ; That's all folks !
 	RET
@@ -40,13 +90,25 @@
 ; Helper routines -----------------------------------------------------
 
 ; Send a command to the ROM. The available commands are :
-ERASE		equ	0x80
+;ERASE		equ	0x80
 IDENTIFY	equ	0x90
 BYTEPROG	equ 0xA0
 RESET		equ	0xF0
 
 ; Input: Commend to send in A register
 send_command:
+	; That code is shared with sector erase which has some tricks
+	call prepare_command
+
+	; Select ROM 1 again and write the command to address 0xEAAA
+	DEC C
+	OUT (C),C
+	EX DE,HL
+	LD (HL), A
+
+	RET
+
+prepare_command:
 	; Select ROM 1
 	LD BC,0xDF01
 	LD HL,0xD555
@@ -61,12 +123,6 @@ send_command:
 	OUT (C),C
 	EX DE,HL
 	LD (HL), E
-
-	; Select ROM 1 again and write the command to address 0xEAAA
-	DEC C
-	OUT (C),C
-	EX DE,HL
-	LD (HL), A
 
 	RET
 
