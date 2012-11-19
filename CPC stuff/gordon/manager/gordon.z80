@@ -5,6 +5,9 @@
 ; Start here.
 	DI
 
+	LD HL, 0xC9FB
+	LD (0x38), HL
+
 ; Move the screen to $8000 or $0000 so we can display things to the user, while
 ; C000 will write to the ROM and 4000 will hold the data to write... That could
 ; get a bit messy so maybe we will need to use the screen at 4000 as a buffer
@@ -24,7 +27,6 @@
 ; worst-case timing given in the datasheet :(
 
 ; ... anyway, start with erasing the sectors we need.
-	CALL 0xBD19
 	LD B, 4
 ERASE
 	PUSH BC
@@ -53,7 +55,12 @@ ERASE
 	LD (HL), E
 
 	; This will delay long enough - we need at least 25ms
-	CALL 0xBD19
+	EI
+	HALT
+	HALT
+	HALT
+	HALT
+	DI
 
 	DJNZ ERASE
 
@@ -75,9 +82,13 @@ PROGRAM
 	LD (HL),A		; Write occurs here. Need to wait 20 NOPs before next
 					; operation on ROM. Our code is slow enough already !
 
-	INC HL					;	2	2
 	INC IX					;	3	5
-	JR NC, PROGRAM			;	3	8
+	INC HL					;	2	2
+
+	LD A,H
+	OR L
+
+	JR NZ, PROGRAM			;	3	8
 
 	JR $
 
@@ -101,10 +112,16 @@ send_command:
 	call prepare_command
 
 	; Select ROM 1 again and write the command to address 0xEAAA
-	DEC C
+	INC C
 	OUT (C),C
 	EX DE,HL
 	LD (HL), A
+
+	; Select ROM 0xFF, which basically prevents future accesses to get to the
+	; Flash chip.
+	DEC C
+	DEC C
+	OUT (C),C
 
 	RET
 
@@ -119,7 +136,7 @@ prepare_command:
 	LD (HL),E
 
 	; Select ROM 2 and write 0x55 to address 0xEAAA
-	INC C
+	DEC C
 	OUT (C),C
 	EX DE,HL
 	LD (HL), E
