@@ -2,34 +2,89 @@
 ; Copyright 2012, Adrien Destugues <pulkomandy@gmail.com>
 ; This program is distributed under the terms of the MIT licence
 
-; Start here.
+	GLOBAL _start
+
+; Friendly firmware functions
+getc	EQU	0xBB06
+putc	EQU	0xBB5A
+screenmem	EQU	0xBC08
+
+
+; FIXME the plan is to have the same file behave both as a ROM and as an
+; executable, so it can bootstrap itself into the megaflash. So we should start
+; with a standard ROM header. RSXs to expose are :
+; |BURN,"file",n (load file to &4000, then copy it to ROM n)
+; |HIDE,n (write a FF as first byte in ROM to hide it from firmware)
+; |HIDE (hides all ROMs)
+; |SHOW,n (restore ROM n to visible state
+; |SHOW (shows all ROMs)
+; |KILL,n (erases ROM n)
+
+; This is the entry point when running as a standalone file
+_start
+	; Ask the user to allow us to write to the flash memory
+	LD HL,MSG_WRITE_START
+	CALL puts
+	CALL getc
+	; From there on, writing is enabled. This is ok as long as we don't
+	; connect a writable ROM ! When we do, we have to make sure NOTHING
+	; is read written from 8000-FFFF because the MegaFlash hardware
+	; doesn't decode A14 and will answer for the whole 32k range. This
+	; means, no use of firmware jumpblocks, and the stack needs to be
+	; moved elsewhere
+
 	DI
+	; Move the stack away from the $8000-$FFFF area, since any write there
+	; will be intercepted by the Megaflash (it does not decode A14).
+	LD (stack),SP
+	LD SP,0x7FFF
 
-	LD HL, 0xC9FB
-	LD (0x38), HL
+	; Save the interrupt vector and replace it with EI/RET
+	LD HL,(0x38)
+          LD (inthandle),HL
+	LD HL,0xC9FB
+	LD (0x38),HL
 
-; Move the screen to $8000 or $0000 so we can display things to the user, while
-; C000 will write to the ROM and 4000 will hold the data to write... That could
-; get a bit messy so maybe we will need to use the screen at 4000 as a buffer
-; for the ROM data as well. Or just use a bank for that ?
-	; TODO
+	; TODO get the ROM number to burn somehow ?
+	; (we can get it as a CALL parameter)
 
-; Map the ROM in
-	LD BC, 0x7F85
+	CALL ERASE
+	CALL WRITE
+
+	; Disconnect the Megaflash
+	LD BC,0xDFFF
 	OUT (C),C
 
-; ask the user to enable writing
-	; TODO
+	; Restore the firmware in working order now that we are done
+	LD SP,(stack)
+          LD HL,(inthandle)
+          LD (0x38),HL
+	EI
 
-; Turns out with the MegaFlash design, we can't both read and write. When the
-; memory is in write mode, reading is disabled. This means we can't identify
-; the chip, or use the data polling features. And we have to go for the
-; worst-case timing given in the datasheet :(
+	; Tell firmware to draw the screen at &4000 (so we don't erase the
+          ; ROM with the next message...)
+	LD A,0x40
+	CALL screenmem
 
-; ... anyway, start with erasing the sectors we need.
-	LD B, 4
+	LD HL,MSG_WRITE_END
+	CALL puts
+	; Wait for key
+	CALL 0xBB06
+
+	; Put screen back at normal address
+	LD A,0xC0
+	CALL screenmem
+
+	; TODO cleanly get out (and handle both calls by RUN and CALL)
+	JR $
+
+; Erase a 16K ROM. Input:
+; A - ROM number to erase (TODO)
+; Assumes we are in write mode, interrupts disabled.
 ERASE
-	PUSH BC
+          LD B,4
+eraseloop
+          PUSH BC
 
 	LD A, 0x80 ; ERASE
 	CALL send_command
@@ -50,52 +105,61 @@ ERASE
 	ADD 0xC0
 
 	LD H,A
+	LD L,0
 
+	; Sector erase command
 	LD E, 0x30
 	LD (HL), E
 
-	; This will delay long enough - we need at least 25ms
+	; This will delay long enough - we need at least 20ms
 	EI
 	HALT
 	HALT
 	HALT
 	HALT
+	HALT
+          HALT
+	HALT
 	DI
 
-	DJNZ ERASE
+	DJNZ eraseloop
 
+	RET
+
+
+; Write a 16K ROM
+; IN: A     - ROM number to write (TODO)
+;     &2000 - Data to copy (TODO let the caller put that in IX maybe ?)
+; Assumes we are in write-enabled mode (TODO)
+WRITE
 ; Ok, now that we erased the 4 sectors we needed, we can write data to them
 	LD HL, 0xC000
-	LD IX, 0x4000
+	LD IX, 0x2000
 PROGRAM
-	LD A, 0xA0 ; BYTE PROGRAM ;	2	10
-	PUSH HL					  ;	3	13
-	CALL send_command		  ; 5	18
+          PUSH HL
+
+	LD A, 0xA0 ; BYTE PROGRAM
+	CALL send_command
+
+	POP HL
 
 	LD B,0xDF
 	LD C,5 ; ROM number to write (FIXME get it as a RSX param)
 	OUT (C),C
 
-	POP HL
-
 	LD A,(IX + 0)
-	LD (HL),A		; Write occurs here. Need to wait 20 NOPs before next
-					; operation on ROM. Our code is slow enough already !
+	LD (HL),A	; Write occurs here. Need to wait 20 NOPs before next
+		; operation on ROM. Our code is slow enough already !
 
-	INC IX					;	3	5
-	INC HL					;	2	2
+	INC IX
+	INC HL
 
+	; As INC HL doesn't update the flags, check if we overflowed yet
 	LD A,H
 	OR L
 
-	JR NZ, PROGRAM			;	3	8
+	JR NZ, PROGRAM
 
-	JR $
-
-; Now reuse and adapt the code from OUL guys !
-	; TODO
-
-; That's all folks !
 	RET
 
 ; Helper routines -----------------------------------------------------
@@ -112,7 +176,7 @@ send_command:
 	call prepare_command
 
 	; Select ROM 1 again and write the command to address 0xEAAA
-	INC C
+	DEC C
 	OUT (C),C
 	EX DE,HL
 	LD (HL), A
@@ -136,7 +200,7 @@ prepare_command:
 	LD (HL),E
 
 	; Select ROM 2 and write 0x55 to address 0xEAAA
-	DEC C
+	INC C
 	OUT (C),C
 	EX DE,HL
 	LD (HL), E
@@ -144,8 +208,83 @@ prepare_command:
 	RET
 
 
-; Print value of A, as 2 hex digits
-printhex
+; Write message pointed by HL to screen
+puts
+	LD A,(HL)
+	INC HL
+	CALL &BB5A
+	OR A
+	JR NZ,puts
+	RET
+
+; -----------------------------------------------------------------------------
+; Messages
+MSG_WRITE_START string "Turn write switch ON and press a key...\r\n"
+MSG_WRITE_END string "Turn write switch OFF and press a key...\r\n"
+
+; -----------------------------------------------------------------------------
+	SECTION .uninit,"urw"
+
+stack	DEFW	1
+inthandle	DEFW	1
+
+	end
+
+; Very basic command prompt/monitor stuff for testing
+	; Print prompt
+	LD A,'?'
+	CALL 0xBB5A
+	; Wait for key
+	CALL 0xBB06
+	; Parse commands
+	CP A,'d'
+	JP Z,DUMP
+	CP A,'e'
+	JP Z,ERASE
+	CP A,'w'
+	JP Z,WRITE
+
+	; Unhandled command
+	LD A,'X'
+	CALL 0xBB5A
+
+	; Start over
+	JR _start
+
+
+; Dump some bytes from beginning of ROM 5
+DUMP
+	DI
+
+; Map the ROM in (stay in mode 1 and get system rom out)
+	LD BC, 0x7F85
+	OUT (C),C
+
+	LD BC,0xDF05
+	OUT (C),C
+
+; Copy the ROM to RAM
+	LD DE, 0x4000
+	LD BC, 0x4000
+	LD HL, 0xC000
+	LDIR
+
+	EI
+
+; Dump the RAM (we're safe if the system maps another ROM this way)
+	LD HL,0x4000
+plop
+	LD A,(HL)
+	INC HL
+	CALL PRNHEX2
+	DJNZ plop
+
+; Wait for next command
+	JP _start
+
+
+PRNHEX2			;affiche la valeur de A sur 2 chiffres
+;     en hexad{cimal
 	PUSH	AF
 	RRA	
 	RRA	
@@ -162,4 +301,25 @@ PRNHEX1			;affiche la valeur de A sur 1 chiffre
 	ADC	A,0x40	;ajoute 64+le carry (si >15)
 ;on a le code ascii du chiffre @ afficher
 	JP	0xBB5A	;call-ret
-;
+
+
+PRNHEX2			;affiche la valeur de A sur 2 chiffres
+;     en hexad{cimal
+	PUSH	AF
+	RRA	
+	RRA	
+	RRA	
+	RRA		;divise A par 8 
+	CALL	PRNHEX1	;affiche le premier morceau
+	POP	AF	;r{cup la valeur originale pour la suit
+PRNHEX1			;affiche la valeur de A sur 1 chiffre
+;affiche A sur 1 chiffre en Hexa
+	AND	0xF	;ne prend que les unit{s
+	OR	A
+	DAA		;convertit en d{cimal  
+	ADD	A,0xF0	;ajoute 240
+	ADC	A,0x40	;ajoute 64+le carry (si >15)
+;on a le code ascii du chiffre @ afficher
+	JP	0xBB5A	;call-ret
+
+

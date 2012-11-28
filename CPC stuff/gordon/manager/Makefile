@@ -8,6 +8,6 @@ $(NAME).dsk:: $(NAME).BIN
 # at &300 and (hopefully) loaded there by the loader code.
 # TODO use a target variable for the address, and get it from VASM/VLINK somehow
 $(NAME).BIN:: gordon.o
-$(NAME).BIN: START = 0x2000
+$(NAME).BIN: START = 0x1800
 
 include cpc.mk

@@ -34,7 +34,7 @@ emu: $(NAME).dsk
 #-Ttext $(START)
 
 # Assemble the sources
-%.o: %.z80
+%.o: %.z80 Makefile
 	$(call BECHO,"Assembling $<...")
 	vasmz80_oldstyle -Fvobj -o $@ $<
 
