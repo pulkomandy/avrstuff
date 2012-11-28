@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date 17/11/2012 12:11:23
+EESchema Schematic File Version 2  date 28/11/2012 19:25:03
 LIBS:device
 LIBS:power
 LIBS:transistors
@@ -17,7 +17,7 @@ $Descr User 10000 6000
 encoding utf-8
 Sheet 1 1
 Title "Ramcard"
-Date "17 nov 2012"
+Date "28 nov 2012"
 Rev ""
 Comp "Ram7"
 Comment1 "Retro analyzed from PCB"
@@ -25,6 +25,10 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+Wire Wire Line
+	6500 1900 6500 2100
+Wire Wire Line
+	6300 1900 6300 2100
 Wire Wire Line
 	6950 4250 7200 4250
 Connection ~ 8400 3550
@@ -137,14 +141,6 @@ Wire Wire Line
 	6400 1100 6400 800 
 Wire Wire Line
 	6200 1100 6200 800 
-Wire Wire Line
-	6500 1900 6500 2200
-Wire Wire Line
-	6400 1900 6400 2200
-Wire Wire Line
-	6300 1900 6300 2200
-Wire Bus Line
-	6200 2200 6500 2200
 Connection ~ 2650 5050
 Connection ~ 2650 4950
 Connection ~ 2650 4850
@@ -237,8 +233,6 @@ Wire Wire Line
 	8300 3550 8500 3550
 Wire Wire Line
 	7400 2100 7400 1900
-Wire Wire Line
-	6200 1900 6200 2200
 Wire Bus Line
 	6200 800  6500 800 
 Wire Wire Line
@@ -321,6 +315,12 @@ Wire Wire Line
 	1900 2250 2000 2250
 Wire Wire Line
 	4600 2250 4600 2150
+Wire Wire Line
+	6200 1900 6200 2100
+Wire Wire Line
+	6400 1900 6400 2100
+NoConn ~ 5400 950 
+NoConn ~ 6800 950 
 $Comp
 L GND #PWR01
 U 1 1 5066EDF0
@@ -673,8 +673,6 @@ F 1 "VCC" H 9300 2450 30  0000 C CNN
 	1    9300 2350
 	0    1    1    0   
 $EndComp
-Text Label 6800 950  1    60   ~ 0
-RD
 $Comp
 L GND #PWR010
 U 1 1 4DC04C38
@@ -837,14 +835,6 @@ Entry Wire Line
 	6300 800  6200 700 
 Entry Wire Line
 	6200 800  6100 700 
-Entry Wire Line
-	6500 2200 6400 2100
-Entry Wire Line
-	6400 2200 6300 2100
-Entry Wire Line
-	6300 2200 6200 2100
-Entry Wire Line
-	6200 2200 6100 2100
 Text Label 6200 2100 1    60   ~ 0
 D7
 Text Label 6300 2100 1    60   ~ 0
