@@ -41,15 +41,28 @@ _start
 
 	; Save the interrupt vector and replace it with EI/RET
 	LD HL,(0x38)
-          LD (inthandle),HL
+    LD (inthandle),HL
 	LD HL,0xC9FB
 	LD (0x38),HL
+
+	; Now that we got the system out of the way, map the ROM
+	; (we stay in mode 1)
+	LD BC, 0x7F85
+	OUT (C),C
 
 	; TODO get the ROM number to burn somehow ?
 	; (we can get it as a CALL parameter)
 
 	CALL ERASE
-	CALL WRITE
+	CALL CHECKBLANK
+
+	; Load the "erase error" message. If erase actually succeded, we will go
+	; to the write function which will set something else.
+	; DE holds the error address
+	EX DE,HL
+	LD HL,MSG_ERASE_ERR
+	LD (status),HL
+	CALL Z,WRITE
 
 	; Disconnect the Megaflash
 	LD BC,0xDFFF
@@ -57,8 +70,8 @@ _start
 
 	; Restore the firmware in working order now that we are done
 	LD SP,(stack)
-          LD HL,(inthandle)
-          LD (0x38),HL
+    LD HL,(inthandle)
+	LD (0x38),HL
 	EI
 
 	; Tell firmware to draw the screen at &4000 (so we don't erase the
@@ -66,6 +79,19 @@ _start
 	LD A,0x40
 	CALL screenmem
 
+	; TODO clear screen
+
+	; Print the error/success message
+	LD HL,(status)
+	CALL puts
+
+	; Print DE so we know where the problem was
+	LD A,D
+	CALL PRNHEX2
+	LD A,E
+	CALL PRNHEX2
+
+	; Now user can safely disconnect the ROM
 	LD HL,MSG_WRITE_END
 	CALL puts
 	; Wait for key
@@ -75,16 +101,34 @@ _start
 	LD A,0xC0
 	CALL screenmem
 
+	; TODO clear screen
+	LD HL,0xC000
+	CALL DUMP
+	CALL 0xBB06
+
+	LD HL, 0xD000
+	CALL DUMP
+	CALL 0xBB06
+
+	LD HL, 0xE000
+	CALL DUMP
+	CALL 0xBB06
+
+	LD HL,0xF000
+	CALL DUMP
+	CALL 0xBB06
+
 	; TODO cleanly get out (and handle both calls by RUN and CALL)
 	JR $
+
 
 ; Erase a 16K ROM. Input:
 ; A - ROM number to erase (TODO)
 ; Assumes we are in write mode, interrupts disabled.
 ERASE
-          LD B,4
+    LD B,4
 eraseloop
-          PUSH BC
+    PUSH BC
 
 	LD A, 0x80 ; ERASE
 	CALL send_command
@@ -97,12 +141,12 @@ eraseloop
 
 	; Compute address near start of sector
 	POP BC
-	LD A,B
-	DEC A
-	SLA A
-	SLA A
-	
-	ADD 0xC0
+
+	LD HL, addrmap-1
+	LD D,0
+	LD E,B
+	ADD HL,DE
+	LD A,(HL)
 
 	LD H,A
 	LD L,0
@@ -118,7 +162,7 @@ eraseloop
 	HALT
 	HALT
 	HALT
-          HALT
+	HALT
 	HALT
 	DI
 
@@ -126,6 +170,7 @@ eraseloop
 
 	RET
 
+addrmap defb 0xC0, 0xD0, 0xE0, 0xF0
 
 ; Write a 16K ROM
 ; IN: A     - ROM number to write (TODO)
@@ -136,7 +181,7 @@ WRITE
 	LD HL, 0xC000
 	LD IX, 0x2000
 PROGRAM
-          PUSH HL
+	PUSH HL
 
 	LD A, 0xA0 ; BYTE PROGRAM
 	CALL send_command
@@ -160,8 +205,31 @@ PROGRAM
 
 	JR NZ, PROGRAM
 
+	LD HL,MSG_WRITE_OK
+	LD (status),HL
 	RET
 
+
+; Check if the ROM was erased properly and contains all FF bytes.
+; Input: upper ROM is connected
+; Output: Z flag set if all ok, else HL points to error
+CHECKBLANK
+	; TODO select the right ROM
+	LD BC,0xDF05
+	OUT (C),C
+	
+	LD HL, 0xC000
+.checkbyte
+	LD A,(HL)
+
+	CP 0xFF
+	RET NZ
+
+	INC HL
+	LD A,H
+	OR A
+	RET Z
+	JR .checkbyte
 ; Helper routines -----------------------------------------------------
 
 ; Send a command to the ROM. The available commands are :
@@ -217,18 +285,73 @@ puts
 	JR NZ,puts
 	RET
 
+; Print A value as hexadecimal
+; AF is corrupt
+PRNHEX2
+	PUSH	AF
+	RRA	
+	RRA	
+	RRA	
+	RRA		;divise A par 8 
+	CALL	PRNHEX1	;affiche le premier morceau
+	POP	AF	;r{cup la valeur originale pour la suit
+PRNHEX1			;affiche la valeur de A sur 1 chiffre
+;affiche A sur 1 chiffre en Hexa
+	AND	0xF	;ne prend que les unit{s
+	OR	A
+	DAA		;convertit en d{cimal  
+	ADD	A,0xF0	;ajoute 240
+	ADC	A,0x40	;ajoute 64+le carry (si >15)
+;on a le code ascii du chiffre @ afficher
+	JP	0xBB5A	;call-ret
+
+
+; Dump some bytes from beginning of ROM 5
+DUMP
+	DI
+
+; Map the ROM in (stay in mode 1 and get system rom out)
+	LD BC, 0x7F85
+	OUT (C),C
+
+	LD BC,0xDF05
+	OUT (C),C
+
+; Copy the ROM to RAM
+	LD DE, 0x4000
+	LD BC, 0x4000
+	LDIR
+
+	EI
+
+; Dump the RAM (we're safe if the system maps another ROM this way)
+	LD HL,0x4000
+plop
+	LD A,(HL)
+	INC HL
+	CALL PRNHEX2
+	DJNZ plop
+
+; Wait for next command
+	RET
+
+
 ; -----------------------------------------------------------------------------
 ; Messages
-MSG_WRITE_START string "Turn write switch ON and press a key...\r\n"
-MSG_WRITE_END string "Turn write switch OFF and press a key...\r\n"
+MSG_WRITE_START	string "Turn write switch ON and press a key...\r\n"
+MSG_WRITE_END	string "Turn write switch OFF and press a key...\r\n"
+MSG_ERASE_ERR	string "Erasing memory failed at address "
+MSG_WRITE_OK	string "Success!\r\n"
 
 ; -----------------------------------------------------------------------------
 	SECTION .uninit,"urw"
 
-stack	DEFW	1
+stack		DEFW	1
 inthandle	DEFW	1
+status		DEFW	1
 
 	end
+; END END END END END END END END END END END END END END END END END END END
 
 ; Very basic command prompt/monitor stuff for testing
 	; Print prompt
@@ -250,76 +373,5 @@ inthandle	DEFW	1
 
 	; Start over
 	JR _start
-
-
-; Dump some bytes from beginning of ROM 5
-DUMP
-	DI
-
-; Map the ROM in (stay in mode 1 and get system rom out)
-	LD BC, 0x7F85
-	OUT (C),C
-
-	LD BC,0xDF05
-	OUT (C),C
-
-; Copy the ROM to RAM
-	LD DE, 0x4000
-	LD BC, 0x4000
-	LD HL, 0xC000
-	LDIR
-
-	EI
-
-; Dump the RAM (we're safe if the system maps another ROM this way)
-	LD HL,0x4000
-plop
-	LD A,(HL)
-	INC HL
-	CALL PRNHEX2
-	DJNZ plop
-
-; Wait for next command
-	JP _start
-
-
-PRNHEX2			;affiche la valeur de A sur 2 chiffres
-;     en hexad{cimal
-	PUSH	AF
-	RRA	
-	RRA	
-	RRA	
-	RRA		;divise A par 8 
-	CALL	PRNHEX1	;affiche le premier morceau
-	POP	AF	;r{cup la valeur originale pour la suit
-PRNHEX1			;affiche la valeur de A sur 1 chiffre
-;affiche A sur 1 chiffre en Hexa
-	AND	0xF	;ne prend que les unit{s
-	OR	A
-	DAA		;convertit en d{cimal  
-	ADD	A,0xF0	;ajoute 240
-	ADC	A,0x40	;ajoute 64+le carry (si >15)
-;on a le code ascii du chiffre @ afficher
-	JP	0xBB5A	;call-ret
-
-
-PRNHEX2			;affiche la valeur de A sur 2 chiffres
-;     en hexad{cimal
-	PUSH	AF
-	RRA	
-	RRA	
-	RRA	
-	RRA		;divise A par 8 
-	CALL	PRNHEX1	;affiche le premier morceau
-	POP	AF	;r{cup la valeur originale pour la suit
-PRNHEX1			;affiche la valeur de A sur 1 chiffre
-;affiche A sur 1 chiffre en Hexa
-	AND	0xF	;ne prend que les unit{s
-	OR	A
-	DAA		;convertit en d{cimal  
-	ADD	A,0xF0	;ajoute 240
-	ADC	A,0x40	;ajoute 64+le carry (si >15)
-;on a le code ascii du chiffre @ afficher
-	JP	0xBB5A	;call-ret
 
 
