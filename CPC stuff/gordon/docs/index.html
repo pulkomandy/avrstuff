@@ -1,0 +1,219 @@
+<html>
+	<head>
+	</head>
+	<body>
+		<h1>FLASH GORDON</h1>
+		<h2>512K ROM EXPANSION FOR AMSTRAD/SCHNEIDER CPC</h2>
+
+		<h3>USER'S MANUAL</h3>
+
+
+		<h4>First words</h4>
+
+		<p>Thanks for buying the FlashGordon expansion ! This board allows you to add up to 32 expansion ROMs to your Amstrad/Schneider CPC or Plus computer. Moreover, it uses a flash memory chip, so the programs can be replaced directly from the computer, without having to move chips to a PROM programmer.</p>
+		<p>The ROMs are allocated numbers from 0 to 1F. The firmware will only initialize ROMs from F to 0 at boot, so it completely ignores half of the available memory. To solve this problem, ROM slot F comes pre-programmed with a boot program that will initialize the 16 remaining ROMs, and also allows more control over them.</p>
+
+
+		<h4>Installing the hardware</h4>
+
+		<p>FlashGordon connects to the expansion port using an adapter cable. On the computer side, you need either an HE-902 edge connector (for Amstrad CPC) or a Centronics connector (Amstrad Plus, Schneider CPC). On the other side, you need a female HE10 connector. Try to keep the cable as short as possible (no more than 20cm), else you can get into some problems with the system reliability.</p>
+		<p>Take the board with the components facing up, and the HE10 connector towards the computer expansion port. When holding the board this way, the connection cable is wired straight. Pin 1 is on the left, as indicated by the arrow on the board. Notice that the 50-pin HE10 connector is wired backwards (pin 1 should be on the right to match the standard), but this allows for easier connection with the CPC.</p>
+		<p>Power up the computer. It should boot at usual, but show the welcome message of the ROM manager. If something does not go as expected, unplug everything and start over. The hardware is tested before shipping, so problems come from either your cable, a dirty expansion port, or something plugged the wrong way.</p>
+
+
+<h4>Configuring the jumpers and switches</h4>
+
+<p>There are 2 jumpers and a push switch on the board. The push switch enables write mode, and
+the jumpers allow configuration of ROMs 0 and 7 as well as a global disable mode.</p>
+<p>The write switch is the most interesting one. It allows you to enable writing to the flash memory so the programs in ROM can be replaced or modified. Since the Amstrad hardware and software don't expect ROM memory to be writable, there are some rules to avoid running into problems. Leave the switch off unless the ROM manager asks you to turn it on. Don't forget to turn it off when it tells you to do so.</p>
+<p>When writing is allowed, the red led is light.</p>
+<p>Warning: because of an hardware design limitation, when in write mode, the flash memory will see anything written to both the 8000-BFFF and the C000-FFFF RAM areas. This could lead to unexpected results.</p>
+<p>Note: the Flash chip used requires a special programming algorithm, which makes it incompatible with the Megaflash and Ramcard software in write mode.</p>
+
+<p>The two jumpers are used to control the state of ROMs 0 and 7. These need special care because they are the internal ROMs in the computer. ROM 0 is the BASIC, and ROM 7 is the AMSDOS. Most of the time, you want to keep these useable. This is the factory setting: both jumpers are placed near the connector, so the internal ROMs are used.</p>
+<p>The top jumper is for ROM 0, and the bottom one is for ROM 7. On CPC 6128 and DDI-1, the internal ROM 7 can't be disabled, so you should always leave the ROM 7 jumper down. On Plus and machines without disk drives, you can enable it. ROM 0 can always be overloaded, but remember that you will not boot to the BASIc in that case.</p>
+<p>If you completely remove the ROM 0 jumper, all the ROMs will be disabled. This is useful if you messed up one of the ROM and it makes the computer unable to boot with the ROMs enabled. Once booted, you can load the recovery program and then enable the board again when it asks you to turn the write switch on. This is the only case where you're allowed to change the jumper settings while the CPC is running.</p>
+
+<h4>Background information on expansion ROMs</h4>
+
+<p>Now that the hardware is configured, it's time to learn how to use it. Before we detail the use of the ROM manager, here are some informations about ROMs and the best way to use them.</p>
+
+<p>The CPC firmware allows up to 252 expansion ROMs to be added to the system. This feature was present exen in the CPC 464. It allowed the very clean integration of AMSDOS to manage floppy disks in a natural way from BASIC and assembler programs, without any change to their code.</p>
+
+<p>The expansion ROMs are accessed the same way as the BASIC ROM. They are mapped in the C000-FFFF range and can be read by the z80. Writing in this area will always affect the RAM, either the central memory, or expansion RAM if present and enabled. In the default configuration, this area is used as video memory, and there is no need to read from it.</p>
+
+<p>At system start, the CPC firmware will scan the first 16 ROMs slots (first 8 on CPC 464) to see of there is a compatible ROM connected. If so, the ROM is allowed to run its boot code and allocate some RAM for its own use.</p>
+
+<p>The firmware decides how to handle each ROM by looking at the first byte. If it's 0, the ROM is a foreground ROM. Calling the boot code of the ROM takes control of the computer and never gives it back. If, on the other hand, the first byte value is 1, the ROM is a background ROM. The boot code only does some configuration and gives control back to the firmware. As an example, the AMSDOS ROM is a background ROM. At boot, it replaces some system vectors to redirect file access to disc, then it gives control back. The BASIC ROM, on the other hand, is a foreground ROM. It shows the Ready prompt and wait endlessly for user input. If the value of the first byte of the ROM is anything else, it is completely ignored by the firmware. The ROM can still be used by other means (such as some code in another ROM or loaded from disk).</p>
+
+<p>Background ROMs are not limited to patching the firmware jumpblock to intercept calls to the operating system. They can also register RSXs (Resident System eXtensions). These can be called directly from the BASIC prompt using the |command syntax. For example, AMSDOS adds commands such as |DRIVE, |DIR, |ERA, etc.</p>
+<p>RSXs accept parameters, and they can also be called from other programs. This is a very flexible way of providing new functions to other software.</p>
+
+<h4>The ROM manager</h4>
+
+<p>to help you using the additional features of FlashGordon, we provide one background ROM in slot 15. The main job of ths ROM is to initialize ROMs from 31 to 16 (in this order, to match what the firmware does) so you can use them as background ROMs as well. It also provides some RSXs to use the write mode. Let's have a look at these commands and the way to use them.</p>
+
+<p>All of these commands will erase memory from &amp;1800 to &amp;6000 and the screen. Make sure any important work is saved before calling them.</p>
+
+<h5>|BURN - replace a ROM slot</h5>
+<p>Use this command to put data in one of the available slots.</p>
+<pre>|BURN,"filename",n</pre>
+<p>The file is loaded, then programmed into ROM slot n. It will be available at next boot.</p>
+<h5>|HIDE</h5>
+<p>Hide one or all of the ROMs.</p>
+<pre>|HIDE,n</pre>
+<p>Each ROM allocates some RAM for its own use. When there are a lot of them, this is likely to increase boot time. The ROMs also take some time to initialize so you have to wait for your CPC to power up. To avoid these problems, you can use the HIDE command to make some ROMs unavailable to the firmware. Use the SHOW command to get them back.</p>
+<p>If you call HIDE with no parameters, all the ROMs are hidden and your CPC boots like if there was no expansion plugged in.</p>
+<p>Remember thatr ROM 15 is the ROM manager itself. If you disable it, you'll need to use the rescue disk to enable it again.</p>
+<h5>|SHOW</h5>
+<p>Undo the effect of HIDE</p>
+<pre>|SHOW,n</pre>
+<p>Make a hidden ROM visible again.</p>
+
+<h4>The rescue disk</h4>
+
+<p>The rescue disk is your only way out if you mess up something with the ROMs setup. It contains the following files :
+
+<ul><li>ROMTEST.BIN will print the available ROM numbers. Use it for hardware testing.</li>
+	<li>BURN.BAS will help you programming stuff to the FlashGordon when the ROM Manager doesn't work anymore.</li>
+	<li>BURN.BIN assembler code used by BURN.BAS</li>
+	<li>MANAGER.ROM the ROM manager ROM file so you can repair it.</li>
+</ul></p>
+
+<p>The sourcecode for the programs provided on the rescue disk and the ROM manager itself are available on the <a href="http://pulkomandy.tk/projects/avrstuff">source repository</a>.</p>
+
+<h4>Creating your own ROMs</h4>
+
+<p>You can use already existing ROM software for CPC with the FlashGordon. Any software written for romboards romboxes, ramcards, megarom or megaflash will work flawlessly. But you can also write your own software to take advantage of the board to its maximal potential. This section of the documentation sums up the relevant information to get you started. You can find more information in the CPC Firmware manual and Locomotive software reference documentation.</p>
+
+<p>First of all, remember that the ROMs are always accessed by the z80 in the memory zone &amp;C000 to &amp;FFFF. You are not allowed to use self-modifying code, and your variables have to be stored elsewhere (as the ROM isn't writable). You also can't read the screen memory directly from ROM code. With these constraints in mind, let's now look at the structure of the ROM header.</p>
+
+<table>
+	<tr><th>Address</th><th>Contents</th></tr>
+	<tr><td>C000</td><td>Rom type (0=foreground, 1=background).</td></tr>
+	<tr><td>C001</td><td>Mark number (major version)</td></tr>
+	<tr><td>C002</td><td>Version number</td></tr>
+	<tr><td>C003</td><td>Modification level</td></tr>
+	<tr><td>C004</td><td>Address of RSX name table (C006+3*N)</td></tr>
+	<tr><td>C006</td><td>RSX handling jump instructions</td></tr>
+	<tr><td>C006+3*N</td><td>RSX name table (up to 16 character per entry), null-terminated</td></tr>
+</table>
+
+<p>The mark number, version number and modification level are unused by the firmware. They are usually ASCII characters used to make a version number. For example, the UTOPIA ROM |HELP command prints them.</p>
+<p>Starting at address C004 is an RSX table which is identical to the one used for RAM RSXs. The jump table must have at least as much entries as the name table. Each entry is a JP NNNN instruction and takes 3 bytes. RSX names must be uppercase, and the last character must have bit 7 set. Names using anything else than uppercase letters will make the RSX not callable from BASIC (but it can be called from assembler programs).</p>
+<p>The first entry in the table is the boot vector. It is called by the firmware to initialize the ROM. The name of this entry is also used as the ROM name (for example in UTOPIA, again). It may be a valid name (|BASIC for the basic) or not, if your boot vector can't be called more than once.</p>
+
+<p>At boot, the firmware always executes ROM 0 boot vector. Take care of not using a background ROM as ROM 0, because it will give back control to the firmware which doesn't expect it at that point. There are some special cases, for example AMSDOS will detect it is called as ROM 0 and will try to boot a CP/M floppy.</p>
+<p>As said above, background ROMs are automatically initialized by the BASIC ROM at boot for slots 1 to 15. ROMs in slots 16 to 31 are initialized by the ROM manager. They do this by calling system vectors &amp;BCCB (initialize ROMs from 0 to 15) or &amp;BCCE (initialize one ROM).</p>
+
+<p>The boot vector for the iniialized ROM is then called. The ROM is allowed to make space below the HIMEM (eating some of the user memory) for its own variables. Some programs will not manage to run if the HIMEM gets too low because of the ROMs. If that happens, try disabling some ROMs and booting again.</p>
+
+<p>The ROM boot vector is called with HL holding the current HIMEM value. BC and A can be used as scratch registers. DE points to LOWMEM (usually &amp;0040). Your ROM can modify HL and DE to reserve memory both at the start and end of user memory space. It must set the carry to notify the firmware that everything went ok. Note that even if you don't change HL, the firmware will still allocate 4 bytes for each ROM. These are used for storing the RSX linked list data.</p>
+
+<p>Foreground ROMs must be called manually (unless they are used as ROM 0). When a foreground ROM is called, the system is reset and all expansion ROMs are disabled (this is the same thing that happens when calling a program from disk with the RUN instruction). This means the foreground ROM gets as much free RAM as possible. The firmware requires ROM slots to be consecutive, as it will stop looking for foreground ROMs as soon as it detects an empty slot. So if you have ROMs in slots 16, 17 and 19, the one in slot 19 will not be detected. You need to have one in slot 18. This does not apply to the first 15 ROMs as these are initialized when looking for background ROMs.</p>
+
+<h4>Calling an RSX from assembler</h4>
+
+<p>Calling RSXs from BASIC is easy. Prefix the RSX name with the | character. Things are a bit more verbose in assembler, as usual.</p>
+
+<p>First of all, you need to locate the RSX. To do this, you call the KL_FIND_COMMAND (&amp;BCD4) vector with HL pointing to the RSX name you're looking for (as in the RSX table, this is a string terminated by a byte with bit 7 set). If the Firmware finds a foreground ROM matching the name, it is immediately called. for background ROMs, the call returns with the rom number in C, and the address of the RSX in HL. The carry is set to indicate the ROM was found. You can then use KL_FAR_PCHL (&amp;001B) or RST &amp;0018 to execute the RSX. This vector takes the ROM number in C and the address in HL, so you can call it right after KL_FIND_COMMAND (after checking that the carry is set).</p>
+
+<p>An RSX can take parameters. from BASIC, these are comma separated and come after the RSX name. In assembler, A holds the parameter count, and IX points to the parameter table. Note that the first parameter in the table is actually the last one when calling from BASIC.</p>
+<p>Parameters are always 16-bit long. From BASIC, you can use 16-bit constants or integer variables, pointers with the @ operator, and strings. When using strings, the RSX gets a pointer to the string descriptor, which is a 3-byte struct holding the string length, and a pointer to the actual string data. If you want to use strings as parameters, expect to get them in this format.</p>
+<p>It is interesting to note that the BASIC calls RSXs with the last parameter also available directly in DE. It may be tempting to use this to avoid memory access using IX, but remember that not everyone has to set DE, so your RSX may not work properly when called with other means.</p>
+
+<p>The RST &amp;18 instruction works a bit differently. Instead of taking parameters in HL and C, it expects them to be in the program flow directly. This is interesting because all registers are passed as is to the called code. You can use them to pass data to the ROM code, bypassing the usual RSX parameter list.</p>
+
+<pre>
+	RST &18;
+	DW table
+	RET
+
+table
+	DW &amp;C009 ; Address of code to call
+	DB &amp;04 ; Rom number to connect
+</pre>
+
+<p>You can also use CALL &amp;0023 which expects HL to points to a table in the same format.</p>
+<p>Note that you don't need to go through the RSX search, it's possible to directly call code in any ROM using these vectors. Think twice before doing that, because it means you're hardcoding the call address. If the ROM you were targetting is replaced (different BASIC version, PARADOS instead of AMSDOS), the address may change and your program will stop working.</p>
+<p>these 3 vectors all set IY to the memory space reserved by the ROM at boot. when the ROM needs to use its internal variables, it should do so by relative addressing to the IY register.</p>
+<p>ROM numbers 252 to 255 are interpreted by these vectors as RAM configurations (connection of the lower ROM and banks). This limits the number of expansion ROMs to 252 system-friendly ones. The remaining ROMs can still be used but you need to roll your own code to call them (poking at gate array registers at the risk of confusing the system).</p>
+
+<p>The search for an RSX is done using the linked list RSX blocks. It starts with the background ROMs from 15 to 0, then the foreground ROMs from 0 to 15, then from 16 until the BASIC ROM is detected. Finally, RAM-based RSXs are searched.</p>
+
+<h4>Accessing RAM and ROM</h4>
+<p>The firmware has several vectors and system calls to help with jumping back and forth between RAM and ROM. These are of great help when writing code that uses the ROMs in a system-friendly way.</p>
+
+<p>RST &amp;18 calls a ROM using parameters stored after the instruction. all registers besides IX can be used as parameters.</p>
+<p>CALL &amp;001B calls a ROM. HL and C are used to specify the address (PC and ROM number).</p>
+<p>CALL &amp;0023 calls a ROM. HL points to a 3-byte table holding the address and ROM number.</p>
+<p>CALL &amp;B912 (KL_CURR_SELECTION) sets A to the current ROM number. This can be used by program spanning accross multiple ROMs to identify where they are loaded.</p>
+<p>RST &amp;10 can also be used for that purpose. If the ROMs are consecutive, you can call this one with a 16 bit parameter (in the code flow as usual for RSTs). The parameter is the offset (relative to C000) of the code you want to call, and the 2 most significant bytes are used to decide which ROM to call (from current to current + 3). You can get back to the calling ROM using RET. Moreover, when nesting these calls, the same base ROM is used. So the first ROM can be used as an entry point, and call internal code in up to 3 other ROMs next to it without too much trouble.</p>
+<p>CALL &amp;0013 does the same, but the parameter is given in HL instead of pointed by PC. Note that you can use these to call code in ROMs 252, 253, 254, 255.</p>
+<p>CALL &amp;B900 enables upper ROM. A is set to the previous value of the RMR Gate Array register (or rather, the last value known by the system).</p>
+<p>CALL &amp;B903 disables upper ROM. A is set to previous value of RMR.</p>
+<p>CALL &amp;B906 enables lower ROM. A is set to previous value of RMR.</p>
+<p>CALL &amp;B909 disables lower ROM. A is set to previous value of RMR.</p>
+<p>CALL &amp;B90C restores memory mapping according to value of A register. Undo the effect of the 4 previous calls in a clean way.</p>
+
+<p>RST &amp;08 and CALL &amp;000B call code in 0000-3FFF area after changing lower ROM state (connect or diconnect). The 16 bit in HL or following PC are the addres sof the code with the 2 high order bits defining the memory mapping.</p>
+
+<p>RST &amp;28 calls code at any address with lower ROM enabled. On return, the lower ROM is always disconnected.</p>
+
+<p>The reserved numbers are used as follows: 252 enables both lower and upper ROM, 253 enables upper ROM only, 254 enables lower ROM only, and 255 disables both. The two higher bits are used in the same way for RST &amp;08 and CALL &amp;000B).</p>
+
+<p>CALL &amp;B91B executes an LDIR in RAM (disconnecting all ROMs). This is helpful if you want to access the screen memory that is hidden when the ROM is connected.</p>
+<p>CALL &amp;B91E exectutes an LDDR in RAM.</p>
+<p>RST &amp;20 reads a single byte from RAM. HL is the address to read from, and A holds the result.</p>
+
+<p>CALL &amp;B90F selects upper ROM from register C and enables it. Sets A and B to the previous values of RMR and previous ROM number. This vector can connect all 256 ROMs.</p>
+
+<p>CALL &amp;B915 gets version of ROM from register C in HL (H=version, L=mark). All 256 ROMs can be used.</p>
+<p>CALL &amp;B918 restores ROM configuration from register BC. Undoes the effect of &amp;B90F.</p>
+
+<h4>direct hardware access to ROMs</h4>
+<p>Sometimes you want to get the system out of the way. You will still be able to page ROMs in and out but you must use the hardware directly.</p>
+<p>You need to use the RMR register of the Gate Array. This is located at address &amp;7Fxx in the I/O space. Bits 7 and 6 must be set to 10, bits 1 and 0 set the video mode, and bits 2 and 3 must be set to 0 to connect lower and upper ROMs (or 1 to connect RAM).</p>
+<p>Register &amp;DFxx (also in I/O space) can be used to select which ROM to connect. If you select a ROM that does not exists, the BASIC ROM will take the request instead. So whatever you do, there is always some memory mapped in the &amp;C000-&amp;FFFF area.</p>
+
+<p>Note that direct use of these ports will confuse the system. So only use them with interrupt disabled and take great care to clean after yourself.</p>
+
+<h4>Writing to flash memory</h4>
+<p>The main feature of FlashGordon is that the memory can also be written to. Here are some details on how to achieve that.</p>
+
+<p>The memory chip used is an SST 39SF040. This is a flash memory chip that is smarter than a simple ROM or RAM. You talk to it by sending commands to exectute (but reading works as usual).</p>
+<p>First of all, unmapping the ROM using the gate array will not prevent the FlashGordon to pick up the write operations. The only way to do that in software is selecting a ROM that is not handled by the MegaFlash (ROM number 255 is a good choice).</p>
+<p>Also, the MegaFlash will accept write operations both in the C000-FFFF and 8000-BFFF ranges because of an hardware limitation. So, avoid reading and writing to 8000-BFFF while trying to program a ROM. We're sorry for the inconvenience, but fixing that would require an extra chip on the board, a bigger board, and more complex wiring which we tried to avoid.</p>
+
+<p>The flash memory is split into blocks of 4 kilobytes. You can't write to a block directly, you need to erase it first. Once a block is erased, it will be full of FF bytes. Writing can only force bits to 0.</p>
+
+<p>The protocol to respect is as follows :
+<ul>
+	<li>Connect ROM number 1 and write 0xAA to address 0xD555</li>
+	<li>Connect ROM number 2 and write 0x55 to address 0xEAAA</li>
+	<li>At this point, the flahs is waiting for a command to execute. The available commands are ERASE (0x80), IDENTIFY (0x90), BYTE PROGRAM (0xA0) and RESET (0xF0)</li>
+	<li>To erase a sector, send the ERASE command by writing 0x80 to address 0xD555 in ROM 1. Then, write 0x30 anywhere in the sector you want to erase. Erasing will take up to 20 milliseconds, so wait to make sure the flash is ready to accept another command.</li>
+	<li>To write a byte, write 0xA0 (BYTE PROGRAM) to address 0xD555 in ROM 1. Then, connect the ROM you want to program and write one byte at the needed address. There is a delay of 20 NOPs after a write operation, that should be no problem as you can use them to prepare the write operation for the next byte (by the time you're ready to execute the next write to the ROM, it will be ready to listen).</li>
+	<li>If you enter identify mode, you can read two bytes to learn about the manufacturer and model of the flash chip. This can be used to identify FlashGordon versus the MegaFlash (which will return different values), a Ramcard (too late, you already corrupted some data), or a plain old romboard (all your attemps to write are vain and bound to fail).</li>
+	<li>There is also a command for a complete chip erase if you want to clear everything.</li>
+</ul></p>
+
+<h4>Acknowledgements</h4>
+
+<p>The work on the MegaFlash was not easy. There were my first attempts at electronics when I built my own Ramcard following Ram7 plans, then failed attempts at making a flash version, and several hours of reworking the MegaFlash design and routing and debugging the resulting hardware and software. This would not have been possible without the following people :
+<ul>
+	<li>Ram7, who designed the Ramcard and wrote a very good manual for it (most of what you read in this manual is very closely inspired from it).</li>
+	<li>Bryce, who designed the MegaFlash and the MegaROM and made the schematics freely available</li>
+	<li>Krusty and Beb, for asking me to get started on this project</li>
+	<li>SyX, for the moral support and help with z80 tricks</li>
+	<li>Frank Wille, for working on vasm/vlink and integrating all the messy patches</li>
+</ul>
+</p>
+
+<p>All the work here is based on work from other people, which doesn't have a very clear licence. The general understanding is that you can share the documentation and schematics, modify and improve them, build and sell your own devices, as long as :
+<ul><li>The original authors are credited for their work</li>
+	<li>You don't sell them for profit (selling manufactured hardware at a price that covers manufacturing costs is ok)</li>
+	<li>Provide documentation for your changes so other people can improve on them as well. I spent several hours reverse engineering the ramcard from PCB to schematics, I hope I won't have to do it again for another device.</li>
+</ul>
+I hope to see a lot of software making godd use of FlashGordon. Feel free to use the example sourcecode, and tell me if you improve it.</p>
+</body>
