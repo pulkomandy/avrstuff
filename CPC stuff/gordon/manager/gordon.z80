@@ -8,6 +8,9 @@
 getc	EQU	0xBB06
 putc	EQU	0xBB5A
 screenmem	EQU	0xBC08
+fopen	EQU	0xBC77
+fread	EQU 0xBC83
+fclose	EQU	0xBC7A
 
 
 ; FIXME the plan is to have the same file behave both as a ROM and as an
@@ -22,13 +25,40 @@ screenmem	EQU	0xBC08
 
 ; This is the entry point when running as a standalone file
 _start
+	; Check the parameter count
+	CP 2
+	JP NZ,params_error
+
+	; Load the file to burn
+
+	; Get call parameter
+	LD L,(IX+2)
+	LD H,(IX+3)
+	; Resolve BASIC string descriptor
+	LD B,(HL) ; length
+	INC HL
+	LD E,(HL)
+	INC HL
+	LD D,(HL)
+	EX DE,HL
+
+	LD DE,0x8000
+	CALL fopen
+	RET NC ; file not found (TODO print error message before leaving)
+
+	LD HL,0x2000
+	CALL fread
+	RET NC
+
+	CALL fclose
+
 	; Ask the user to allow us to write to the flash memory
 	LD HL,MSG_WRITE_START
 	CALL puts
 	CALL getc
 	; From there on, writing is enabled. This is ok as long as we don't
 	; connect a writable ROM ! When we do, we have to make sure NOTHING
-	; is read written from 8000-FFFF because the MegaFlash hardware
+	; is read/written from 8000-FFFF because the MegaFlash hardware
 	; doesn't decode A14 and will answer for the whole 32k range. This
 	; means, no use of firmware jumpblocks, and the stack needs to be
 	; moved elsewhere
@@ -101,25 +131,15 @@ _start
 	LD A,0xC0
 	CALL screenmem
 
-	; TODO clear screen
-	LD HL,0xC000
-	CALL DUMP
-	CALL 0xBB06
-
-	LD HL, 0xD000
-	CALL DUMP
-	CALL 0xBB06
-
-	LD HL, 0xE000
-	CALL DUMP
-	CALL 0xBB06
-
-	LD HL,0xF000
-	CALL DUMP
-	CALL 0xBB06
-
+_exit
 	; TODO cleanly get out (and handle both calls by RUN and CALL)
-	JR $
+	RET
+
+
+params_error
+	LD HL,MSG_HELP
+	CALL puts
+	JR _exit
 
 
 ; Erase a 16K ROM. Input:
@@ -136,7 +156,7 @@ eraseloop
 	CALL prepare_command
 	
 	LD B,0xDF
-	LD C,5 ; ROM number to write (FIXME get it as a RSX param)
+	LD C,(IX+0) ; ROM number to write
 	OUT (C),C
 
 	; Compute address near start of sector
@@ -179,7 +199,7 @@ addrmap defb 0xC0, 0xD0, 0xE0, 0xF0
 WRITE
 ; Ok, now that we erased the 4 sectors we needed, we can write data to them
 	LD HL, 0xC000
-	LD IX, 0x2000
+	LD IY, 0x2000
 PROGRAM
 	PUSH HL
 
@@ -189,14 +209,14 @@ PROGRAM
 	POP HL
 
 	LD B,0xDF
-	LD C,5 ; ROM number to write (FIXME get it as a RSX param)
+	LD C,(IX+0) ; ROM number to write
 	OUT (C),C
 
-	LD A,(IX + 0)
+	LD A,(IY + 0)
 	LD (HL),A	; Write occurs here. Need to wait 20 NOPs before next
 		; operation on ROM. Our code is slow enough already !
 
-	INC IX
+	INC IY
 	INC HL
 
 	; As INC HL doesn't update the flags, check if we overflowed yet
@@ -215,7 +235,8 @@ PROGRAM
 ; Output: Z flag set if all ok, else HL points to error
 CHECKBLANK
 	; TODO select the right ROM
-	LD BC,0xDF05
+	LD B,0xDF
+	LD C,(IX+0)
 	OUT (C),C
 	
 	LD HL, 0xC000
@@ -306,42 +327,13 @@ PRNHEX1			;affiche la valeur de A sur 1 chiffre
 	JP	0xBB5A	;call-ret
 
 
-; Dump some bytes from beginning of ROM 5
-DUMP
-	DI
-
-; Map the ROM in (stay in mode 1 and get system rom out)
-	LD BC, 0x7F85
-	OUT (C),C
-
-	LD BC,0xDF05
-	OUT (C),C
-
-; Copy the ROM to RAM
-	LD DE, 0x4000
-	LD BC, 0x4000
-	LDIR
-
-	EI
-
-; Dump the RAM (we're safe if the system maps another ROM this way)
-	LD HL,0x4000
-plop
-	LD A,(HL)
-	INC HL
-	CALL PRNHEX2
-	DJNZ plop
-
-; Wait for next command
-	RET
-
-
 ; -----------------------------------------------------------------------------
 ; Messages
 MSG_WRITE_START	string "Turn write switch ON and press a key...\r\n"
 MSG_WRITE_END	string "Turn write switch OFF and press a key...\r\n"
 MSG_ERASE_ERR	string "Erasing memory failed at address "
 MSG_WRITE_OK	string "Success!\r\n"
+MSG_HELP		string "CALL &1800,\"filename.rom\",nn\r\n"
 
 ; -----------------------------------------------------------------------------
 	SECTION .uninit,"urw"
@@ -373,5 +365,35 @@ status		DEFW	1
 
 	; Start over
 	JR _start
+
+
+; Dump some bytes from beginning of ROM 5
+DUMP
+	DI
+
+; Map the ROM in (stay in mode 1 and get system rom out)
+	LD BC, 0x7F85
+	OUT (C),C
+
+	LD BC,0xDF05
+	OUT (C),C
+
+; Copy the ROM to RAM
+	LD DE, 0x4000
+	LD BC, 0x4000
+	LDIR
+
+	EI
+
+; Dump the RAM (we're safe if the system maps another ROM this way)
+	LD HL,0x4000
+plop
+	LD A,(HL)
+	INC HL
+	CALL PRNHEX2
+	DJNZ plop
+
+; Wait for next command
+	RET
 
 
