@@ -1,6 +1,6 @@
-update=19/09/2012 18:32:53
+update=03/02/2013 11:15:25
 version=1
-last_client=eeschema
+last_client=kicad
 [cvpcb]
 version=1
 NetITyp=0
@@ -11,8 +11,6 @@ LibDir=
 NetType=0
 [cvpcb/libraries]
 EquName1=devcms
-[general]
-version=1
 [pcbnew]
 version=1
 PadDrlX=320
@@ -85,3 +83,5 @@ LibName8=interface
 LibName9=contrib
 LibName10=valves
 LibName11=byteeeprom
+[general]
+version=1
