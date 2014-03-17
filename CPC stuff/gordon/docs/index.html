@@ -191,10 +191,10 @@ table
 <ul>
 	<li>Connect ROM number 1 and write 0xAA to address 0xD555</li>
 	<li>Connect ROM number 2 and write 0x55 to address 0xEAAA</li>
-	<li>At this point, the flahs is waiting for a command to execute. The available commands are ERASE (0x80), IDENTIFY (0x90), BYTE PROGRAM (0xA0) and RESET (0xF0)</li>
-	<li>To erase a sector, send the ERASE command by writing 0x80 to address 0xD555 in ROM 1. Then, write 0x30 anywhere in the sector you want to erase. Erasing will take up to 20 milliseconds, so wait to make sure the flash is ready to accept another command.</li>
+	<li>At this point, the flahs is waiting for a command to execute. The available commands are ERASE (0x80 and 0x30), IDENTIFY (0x90), BYTE PROGRAM (0xA0) and RESET (0xF0)</li>
+	<li>Erasing a sector is a two-step process. First, send the ERASE command by writing 0x80 to address 0xD555 in ROM 1. This does not have an immediat e effect. Send the two unlock bytes again, then write 0x30 anywhere in the sector you want to erase. Erasing will take up to 20 milliseconds, so wait to make sure the flash is ready to accept another command.</li>
 	<li>To write a byte, write 0xA0 (BYTE PROGRAM) to address 0xD555 in ROM 1. Then, connect the ROM you want to program and write one byte at the needed address. There is a delay of 20 NOPs after a write operation, that should be no problem as you can use them to prepare the write operation for the next byte (by the time you're ready to execute the next write to the ROM, it will be ready to listen).</li>
-	<li>If you enter identify mode, you can read two bytes to learn about the manufacturer and model of the flash chip. This can be used to identify FlashGordon versus the MegaFlash (which will return different values), a Ramcard (too late, you already corrupted some data), or a plain old romboard (all your attemps to write are vain and bound to fail).</li>
+	<li>If you enter identify mode, you can read the first two bytes of ROM 0 to learn about the manufacturer and model of the flash chip. This can be used to identify FlashGordon versus the MegaFlash (which will return different values), a Ramcard (too late, you already corrupted some data), or a plain old romboard (all your attemps to write are vain and bound to fail). Note this won't work if ROM 0 is disabled using the jumper switch.</li>
 	<li>There is also a command for a complete chip erase if you want to clear everything.</li>
 </ul></p>
 
