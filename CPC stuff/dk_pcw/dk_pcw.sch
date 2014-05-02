@@ -4,13 +4,14 @@ LIBS:conn
 LIBS:74xx
 LIBS:SparkFun
 LIBS:power
+LIBS:dk_pcw-cache
 EELAYER 27 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title "DKTronics AY interface for PCW"
-Date "1 may 2014"
+Date "2 may 2014"
 Rev ""
 Comp "PulkoTronics"
 Comment1 "Based on HabiSoft redesign."
@@ -212,8 +213,6 @@ Text Label 10050 2000 2    60   ~ 0
 IOA7
 Text Label 10750 800  0    60   ~ 0
 TST1
-Text Label 10750 2100 0    60   ~ 0
-TST2
 Text Label 10750 900  0    60   ~ 0
 AUDC
 Text Label 10750 1000 0    60   ~ 0
@@ -395,23 +394,23 @@ $EndComp
 $Comp
 L 74LS00 U3
 U 3 1 53626014
-P 5350 2250
-F 0 "U3" H 5350 2300 60  0000 C CNN
-F 1 "74LS00" H 5350 2150 60  0000 C CNN
-F 2 "~" H 5350 2250 60  0000 C CNN
-F 3 "~" H 5350 2250 60  0000 C CNN
-	3    5350 2250
+P 5050 3700
+F 0 "U3" H 5050 3750 60  0000 C CNN
+F 1 "74LS00" H 5050 3600 60  0000 C CNN
+F 2 "~" H 5050 3700 60  0000 C CNN
+F 3 "~" H 5050 3700 60  0000 C CNN
+	3    5050 3700
 	1    0    0    -1  
 $EndComp
 $Comp
 L 74LS00 U3
 U 4 1 5362601A
-P 5350 2700
-F 0 "U3" H 5350 2750 60  0000 C CNN
-F 1 "74LS00" H 5350 2600 60  0000 C CNN
-F 2 "~" H 5350 2700 60  0000 C CNN
-F 3 "~" H 5350 2700 60  0000 C CNN
-	4    5350 2700
+P 5050 4250
+F 0 "U3" H 5050 4300 60  0000 C CNN
+F 1 "74LS00" H 5050 4150 60  0000 C CNN
+F 2 "~" H 5050 4250 60  0000 C CNN
+F 3 "~" H 5050 4250 60  0000 C CNN
+	4    5050 4250
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -437,8 +436,6 @@ F 3 "" H 600 3300 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 Text Label 850  3100 2    60   ~ 0
-GND
-Text Label 4750 2350 2    60   ~ 0
 GND
 Text Label 5950 900  0    60   ~ 0
 BC1
@@ -492,8 +489,6 @@ Text Label 900  4100 2    60   ~ 0
 Z80CLK
 Text Label 5950 1350 0    60   ~ 0
 BDIR
-NoConn ~ 5950 2250
-NoConn ~ 5950 2700
 Text Label 3050 1450 2    60   ~ 0
 /IOREQ
 Text Label 3050 1050 2    60   ~ 0
@@ -667,10 +662,6 @@ Wire Wire Line
 	4550 950  4550 800 
 Wire Wire Line
 	4250 950  4550 950 
-Connection ~ 4750 2600
-Connection ~ 4750 2350
-Wire Wire Line
-	4750 2150 4750 2800
 Connection ~ 4750 1100
 Wire Wire Line
 	4550 1100 4750 1100
@@ -688,12 +679,6 @@ Wire Wire Line
 	1500 4650 3900 4650
 Wire Wire Line
 	3900 3550 1500 3550
-Wire Wire Line
-	2250 4100 2400 4100
-Wire Wire Line
-	2250 3900 2250 4100
-Wire Wire Line
-	2100 3900 2250 3900
 Wire Wire Line
 	2400 4000 2400 3900
 Wire Wire Line
@@ -785,4 +770,24 @@ Text Label 6800 2500 0    60   ~ 0
 DAC
 Text Label 6500 1200 2    60   ~ 0
 DAC
+Text Label 10750 2100 0    60   ~ 0
+CKSEL
+Text Label 2100 3900 0    60   ~ 0
+CLK2
+Text Label 2400 4100 2    60   ~ 0
+CLK24
+Text Label 5650 3700 0    60   ~ 0
+CLK24
+Text Label 4450 3600 2    60   ~ 0
+CLK4
+Wire Wire Line
+	5650 4250 5650 4000
+Wire Wire Line
+	5650 4000 4450 4000
+Wire Wire Line
+	4450 4000 4450 3800
+Text Label 4450 4150 2    60   ~ 0
+CLK2
+Text Label 4450 4350 2    60   ~ 0
+IOA0
 $EndSCHEMATC
