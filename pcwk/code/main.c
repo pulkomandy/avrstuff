@@ -20,6 +20,20 @@ const uint8_t pcw[128] PROGMEM = {
 0x01,0xA6,0x07,0x16,0x05,0x14,0x82,0xA5,0x13,0x27,0x06,0xA3,0xA2,0x04,0x10,'?'  // 7
 };
 
+
+void callback()
+{
+	uint8_t key_code = 0;
+	key_code = read_char(); // TODO this is blocking function
+
+	uint8_t decode = pgm_read_byte(&(pcw[key_code]));
+	if(release)
+		keys[decode >> 4] &= ~(1 << (decode & 0xF));
+	else
+		keys[decode >> 4] |= 1 << (decode & 0xF);
+}
+
+
 int main() {
   init_keyboard(); 
 
@@ -30,17 +44,8 @@ int main() {
   //debug LED - output
   DDRD |= (1<<PD6);
 
-  uint8_t key_code = 0;
 
   while(1) {
-	key_code = read_char(); // TODO this is blocking function
-
-	uint8_t decode = pgm_read_byte(&(pcw[key_code]));
-	if(release)
-		keys[decode >> 4] &= ~(1 << (decode & 0xF));
-	else
-		keys[decode >> 4] |= 1 << (decode & 0xF);
-
 	for(int idx = -1; idx < 16; idx++)
 	{
 		// send data to PCW
