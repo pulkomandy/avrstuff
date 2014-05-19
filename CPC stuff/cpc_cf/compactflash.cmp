@@ -1,0 +1,59 @@
+Cmp-Mod V01 Created by CvPcb (2013-07-07 BZR 4022)-stable date = 19/05/2014 18:43:05
+
+BeginCmp
+TimeStamp = /537A3711;
+Reference = C1;
+ValeurCmp = C;
+IdModule  = C2;
+EndCmp
+
+BeginCmp
+TimeStamp = /537A371E;
+Reference = C2;
+ValeurCmp = C;
+IdModule  = C2;
+EndCmp
+
+BeginCmp
+TimeStamp = /537A3726;
+Reference = C3;
+ValeurCmp = CP;
+IdModule  = CP4;
+EndCmp
+
+BeginCmp
+TimeStamp = /4CA8712F;
+Reference = P1;
+ValeurCmp = CONN_25X2;
+IdModule  = HE10_50D;
+EndCmp
+
+BeginCmp
+TimeStamp = /537A337A;
+Reference = P2;
+ValeurCmp = CONN_20X2;
+IdModule  = he10-40c;
+EndCmp
+
+BeginCmp
+TimeStamp = /537A36A3;
+Reference = R1;
+ValeurCmp = 10K;
+IdModule  = R3;
+EndCmp
+
+BeginCmp
+TimeStamp = /537A314D;
+Reference = U1;
+ValeurCmp = 74LS133;
+IdModule  = SO16E;
+EndCmp
+
+BeginCmp
+TimeStamp = /537A315C;
+Reference = U2;
+ValeurCmp = 74LS02;
+IdModule  = SO14E;
+EndCmp
+
+EndListe
