@@ -1,0 +1,30 @@
+XT keyboard protocol and signalling
+===================================
+
+The keyboard comnmunicates with the PC/XT through a mostly single-direction
+serial link.
+
+When the link is idle, the CLK line is high (floating), and the DATA line is
+low (pulled by the keyboard).
+
+When the keyboard wants to send a byte:
+- It checks that the CLK line is not pulled low (the PC/XT does this when the
+receiving buffer is full).
+- It sends the byte for the keycode. There is a start bit (DATA=1), followed by
+the 7-bit keycode (LSb first), and the make/break bit (set for release, clear
+for key press).
+
+As the 9th bit is pushed, the PC will force the clock line low until the CPU has
+read the received byte and cleared the receiving register.
+
+The PC stores the data on the falling edge of the clock. It can also reset the
+keyboard by pulling the clock line low for too long (unsure what the exact
+timing is).
+
+It is up to the keyboard to manage the states of the LEDs. At power on, the LEDs
+are off. They are switched by pressing CAPS and NUM locks. It's possible that
+they get out of sync with the caps/num state the computer has. It is also up to
+the keyboard to handle typematic (key repeat) and a keyboard buffer, if needed.
+
+At boot, the keyboard is supposed to send 0xAA when it is ready to work.
+However, I'm not sure my XT clone BIOS actually checks for that.
