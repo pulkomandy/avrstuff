@@ -32,13 +32,13 @@
 #define PS2_PORT PIND
 #define PS2_DATA PD4
 
-volatile uint8_t kbd_data;
-volatile uint8_t char_waiting;
-uint8_t started;
-uint8_t bit_count;
-uint8_t shift;
-uint8_t caps_lock;
-uint8_t extended;
+static volatile uint8_t kbd_data;
+static volatile uint8_t char_waiting;
+static uint8_t started;
+static uint8_t bit_count;
+static uint8_t shift;
+static uint8_t caps_lock;
+static uint8_t extended;
 uint8_t release;
 
 // Interrupt vector - Triggered when there is activity on the clock line
@@ -95,6 +95,9 @@ ISR(INT1_vect)
       //ignore that character
     } else {
       char_waiting = 1;
+#ifdef CALLBACK
+	  CALLBACK
+#endif
     }
   }
 }
