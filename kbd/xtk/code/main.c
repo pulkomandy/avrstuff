@@ -4,9 +4,9 @@
 #include <avr/pgmspace.h>
 #include <util/delay.h>
 
-#include "../../libs/ps2_keyboard/ps2_keyboard.h"
+#include "../../../libs/ps2_keyboard/ps2_keyboard.h"
 
-uint8_t keys[16];
+static uint8_t key;
 
 const uint8_t pcw[128] PROGMEM = {
 // 0   1   2   3    4    5    6    7    8    9    A    B    C    D    E    F
@@ -24,79 +24,70 @@ const uint8_t pcw[128] PROGMEM = {
 void callback()
 {
 	uint8_t key_code = 0;
-	key_code = read_char(); // TODO this is blocking function
+	key_code = read_char(); // TODO this function is blocking. Can it disturb main?
 
-	uint8_t decode = pgm_read_byte(&(pcw[key_code]));
+	key = 0 /*pgm_read_byte(&(pcw[key_code]))*/;
 	if(release)
-		keys[decode >> 4] &= ~(1 << (decode & 0xF));
-	else
-		keys[decode >> 4] |= 1 << (decode & 0xF);
+		key |= 0x80;
 }
 
 
 int main() {
-  init_keyboard(); 
+	key = 0xFF;
+	init_keyboard(); // PS/2 KBD handler
 
-  // PCW init - configure pins directions
-  PORTB = 0;
-  DDRB = 0x6; // PB1 and PB2 as outputs
+	// PCW init - configure pins directions
+	PORTB = 0;
+	DDRB = 0; // PB2 and PB1 as inputs (floating)
 
-  //debug LED - output
-  DDRD |= (1<<PD6);
+	//debug LED - output
+	DDRD |= (1<<PD6);
 
+	static const int PCLK = 2;
+	static const int PDAT = 4;
 
-  while(1) {
-	for(int idx = -1; idx < 16; idx++)
-	{
-		// send data to PCW
-		
-		// Start pulse
-		PORTB = 4;
-		_delay_us(6);
-		PORTB = 0;
-		_delay_us(6);
-		PORTB = 4;
-		_delay_us(6);
-		PORTB = 0;
-		_delay_us(6);
+	uint8_t k;
+	while(1) {
+#if 0
+		while ((PINB & 2) == 0)
+			; // Wait for PC to be ready to receive data
+#endif
 
-		// Address
-		for(int j = 4; --j >= 0;)
+PORTD ^= (1<<PD6);
+		while(key == 0xFF)
+			; // Wait for data to send
+
+		k = k+1; /*key;*/ // local copy so we can receive another code from PS/2
+		// before we're done sending this one.
+		key = 0xFF;
+
+		// SEND START BIT
+		DDRB |= PCLK; // CLK LOW
+		_delay_us(23);
+		DDRB &= ~PDAT; // DAT HI
+		_delay_us(9);
+
+		for(int i = 0; i < 8; i++)
 		{
-			if(idx & (1<<j))
-				PORTB = 4;
+			DDRB &= ~PCLK; // CLK HI
+			_delay_us(66);
+			DDRB |= PCLK; // CLK LOW
+			_delay_us(23);
+			if (k & 1)
+				DDRB &= ~PDAT;
 			else
-				PORTB = 0;
+				DDRB |= PDAT;
 
-			// Clock
-			_delay_us(6);
-			PORTB |= 2;
-			_delay_us(12);
-			PORTB = 0;
-			_delay_us(21);
+			_delay_us(9);
+
+			k >>= 1;
 		}
 
-		// One "empty" clock cycle
-		_delay_us(21 + 33);
+		DDRB &= ~PCLK; // CLK HI
+		_delay_us(66);
 
-		// Data
-		for(int j = 8; --j >= 0;)
-		{
-			if (keys[idx & 0xF] & (1 << j)) 
-				PORTB = 4;
-			else
-				PORTB = 0;
-
-			// Clock
-			_delay_us(6);
-			PORTB |= 2;
-			_delay_us(12);
-			PORTB = 0;
-			_delay_us(21);
-		}
 	}
-  }
-  
-  return 0;
+
+	return 0;
 }
 
