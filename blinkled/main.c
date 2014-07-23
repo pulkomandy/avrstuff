@@ -7,6 +7,10 @@
 #include <string.h>
 #include <stdbool.h>
 
+#ifdef __AVR_ATmega48P__
+#define TIFR TIFR0
+#endif
+
 int main() {
 	wdt_enable(WDTO_2S);
     // configure timer 0 for a rate of 16M/(256 * 256) = ~244Hz
