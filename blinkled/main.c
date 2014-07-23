@@ -18,9 +18,9 @@ int main() {
 	TCCR0B = 4;
 
 	//debug LED - output
-	DDRD |= 255;
+	DDRD |= (1<<PD6);
 
-	PORTD = 0xAA;
+	PORTD = 0;
 
 	while(1) {
 		wdt_reset();
@@ -29,7 +29,7 @@ int main() {
 		// check timer if we need periodic reports
 		if (TIFR & (1 << TOV0)) {
 			TIFR = (1 << TOV0); // reset flag
-			PORTD++;
+			PORTD ^= (1<<PD6);
 		}
 	}
 
