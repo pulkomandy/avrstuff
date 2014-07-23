@@ -44,7 +44,6 @@ uint8_t release;
 // Interrupt vector - Triggered when there is activity on the clock line
 ISR(INT1_vect)
 {
-  PORTD ^= (1<<PD6);
   //make sure clock line is low, if not ignore this transition
   if(PS2_PORT & (1<<PS2_CLK)){
     return;
@@ -130,7 +129,11 @@ void init_keyboard(){
  // PCMSK |= (1<<PIND3);
   MCUCR |= (1<<ISC11); // Falling edge
   MCUCR &= ~(1<<ISC10);
+#ifdef __AVR_ATmega48P__
+  EIMSK |= (1<<INT1);
+#else
   GIMSK |= (1<<INT1);
+#endif
 
   sei();
 }
