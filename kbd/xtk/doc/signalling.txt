@@ -4,12 +4,13 @@ XT keyboard protocol and signalling
 The keyboard comnmunicates with the PC/XT through a mostly single-direction
 serial link.
 
-When the link is idle, the CLK line is high (floating), and the DATA line is
-low (pulled by the keyboard).
+Both the data and clock line are open collector. When the system is idle, both
+are floating high. It is unclear wether it's up to the keyboard or PC to have
+pull-up resistors, but it is safe to have both.
 
 When the keyboard wants to send a byte:
-- It checks that the CLK line is not pulled low (the PC/XT does this when the
-receiving buffer is full).
+- It waits for the CLK and DAT lines to be high, meaning the PC is ready to
+receive a byte.
 - It sends the byte for the keycode. There is a start bit (DATA=1), followed by
 the 7-bit keycode (LSb first), and the make/break bit (set for release, clear
 for key press).
@@ -17,14 +18,21 @@ for key press).
 As the 9th bit is pushed, the PC will force the clock line low until the CPU has
 read the received byte and cleared the receiving register.
 
+Timing is not critical as this is handled on the PC side using a shift register.
+The only limitation is that the clock signal is gated with the CPU clock, and
+should not go faster than 2.3MHz.
+
 The PC stores the data on the falling edge of the clock. It can also reset the
-keyboard by pulling the clock line low for too long (unsure what the exact
-timing is).
+keyboard by pulling the clock line low for too long (10ms or more). At boot and
+upon reset, the keyboard is supposed to send 0xAA when it is ready to work.
+However, I'm not sure my XT clone BIOS actually checks for that.
 
 It is up to the keyboard to manage the states of the LEDs. At power on, the LEDs
 are off. They are switched by pressing CAPS and NUM locks. It's possible that
 they get out of sync with the caps/num state the computer has. It is also up to
 the keyboard to handle typematic (key repeat) and a keyboard buffer, if needed.
 
-At boot, the keyboard is supposed to send 0xAA when it is ready to work.
-However, I'm not sure my XT clone BIOS actually checks for that.
+The scancodes are the same as PS/2 keyboards scan code set 1. Unfortunately, a
+lot of keyboards won't support this properly, so we use the default scan code
+set 2 (used by Windows, so it should work everywhere) and translate it back
+using a lookup table.

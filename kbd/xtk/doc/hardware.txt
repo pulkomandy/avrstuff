@@ -1,0 +1,19 @@
+XTK: Hardware description
+=========================
+
+Nothing too fancy here. We run an ATMega48P (but any other AVR chip would do)
+on a 16MHz crystal (not really needed, but it was there on the prototyping
+board).
+
+The PS/2 keyboard interface is handled by my ps/2 keyboard library, see there
+for more information.
+
+The XT is connected using a DIN connector on the keyboard port. We get our
+power supply from there (and also power the keyboard). The clock signal is
+wired on PB2 and the data line on PB1. A debug led is available on PD6, but
+this will probably be removed once everything is working as expected.
+
+Later on I will probably move to an ATTiny2313 (because I have one available)
+or some chip with an even lower pin count. This will allow making the interface
+smaller. Ideally it would be roughly the size of the DIN connector and could be
+fitted there. 
