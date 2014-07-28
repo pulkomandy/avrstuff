@@ -1,7 +1,7 @@
 #include <avr/io.h>
 
-#include "../../libs/ps2_keyboard/ps2_keyboard.h"
-#include "../../libs/usart/usart.h"
+#include "../../../libs/ps2_keyboard/ps2_keyboard.h"
+#include "../../../libs/usart/usart.h"
 
 int main() {
 
