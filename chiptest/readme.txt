@@ -28,5 +28,11 @@ How to tell if it works
 =======================
 
 If everything goes well:
-* The LED will blink at a well-known (but currently undocumented! sorry!) rate
-* The character 'H' is sent to the serial port in a loop.
+* The LED will blink at FCPU/(8^3). This should be visible for all reasonable
+clock speeds:
+	- 20 MHz - 0.8s
+	- 12 MHz - 1.4s
+	- 1 MHz - 16.8s
+* The character 'H' is sent to the serial port at the same speed. Baudrate is
+9600 baud to be safe (it's more likely that a low baudrate can be generated
+in a reasonably accurate way with any clock speed as a base).
