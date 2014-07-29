@@ -3,30 +3,37 @@
 #include <avr/io.h>
 #include <inttypes.h>
 
+#ifndef BAUD
+	#error You must define BAUD to use libuart.
+#endif
 
 //This function is used to initialize the USART
-//at a given UBRR value
-void USARTInit(uint16_t ubrr_value)
+void USARTInit()
 {
+	//Set Baud rate
+	#include <util/setbaud.h>
+	UBRRH = UBRRH_VALUE;
+	UBRRL = UBRRL_VALUE;
+	#if USE_2X
+		UCSRA |= (1 << U2X);
+	#else
+		UCSRA &= ~(1 << U2X);
+	#endif
 
-   //Set Baud rate
-   UBRRL = ubrr_value;
-   UBRRH = (ubrr_value>>8);
+	/*Set Frame Format
+	  >> Asynchronous mode
+	  >> No Parity
+	  >> 1 StopBit
+	  >> char size 8
+	  */
+#ifdef __AVR_ATtiny2313__
+	UCSRC = (1 << UCSZ1) | (1 << UCSZ0);
+#else
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+#endif
 
-   /*Set Frame Format
-
-
-   >> Asynchronous mode
-   >> No Parity
-   >> 1 StopBit
-   >> char size 8
-
-   */
-
-   UCSRC=(1<<URSEL)|(3<<UCSZ0);
-
-   //Enable The receiver and transmitter
-   UCSRB=(1<<RXEN)|(1<<TXEN);
+	//Enable The receiver and transmitter
+	UCSRB = (1 << RXEN) | (1 << TXEN);
 }
 
 
