@@ -1,3 +1,5 @@
+#include <usart.h>
+
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <avr/wdt.h>
@@ -11,7 +13,7 @@
 // K4KUSB: ATTiny2313 - LED = PB2
 #define DDRLED DDRB
 #define PORTLED PORTB
-#define LEDBIT 1 << PB2
+#define LEDBIT (1 << PB2)
 
 #define BAUD 9600 // Safe value even for low clocks. (used by setbaud.h)
 
@@ -22,24 +24,10 @@ int main() {
 	TCCR0B = 4;
 
 	//debug LED - output
-	DDRLED |= 255;
+	DDRLED |= LEDBIT;
+	PORTLED &= ~LEDBIT;
 
-	PORTLED = 0;
-
-	// Serial baudrate - use avrlibc magic to compute the baudrate register
-	// values.
-	#include <util/setbaud.h>
-	UBRRH = UBRRH_VALUE;
-	UBRRL = UBRRL_VALUE;
-	#if USE_2X
-		UCSRA |= (1 << U2X);
-	#else
-		UCSRA &= ~(1 << U2X);
-	#endif
-
-	// Enable the serial port.
-	UCSRB = (1<<RXEN) |(1<<TXEN);
-	UCSRC = (1 << UCSZ1) | (1 << UCSZ0);
+	USARTInit();
 
 	// Let's rock!
 	uint8_t counter = 0;
@@ -54,7 +42,7 @@ int main() {
 			if (counter == 0)
 			{
 				PORTLED ^= LEDBIT; // Toggle the LED
-				UDR = 'H'; // Send a byte to the UART
+				USARTWriteChar('H'); // Send a byte to the UART
 			}
 		}
 	}

@@ -6,20 +6,24 @@ F_CPU=12000000
 
 # Common
 MCU=attiny2313
+BAUD=9600
 
 all: blinkdel.hex
 
 include ../kbd/common.mk
 
-COMPILE = $(CC) -Wall -Os -std=c99 -mmcu=$(MCU) -DF_CPU=$(F_CPU)
+COMPILE = $(CC) -Wall -Os -std=c99 -mmcu=$(MCU) -DF_CPU=$(F_CPU) -DBAUD=$(BAUD) \
+	-I../libs/usart/
+
+VPATH=../libs/usart/
 
 #Rules
 
-blinkdel.bin: main.o
-	$(COMPILE) main.o -o blinkdel.bin
+blinkdel.bin: main.o usart.o
+	$(COMPILE) $^ -o $@
 
 main.o: main.c
-	$(COMPILE) -c main.c -o main.o
+	$(COMPILE) -c $^ -o $@
 
 #Generic rules
 .S.o:
