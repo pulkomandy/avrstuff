@@ -50,12 +50,12 @@ int main() {
 		if (TIFR & (1 << TOV0)) {
 			TIFR = (1 << TOV0); // reset flag
 			counter++;
-		}
 
-		if (counter == 0)
-		{
-			PORTLED ^= LEDBIT; // Toggle the LED
-			UDR = 'H'; // Send a byte to the UART
+			if (counter == 0)
+			{
+				PORTLED ^= LEDBIT; // Toggle the LED
+				UDR = 'H'; // Send a byte to the UART
+			}
 		}
 	}
 
