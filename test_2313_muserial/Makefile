@@ -1,10 +1,19 @@
-#Set vars
+# K4KUSB
+F_CPU=12000000
+
+# muSerial
+# F_CPU=20000000
+
+# Common
 MCU=attiny2313
-COMPILE = avr-gcc -Wall -Os -std=c99 -mmcu=$(MCU) -DF_CPU=20000000
+
+all: blinkdel.hex
+
+include ../kbd/common.mk
+
+COMPILE = $(CC) -Wall -Os -std=c99 -mmcu=$(MCU) -DF_CPU=$(F_CPU)
 
 #Rules
-blinkdel.hex: blinkdel.bin
-	avr-objcopy -j .text -j .data -O ihex blinkdel.bin blinkdel.hex
 
 blinkdel.bin: main.o
 	$(COMPILE) main.o -o blinkdel.bin
@@ -22,5 +31,3 @@ main.o: main.c
 flash:
 	avrdude -c usbasp -p $(MCU) -Uflash:w:blinkdel.hex
 
-clean:
-	rm *.bin *.o *.hex

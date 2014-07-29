@@ -6,7 +6,9 @@ AVRDUDE := $(shell { which avrdude || which avrdude-x86; } 2>/dev/null)
 # Some useful paths (relative to each project)
 LIBS=../../../libs
 
-# Generic pattern-rules
+# Generic rules
 %.hex: %.bin
 	$(OBJCOPY) -j .text -j .data -O ihex $^ $@
 
+clean:
+	rm *.bin *.o *.hex
