@@ -8,4 +8,5 @@ uint8_t read_char();
 char render_scan_code(uint8_t);
 	// Convert a keycode to a printable ASCII char
 
+extern uint8_t shift;
 extern uint8_t release;

@@ -1,7 +1,16 @@
 #include <avr/io.h>
 
 #include "../../../libs/ps2_keyboard/ps2_keyboard.h"
+#include "../../../libs/ps2_keyboard/keymap.h"
 #include "../../../libs/usart/usart.h"
+
+
+char render_scan_code(uint8_t data){
+  char to_ret = pgm_read_byte(&(keymap[data])); //grab character from array
+  if(shift) to_ret -= 0x20;
+  return to_ret;
+}
+
 
 int main() {
 

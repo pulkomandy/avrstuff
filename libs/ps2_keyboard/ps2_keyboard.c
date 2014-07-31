@@ -1,24 +1,14 @@
-// keyboard.c
-// ps/2 keyboard decoder on ATMega8
-// copyright 2010, Adrien Destugues <pulkomandy@pulkomandy.ath.cx>
-// MIT Licence
+// ps/2 keyboard decoder on ATMega8, ATMega48
+// Copyright 2010-2014, Adrien Destugues <pulkomandy@pulkomandy.tk>
+// This file is distributed under the terms of the MIT Licence.
 
 // Parts borrowed from :
 // keyboard.c
 // for NerdKits with ATmega168
 // hevans@nerdkits.com
-//
-// Designed for use with the USB NerdKit running with ATMega168. Datasheet page
-// numbers refer to ATMega168 datasheet.
-
-#define F_CPU 16000000UL
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
-#include <avr/pgmspace.h>
-#include <util/delay.h>
-
-#include "keymap.h"
 
 
 //ps/2 Keyboard pin out
@@ -28,17 +18,18 @@
 //pin 4 - VCC
 
 //PIN configuration
-#define PS2_CLK PD3 /* Also INT1 */
 #define PS2_PORT PIND
+#define PS2_CLK PD3 /* Also INT1 */
 #define PS2_DATA PD4
 
 static volatile uint8_t kbd_data;
 static volatile uint8_t char_waiting;
 static uint8_t started;
 static uint8_t bit_count;
-static uint8_t shift;
 static uint8_t caps_lock;
 static uint8_t extended;
+
+uint8_t shift;
 uint8_t release;
 
 // Interrupt vector - Triggered when there is activity on the clock line
@@ -102,13 +93,6 @@ ISR(INT1_vect)
 }
 
 
-char render_scan_code(uint8_t data){
-  char to_ret = pgm_read_byte(&(keymap[data])); //grab character from array
-  if(shift) to_ret -= 0x20;
-  return to_ret;
-}
-
-
 uint8_t read_char(){
   while(!char_waiting);
   char_waiting = 0;
@@ -126,12 +110,14 @@ void init_keyboard(){
   //turn on pullup resistor
   PS2_PORT |= (1<<PS2_CLK);
 
- // PCMSK |= (1<<PIND3);
+  // FIXME we can use the "pin change" interrupt rather than INT0/INT1 when not
+  // on the old clumsy ATMega8. This would allow for any pin to be used.
+  // PCMSK |= (1<<PIND3);
   MCUCR |= (1<<ISC11); // Falling edge
   MCUCR &= ~(1<<ISC10);
 #ifdef __AVR_ATmega48P__
   EIMSK |= (1<<INT1);
-#else
+#else // ATmega8
   GIMSK |= (1<<INT1);
 #endif
 
