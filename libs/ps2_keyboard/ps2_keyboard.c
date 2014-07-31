@@ -20,7 +20,14 @@
 //PIN configuration
 #define PS2_PORT PIND
 #define PS2_CLK PD3 /* Also INT1 */
+
+#ifdef __AVR_ATtiny2313__
+// K4KUSB modified board
+#define PS2_DATA PD5
+#else
+// ENSSAT IR modified board
 #define PS2_DATA PD4
+#endif
 
 static volatile uint8_t kbd_data;
 static volatile uint8_t char_waiting;
@@ -106,7 +113,7 @@ void init_keyboard(){
   bit_count = 0;
 
   //make PS2_CLK input pin
-  DDRD &= ~(1<<PS2_CLK);
+  DDRD &= ~((1<<PS2_CLK) | (1<<PS2_DATA));
   //turn on pullup resistor
   PS2_PORT |= (1<<PS2_CLK);
 

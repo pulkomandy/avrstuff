@@ -1,5 +1,3 @@
-#define F_CPU 16000000UL
-
 #include <avr/io.h>
 #include <avr/pgmspace.h>
 #include <util/delay.h>
@@ -38,55 +36,68 @@ int main() {
 	key = 0xAA;
 	init_keyboard(); // PS/2 KBD handler
 
-	// PCW init - configure pins directions
-	PORTB = 0;
-	DDRB = 0; // PB2 and PB1 as inputs (floating)
 
-	//debug LED - output
-	DDRD |= (1<<PD6);
-
+#ifdef __AVR_ATtiny2313__
+#define PORTXT PORTD
+#define DDRXT DDRD
+#define PINXT PIND
+	static const int PCLK = (1<<PD0);
+	static const int PDAT = (1<<PD1);
+#else
+#define PORTXT PORTB
+#define DDRXT DDRB
+#define PINXT PINB
 	static const int PCLK = (1<<PB1);
 	static const int PDAT = (1<<PB2);
+#endif
+
+	static const int delay = 25;
+
+	// XT init - configure pins directions
+	PORTXT &= ~(PCLK | PDAT);
+	DDRXT &= ~(PCLK | PDAT); // both pins as inputs (floating)
+
+	DDRB |= (1<<PB2); // LED
 
 	uint8_t k;
 	while(1) {
-		while ((PINB & (PDAT|PCLK)) != (PDAT|PCLK))
+		PORTB ^= (1<<PB2); // LED
+
+		while ((PINXT & (PDAT|PCLK)) != (PDAT|PCLK))
 			; // Wait for PC to be ready to receive data
 
 		while(key == 0xFF)
 			; // Wait for data to send
-
-		PORTD ^= (1<<PD6);
 
 		k = key; // local copy so we can receive another code from PS/2
 		// before we're done sending this one.
 		key = 0xFF;
 
 		// SEND START BIT
-		DDRB &= ~PDAT; // DAT HI
-		_delay_us(50);
-		DDRB |= PCLK; // CLK LOW
-		_delay_us(50);
-		DDRB &= ~PCLK; // CLK HI
+		DDRXT &= ~PDAT; // DAT HI
+		_delay_us(delay);
+		DDRXT |= PCLK; // CLK LOW
+		_delay_us(delay);
+		DDRXT &= ~PCLK; // CLK HI
 
 		for(int i = 0; i < 8; i++)
 		{
 			if (k & 1)
-				DDRB &= ~PDAT;
+				DDRXT &= ~PDAT;
 			else
-				DDRB |= PDAT;
+				DDRXT |= PDAT;
 
-			_delay_us(50);
-			DDRB |= PCLK; // CLK LOW
-			_delay_us(50);
-			DDRB &= ~PCLK; // CLK HI
+			_delay_us(delay);
+			DDRXT |= PCLK; // CLK LOW
+			_delay_us(delay);
+			DDRXT &= ~PCLK; // CLK HI
 
 			k >>= 1;
 		}
 
-		DDRB &= ~PDAT; // DAT HI
+		DDRXT &= ~PDAT; // DAT HI
 
-		_delay_us(100);
+		_delay_us(delay * 2);
 	}
 
 	return 0;
