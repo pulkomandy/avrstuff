@@ -29,14 +29,12 @@
 #define PS2_DATA PD4
 #endif
 
-static volatile uint8_t kbd_data;
 static volatile uint8_t char_waiting;
 static uint8_t started;
 static uint8_t bit_count;
-static uint8_t caps_lock;
 static uint8_t extended;
 
-uint8_t shift;
+volatile uint8_t kbd_data;
 uint8_t release;
 
 // Interrupt vector - Triggered when there is activity on the clock line
@@ -78,23 +76,15 @@ ISR(INT1_vect)
     release = 1;
     kbd_data = 0;
     return;
-  } else if (kbd_data == 0x12) { //hanlde shift key
-    if(release == 0){
-      shift = 1;
-    } else {
-      shift = 0;
-      release = 0;
-    }
-    return;
   } else { //not a special character
-    if(release){ //we were in release mode - exit release mode
-      release = 0;
-      //ignore that character
-    } else {
-      char_waiting = 1;
 #ifdef CALLBACK
 	  CALLBACK
 #endif
+    if(release){ //we were in release mode - exit release mode
+      release = 0;
+    } else {
+	  // Notify callback that there's a new char waiting
+      char_waiting = 1;
     }
   }
 }

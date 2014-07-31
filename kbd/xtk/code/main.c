@@ -23,12 +23,12 @@ const uint8_t at2xt[128] PROGMEM = {
 
 void callback()
 {
-	uint8_t key_code = 0;
-	key_code = read_char(); // TODO this function is blocking. Can it disturb main?
-
-	key = pgm_read_byte(&(at2xt[key_code]));
-	if(release)
-		key |= 0x80;
+	// Ignore all keys above 0x80, and importantly ignore 0xE0 from extended keys.
+	if (kbd_data < 0x80) {
+		key = pgm_read_byte(&(at2xt[kbd_data]));
+		if(release)
+			key |= 0x80;
+	}
 }
 
 
@@ -51,18 +51,14 @@ int main() {
 	static const int PDAT = (1<<PB2);
 #endif
 
-	static const int delay = 25;
+	static const int delay = 12;
 
 	// XT init - configure pins directions
 	PORTXT &= ~(PCLK | PDAT);
 	DDRXT &= ~(PCLK | PDAT); // both pins as inputs (floating)
 
-	DDRB |= (1<<PB2); // LED
-
 	uint8_t k;
 	while(1) {
-		PORTB ^= (1<<PB2); // LED
-
 		while ((PINXT & (PDAT|PCLK)) != (PDAT|PCLK))
 			; // Wait for PC to be ready to receive data
 
