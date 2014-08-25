@@ -1,0 +1,526 @@
+gplink-0.13.6 alpha
+Copyright (c) 1998-2005 gputils project
+Listing File Generated: 6-27-2008  15:24:01
+ 
+ 
+Address  Value    Disassembly              Source
+-------  -----    -----------              ------
+                                           ; -------------------------------------
+                                           ;  PS/2 Mouse to Amiga Mouse Converter
+                                           ; -------------------------------------
+                                           ;
+                                           ; Version: V1.0 (30-Jun-2001) Author : N. Baricevic <nogoth@yahoo.com>
+                                           ; Version: V1.1 (26-mai-2006) modified by sundance
+                                           ; version v1.2 (28/06/2006) modified by sundance
+                                           ; V1.3 19/06/08 by PulkoMandy
+                                           ;-------------------------------------------
+                                           ;
+                                           ;modif : standard mplab project 
+                                           ;	configuration pic
+                                           ;	support wheel mouse
+                                           ;	sync xa/xb and ya/yb
+                                           ;	compatibility with atari st
+                                           ;	auto-detect amiga/atari
+                                           ;V1.3
+                                           ;	Some more optimisations/reorganisation
+                                           ;	New parity code (smaller)
+                                           ;	16f628 compatibility
+                                           ;-------------------------------------------
+                                           
+                                           ; ------------------------------------------
+                                           ;  includes
+                                           ; ------------------------------------------;
+                                           	list f=inhx8m  ;Enter device name 
+                                           	LIST  p=16F628
+                                           	IFDEF __16F628
+                                           		include p16f628.inc
+                                                   LIST
+                                           ; P16F628.INC  Standard Header File, Version 1.01    Microchip Technology, Inc.
+                                                   NOLIST
+                                           		__config _PWRTE_ON &  _WDT_OFF  & _CP_OFF & _BODEN_OFF & _DATA_CP_OFF & _INTRC_OSC_NOCLKOUT & _MCLRE_ON & _LVP_OFF
+                                           		#define VAR_BEGIN 0x20
+                                           		MESSG "Compiling for 16f628"
+                                           	ELSE
+                                           		include p16f84a.inc
+                                           		#define VAR_BEGIN 0x0C
+                                           		MESSG "Compiling for 16f84"
+                                           	ENDIF
+                                           ; ------------------------------------------
+                                           
+                                           ; ---------- registers definition -----------
+                                           
+                                           byte    equ     VAR_BEGIN            ; byte to receive or send
+                                           parity  equ     VAR_BEGIN+1            ; parity bit is held here
+                                           parcnt  equ     VAR_BEGIN+2     ; counter for calculating parity
+                                           roller  equ     VAR_BEGIN+3     ; help for 8 data bits to byte conversion
+                                           pack1   equ     VAR_BEGIN+4     ; 1st byte of mouse data packet
+                                           pack2   equ     VAR_BEGIN+5     ; 2nd byte of mouse data packet
+                                           pack3   equ     VAR_BEGIN+6     ; 3rd byte of mouse data packet
+                                           togglex	equ     VAR_BEGIN+7
+                                           toggley	equ	VAR_BEGIN+8
+                                           delcnt  equ     VAR_BEGIN+9     ; delay counter
+                                           tempxa	equ	VAR_BEGIN+0xA	; temp to sync xa and xb
+                                           tempxb	equ	VAR_BEGIN+0xB
+                                           tempya	equ	VAR_BEGIN+0xC	; temp to sync ya and yb
+                                           tempyb	equ	VAR_BEGIN+0xD
+                                           temp	equ	VAR_BEGIN+0xE
+                                           maskx	equ	VAR_BEGIN+0xF
+                                           masky	equ	VAR_BEGIN+0x10
+                                           delay	equ	VAR_BEGIN+0x11
+                                           savb	equ	VAR_BEGIN+0x12
+                                           bitya	equ	VAR_BEGIN+0x13
+                                           bityb	equ	VAR_BEGIN+0x14
+                                           bitxa	equ	VAR_BEGIN+0x15
+                                           bitxb	equ	VAR_BEGIN+0x16
+                                           
+                                           ; --------- main routine -----------
+                                                   org     0x0
+000000   2805     goto	0x5                 	goto main
+                                           
+                                           ;EN 0x04 il y a les vecteurs d'interruption !
+                                           	ORG 0x04
+000004   2961     goto	0x161               	goto inter ;interrupt handler
+                                           
+                                           	ORG 0x05
+                                           main:
+                                           ;set port direction
+000005   1683     bsf	0x3, 0x5             	bsf     STATUS,RP0      ; page 1
+                                           
+000006   30fb     movlw	0xfb               	movlw	0xFB		; OUT ON RA2 FOR ERROR LED 
+000007   0085     movwf	0x5                        movwf   TRISA           ; port A, bit 0 and  1 is input
+                                           
+000008   3002     movlw	0x2                	movlw	b'00000010'
+000009   0086     movwf	0x6                	movwf	TRISB           ; port B is all outputs
+                                           
+                                           ; Set port values
+00000a   1283     bcf	0x3, 0x5                     bcf     STATUS,RP0      ; page 0
+                                           
+                                           	;Pour désactiver le CNA du 16f628
+                                           	IFDEF __16F628
+00000b   3007     movlw	0x7                		movlw 0x07
+00000c   009f     movwf	0x1f               		movwf CMCON
+                                           	ENDIF
+                                           
+00000d   30ff     movlw	0xff               	movlw	b'11111111'
+00000e   0086     movwf	0x6                	movwf	PORTB	
+00000f   0185     clrf	0x5                 	clrf	PORTA		; port A out pins to 0
+000010   307f     movlw	0x7f               	movlw	b'01111111'	;PULL UP ON on portb for detect amiga or atari 
+000011   0081     movwf	0x1                	movwf	OPTION_REG
+                                           
+                                           ; set port out level
+                                           
+000012   01a0     clrf	0x20                	clrf	byte
+000013   01a1     clrf	0x21                	clrf 	parity
+000014   01a2     clrf	0x22                	clrf	parcnt
+000015   01a3     clrf	0x23                	clrf	roller
+000016   01a7     clrf	0x27                	clrf	togglex
+000017   01a8     clrf	0x28                	clrf	toggley
+000018   01a4     clrf	0x24                	clrf	pack1
+000019   01a5     clrf	0x25                	clrf 	pack2
+00001a   01a6     clrf	0x26                	clrf	pack3
+                                           
+                                           check_mouse_init
+00001b   2087     call	0x87                        call    REC             ; receive byte from mouse
+00001c   20a8     call	0xa8                        call    INHIB           ; pull CLK low to inhibit furhter sending
+00001d   0820     movf	0x20, w                     movf    byte,W
+00001e   3aaa     xorlw	0xaa                       xorlw   0xaa            ; if it's $AA mouse self test passed
+00001f   1d03     btfss	0x3, 0x2                   btfss   STATUS,Z
+000020   281b     goto	0x1b                	goto 	check_mouse_init ;If error, restart the init
+                                           
+                                           ;check mouse id =00
+000021   20ab     call	0xab                        call    REL             ; release CLK (allow mouse to send)
+000022   2087     call	0x87                        call    REC             ; receive byte from mouse
+000023   20a8     call	0xa8                        call    INHIB
+000024   0820     movf	0x20, w                     movf    byte,W
+000025   3a00     xorlw	0                          xorlw   0x00            ; mouse ID code should be $00
+000026   1d03     btfss	0x3, 0x2                   btfss   STATUS,Z
+000027   281b     goto	0x1b                	goto 	check_mouse_init ; restart the init
+                                           
+                                           ;allow mouse to send the data
+000028   30f4     movlw	0xf4                       movlw   0xf4            ; "Enable Data Reporting" command to mouse
+000029   00a0     movwf	0x20                       movwf   byte
+00002a   20e3     call	0xe3                        call    NEWPAR          ; calculate parity for $F4
+00002b   20ab     call	0xab                        call    REL             ; release CLK (allow mouse to send)
+                                           
+                                           ;wait
+00002c   207d     call	0x7d                        call    DEL200		;wait 200µs
+                                           
+                                           ;receive ack = fa
+00002d   20c8     call	0xc8                        call    SEND            ; send command to mouse
+00002e   2087     call	0x87                        call    REC             ; receive acknowledge ($FA) from mouse)
+00002f   20a8     call	0xa8                        call    INHIB
+000030   0820     movf	0x20, w                     movf    byte,W
+000031   3afa     xorlw	0xfa                       xorlw   0xfa
+000032   1d03     btfss	0x3, 0x2                   btfss   STATUS,Z
+000033   281b     goto	0x1b                	goto 	check_mouse_init ;restart init if wrong
+                                           
+000034   3040     movlw	0x40               	movlw	0x40
+000035   00b0     movwf	0x30               	movwf	masky
+000036   01ae     clrf	0x2e                	clrf	temp
+                                           megatempo
+000037   207d     call	0x7d                	call	DEL200		; WAIT INSERTION
+000038   0bae     decfsz	0x2e, f           	decfsz	temp,f
+000039   2837     goto	0x37                	goto	megatempo
+                                           	
+00003a   1886     btfsc	0x6, 0x1           	btfsc	PORTB,1		;MIDDLE BUTTON CONNECTED ?
+00003b   2853     goto	0x53                	goto	amiga_pattern
+                                           
+                                           ;atari_pattern
+00003c   307c     movlw	0x7c               	movlw	0x7C
+00003d   00b1     movwf	0x31               	movwf	delay
+                                           ; pattern atari xa b'00100000'
+                                           ; pattern atari xb b'00010000'
+00003e   3010     movlw	0x10               	movlw	b'00010000'
+00003f   00aa     movwf	0x2a               	movwf	tempxa
+000040   3020     movlw	0x20               	movlw	b'00100000'
+000041   00ab     movwf	0x2b               	movwf	tempxb
+                                           ; pattern atari ya b'00001000'
+                                           ; pattern atari yb b'00000100'
+000042   3008     movlw	0x8                	movlw	b'00001000'
+000043   00ad     movwf	0x2d               	movwf	tempyb
+000044   3004     movlw	0x4                	movlw	b'00000100'
+000045   00ac     movwf	0x2c               	movwf	tempya
+                                           ;mask atari x/y
+000046   30cf     movlw	0xcf               	movlw	b'11001111'
+000047   00af     movwf	0x2f               	movwf	maskx
+000048   30f3     movlw	0xf3               	movlw	b'11110011'
+000049   00b0     movwf	0x30               	movwf	masky
+00004a   3010     movlw	0x10               	movlw	b'00010000'
+00004b   00b5     movwf	0x35               	movwf	bitxa
+00004c   3020     movlw	0x20               	movlw	b'00100000'
+00004d   00b6     movwf	0x36               	movwf	bitxb
+00004e   3004     movlw	0x4                	movlw	b'00000100'
+00004f   00b3     movwf	0x33               	movwf	bitya
+000050   3008     movlw	0x8                	movlw	b'00001000'
+000051   00b4     movwf	0x34               	movwf	bityb
+                                           
+000052   2869     goto	0x69                	goto	start
+                                           
+                                           amiga_pattern
+000053   303b     movlw	0x3b               	movlw	0x3B
+000054   00b1     movwf	0x31               	movwf	delay
+                                           ; pattern amiga xa b'00000100'
+                                           ; pattern amiga xb b'00010000'
+000055   3004     movlw	0x4                	movlw	b'00000100'
+000056   00ab     movwf	0x2b               	movwf	tempxb
+000057   3010     movlw	0x10               	movlw	b'00010000'
+000058   00aa     movwf	0x2a               	movwf	tempxa
+                                           ; pattern amiga ya b'00001000'
+                                           ; pattern amiga yb b'00100000'
+000059   3008     movlw	0x8                	movlw	b'00001000'
+00005a   00ad     movwf	0x2d               	movwf	tempyb
+00005b   3020     movlw	0x20               	movlw	b'00100000'
+00005c   00ac     movwf	0x2c               	movwf	tempya
+                                           ;mask amiga x/y
+00005d   30eb     movlw	0xeb               	movlw	b'11101011'
+00005e   00af     movwf	0x2f               	movwf	maskx
+00005f   30d7     movlw	0xd7               	movlw	b'11010111'
+000060   00b0     movwf	0x30               	movwf	masky
+000061   3010     movlw	0x10               	movlw	b'00010000'
+000062   00b5     movwf	0x35               	movwf	bitxa
+000063   3004     movlw	0x4                	movlw	b'00000100'
+000064   00b6     movwf	0x36               	movwf	bitxb
+000065   3020     movlw	0x20               	movlw	b'00100000'
+000066   00b3     movwf	0x33               	movwf	bitya
+000067   3008     movlw	0x8                	movlw	b'00001000'
+000068   00b4     movwf	0x34               	movwf	bityb
+                                           start
+000069   1683     bsf	0x3, 0x5             	bsf     STATUS,RP0      ; page 1
+00006a   0186     clrf	0x6                 	clrf	TRISB           ; port B is all outputs
+00006b   1283     bcf	0x3, 0x5                     bcf     STATUS,RP0      ; page 0	
+                                           ;main loop
+                                           CHK: 
+                                           ; lecture trame de 3 octets
+00006c   20ab     call	0xab                        call    REL
+00006d   2087     call	0x87                 	call    REC             ; receive byte1 from mouse packet
+00006e   20a8     call	0xa8                        call    INHIB
+00006f   0820     movf	0x20, w                     movf    byte,W
+000070   00a4     movwf	0x24                       movwf   pack1
+000071   20ab     call	0xab                        call    REL
+000072   2087     call	0x87                        call    REC             ; receive byte2 from mouse packet
+000073   20a8     call	0xa8                        call    INHIB
+000074   0820     movf	0x20, w                     movf    byte,W
+000075   00a5     movwf	0x25                       movwf   pack2
+000076   20ab     call	0xab                        call    REL
+000077   2087     call	0x87                        call    REC             ; receive byte3 from mouse packet
+000078   20a8     call	0xa8                        call    INHIB
+000079   0820     movf	0x20, w                     movf    byte,W
+00007a   00a6     movwf	0x26                       movwf   pack3
+                                           ;convertion ps2 > amiga
+00007b   20f8     call	0xf8                        call    CONV
+00007c   286c     goto	0x6c                        goto    CHK             ; receive another packet
+                                           
+                                           
+                                           ; --------------------------------------------------------
+                                           
+                                           
+00007d   0831     movf	0x31, w             DEL200: movfw	delay
+00007e   00a9     movwf	0x29                       movwf   delcnt
+00007f   0ba9     decfsz	0x29, f           DEL2:   decfsz  delcnt,f
+000080   287f     goto	0x7f                        goto    DEL2
+000081   0000     nop                      DEL10:  nop                     ; delay 10us
+000082   0000     nop                      	nop
+000083   0000     nop                      	nop
+000084   0000     nop                      	nop
+000085   0000     nop                      	nop
+000086   0008     return                           return
+                                           
+                                           ; --------- byte receiving subroutine -------------
+000087   1805     btfsc	0x5, 0             REC:    btfsc   PORTA,0         ; wait clock (start bit)
+000088   2887     goto	0x87                        goto    REC
+000089   1c05     btfss	0x5, 0             RL1:    btfss   PORTA,0
+00008a   2889     goto	0x89                        goto    RL1
+00008b   209e     call	0x9e                        call    RECBIT          ; receive 8 data bits
+00008c   209e     call	0x9e                        call    RECBIT
+00008d   209e     call	0x9e                        call    RECBIT
+00008e   209e     call	0x9e                        call    RECBIT
+00008f   209e     call	0x9e                        call    RECBIT
+000090   209e     call	0x9e                        call    RECBIT
+000091   209e     call	0x9e                        call    RECBIT
+000092   209e     call	0x9e                        call    RECBIT
+000093   1805     btfsc	0x5, 0             RL2:    btfsc   PORTA,0         ; receive parity bit
+000094   2893     goto	0x93                        goto    RL2
+000095   1885     btfsc	0x5, 0x1                   btfsc   PORTA,1
+000096   289c     goto	0x9c                        goto	RL3
+000097   1021     bcf	0x21, 0                      bcf     parity,0
+                                           RL4:
+000098   20c3     call	0xc3                	call	wait_h
+000099   1c05     btfss	0x5, 0             RL8:    btfss   PORTA,0
+00009a   2899     goto	0x99                        goto    RL8
+00009b   0008     return                           return
+                                           
+00009c   1421     bsf	0x21, 0              RL3:    bsf     parity,0
+00009d   2898     goto	0x98                        goto    RL4
+                                           
+                                           ; ---------- bit receiving subroutine ------------
+                                           
+00009e   1805     btfsc	0x5, 0             RECBIT: btfsc   PORTA,0		;Attend que l'horloge passe à 0
+00009f   289e     goto	0x9e                        goto    RECBIT
+0000a0   0805     movf	0x5, w                      movf    PORTA,W		;Lit le port A
+0000a1   00a3     movwf	0x23                       movwf   roller		;Ne garde que le bit intéressant
+0000a2   0ca3     rrf	0x23, f                      rrf     roller,f
+0000a3   0ca3     rrf	0x23, f                      rrf     roller,f
+0000a4   0ca0     rrf	0x20, f                      rrf     byte,f		
+0000a5   1c05     btfss	0x5, 0             RL5:    btfss   PORTA,0		;Attend que l'horloge repasse à 1
+0000a6   28a5     goto	0xa5                        goto    RL5
+0000a7   0008     return                           return
+                                           
+                                           ; ---------- subroutines -----------------
+                                           
+0000a8   20af     call	0xaf                INHIB:  call	CLKLO		; inhibit mouse sending (CLK low)
+0000a9   207d     call	0x7d                        call    DEL200
+0000aa   0008     return                           return
+                                           
+                                           REL:    			; allow mouse to send data
+0000ab   1683     bsf	0x3, 0x5             CLKHI:  bsf     STATUS,RP0      ; CLK high
+0000ac   1405     bsf	0x5, 0                       bsf     TRISA,0
+0000ad   1283     bcf	0x3, 0x5                     bcf     STATUS,RP0
+0000ae   0008     return                           return
+                                           
+0000af   1683     bsf	0x3, 0x5             CLKLO:  bsf     STATUS,RP0      ; CLK low
+0000b0   1005     bcf	0x5, 0                       bcf     TRISA,0
+0000b1   1283     bcf	0x3, 0x5                     bcf     STATUS,RP0
+0000b2   1005     bcf	0x5, 0                       bcf     PORTA,0
+0000b3   0008     return                   	return
+                                           
+0000b4   1683     bsf	0x3, 0x5             DATLO:  bsf     STATUS,RP0      ; DATA low
+0000b5   1085     bcf	0x5, 0x1                     bcf     TRISA,1
+0000b6   1283     bcf	0x3, 0x5                     bcf     STATUS,RP0
+0000b7   1085     bcf	0x5, 0x1                     bcf     PORTA,1
+0000b8   0008     return                           return
+                                           
+0000b9   1683     bsf	0x3, 0x5             DATHI:  bsf     STATUS,RP0      ; DATA high
+0000ba   1485     bsf	0x5, 0x1                     bsf     TRISA,1
+0000bb   1283     bcf	0x3, 0x5                     bcf     STATUS,RP0
+0000bc   0008     return                           return
+                                           
+                                           send_bit
+0000bd   0ca0     rrf	0x20, f              	rrf     byte,f            ; send data bit
+0000be   1803     btfsc	0x3, 0                     btfsc   STATUS,C
+0000bf   28c2     goto	0xc2                        goto    DHIGH
+0000c0   20b4     call	0xb4                        call    DATLO
+0000c1   28c3     goto	0xc3                	goto 	wait_h
+0000c2   20b9     call	0xb9                DHIGH:  call    DATHI
+0000c3   1c05     btfss	0x5, 0             wait_h: btfss   PORTA,0
+0000c4   28c3     goto	0xc3                        goto    wait_h
+0000c5   1805     btfsc	0x5, 0             wait_l: btfsc   PORTA,0
+0000c6   28c5     goto	0xc5                        goto    wait_l
+0000c7   0008     return                   		return
+                                           ; ------------- send to mouse --------------
+                                           
+0000c8   20a8     call	0xa8                SEND:   call    INHIB           ; CLK low
+0000c9   2081     call	0x81                        call    DEL10
+0000ca   20b4     call	0xb4                        call    DATLO           ; DATA low
+0000cb   2081     call	0x81                        call    DEL10
+0000cc   20ab     call	0xab                        call    REL             ; CLK high
+0000cd   1805     btfsc	0x5, 0             SL1:    btfsc   PORTA,0         ; wait for CLK
+0000ce   28cd     goto	0xcd                        goto    SL1
+0000cf   20bd     call	0xbd                	call 	send_bit
+0000d0   20bd     call	0xbd                	call 	send_bit
+0000d1   20bd     call	0xbd                	call 	send_bit
+0000d2   20bd     call	0xbd                	call 	send_bit
+0000d3   20bd     call	0xbd                	call 	send_bit
+0000d4   20bd     call	0xbd                	call 	send_bit
+0000d5   20bd     call	0xbd                	call 	send_bit
+0000d6   20bd     call	0xbd                	call 	send_bit
+0000d7   20e0     call	0xe0                        call    SNDPAR          ; send parity bit
+0000d8   20c3     call	0xc3                	call	wait_h
+0000d9   20b9     call	0xb9                        call    DATHI           ; release bus
+0000da   20c3     call	0xc3                	call	wait_h
+0000db   1c05     btfss	0x5, 0             SL7:    btfss   PORTA,0
+0000dc   28db     goto	0xdb                        goto    SL7
+0000dd   1c85     btfss	0x5, 0x1           SL8:    btfss   PORTA,1
+0000de   28dd     goto	0xdd                        goto    SL8
+0000df   0008     return                           return
+                                           
+                                           ; -------------- subroutines --------------
+                                           
+                                           
+0000e0   1821     btfsc	0x21, 0            SNDPAR: btfsc   parity,0        ; send parity bit
+0000e1   28b9     goto	0xb9                        goto    DATHI
+0000e2   28b4     goto	0xb4                        goto    DATLO
+                                           
+                                           NEWPAR:               		; calculate parity bit
+0000e3   01a2     clrf	0x22                        clrf	parcnt
+0000e4   1820     btfsc	0x20, 0                    btfsc   byte,0
+0000e5   0aa2     incf	0x22, f                     incf    parcnt,f
+0000e6   18a0     btfsc	0x20, 0x1                  btfsc   byte,1
+0000e7   0aa2     incf	0x22, f                     incf    parcnt,f
+0000e8   1920     btfsc	0x20, 0x2                  btfsc   byte,2
+0000e9   0aa2     incf	0x22, f                     incf    parcnt,f
+0000ea   19a0     btfsc	0x20, 0x3                  btfsc   byte,3
+0000eb   0aa2     incf	0x22, f                     incf    parcnt,f
+0000ec   1a20     btfsc	0x20, 0x4                  btfsc   byte,4
+0000ed   0aa2     incf	0x22, f                     incf    parcnt,f
+0000ee   1aa0     btfsc	0x20, 0x5                  btfsc   byte,5
+0000ef   0aa2     incf	0x22, f                     incf    parcnt,f
+0000f0   1b20     btfsc	0x20, 0x6                  btfsc   byte,6
+0000f1   0aa2     incf	0x22, f                     incf    parcnt,f
+0000f2   1ba0     btfsc	0x20, 0x7                  btfsc   byte,7
+0000f3   0aa2     incf	0x22, f                     incf    parcnt,f
+0000f4   1021     bcf	0x21, 0                      bcf     parity,0
+0000f5   1c22     btfss	0x22, 0                    btfss   parcnt,0
+0000f6   1421     bsf	0x21, 0                      bsf     parity,0
+0000f7   0008     return                           return
+                                           
+                                           ; --------------- conversion to Amiga format --------------
+                                           
+                                           CONV:
+0000f8   1332     bcf	0x32, 0x6            	bcf     savb,6
+0000f9   1c24     btfss	0x24, 0            	btfss   pack1,0         ; left button
+0000fa   1732     bsf	0x32, 0x6                    bsf     savb,6
+0000fb   1032     bcf	0x32, 0              	bcf     savb,0
+0000fc   1ca4     btfss	0x24, 0x1          	btfss   pack1,1         ; right button
+0000fd   1432     bsf	0x32, 0              	bsf     savb,0
+0000fe   10b2     bcf	0x32, 0x1            	bcf     savb,1
+0000ff   1d24     btfss	0x24, 0x2          	btfss   pack1,2         ; middle button
+000100   14b2     bsf	0x32, 0x1                    bsf     savb,1
+                                           
+000101   0806     movf	0x6, w              	movf	PORTB,w		;read port b
+000102   39bc     andlw	0xbc                       andlw   b'10111100' ;keep button state
+000103   0432     iorwf	0x32, w            	iorwf	savb,w		;merge with new x and y patterns
+000104   0086     movwf	0x6                	movwf	PORTB		;ouput patterns
+                                           
+000105   0825     movf	0x25, w              	movf    pack2,W         ; mouvement conversion
+000106   39ff     andlw	0xff                       andlw   0xff
+000107   1d03     btfss	0x3, 0x2                   btfss   STATUS,Z
+000108   2137     call	0x137                       call    MOVEX
+000109   0826     movf	0x26, w                     movf    pack3,W
+00010a   39ff     andlw	0xff                       andlw   0xff
+00010b   1903     btfsc	0x3, 0x2                   btfsc   STATUS,Z
+00010c   0008     return                           return
+                                           
+00010d   1ea4     btfss	0x24, 0x5          MOVEY:  btfss   pack1,5
+00010e   2923     goto	0x123                       goto    DOWN
+                                           
+00010f   207d     call	0x7d                UP:     call    DEL200          ; send V and VQ for up movement
+000110   0aa8     incf	0x28, f             	incf	toggley,f
+000111   1828     btfsc	0x28, 0            	btfsc	toggley,0
+000112   0eac     swapf	0x2c, f            	swapf	tempya,f
+000113   082c     movf	0x2c, w             	movfw	tempya
+000114   0533     andwf	0x33, w            	andwf   bitya,w
+000115   00ae     movwf	0x2e               	movwf	temp
+000116   1c28     btfss	0x28, 0            	btfss	toggley,0
+000117   0ead     swapf	0x2d, f            	swapf	tempyb,f
+000118   082d     movf	0x2d, w             	movfw	tempyb
+000119   0534     andwf	0x34, w            	andwf	bityb,w
+00011a   07ae     addwf	0x2e, f            	addwf	temp,f
+00011b   0832     movf	0x32, w             	movfw	savb
+00011c   0530     andwf	0x30, w            	andwf	masky,w		;b'11001111'
+00011d   072e     addwf	0x2e, w            	addwf	temp,w
+00011e   0086     movwf	0x6                	movwf	PORTB		;ouput patterns
+00011f   00b2     movwf	0x32               	movwf	savb
+000120   0fa6     incfsz	0x26, f           	incfsz  pack3,f
+000121   290f     goto	0x10f                       goto    UP
+000122   0008     return                           return
+                                           
+000123   207d     call	0x7d                DOWN:   call    DEL200          ; send V and VQ for down movement
+000124   0aa8     incf	0x28, f             	incf	toggley,f
+000125   1c28     btfss	0x28, 0            	btfss	toggley,0
+000126   0eac     swapf	0x2c, f            	swapf	tempya,f
+000127   082c     movf	0x2c, w             	movfw	tempya
+000128   0533     andwf	0x33, w            	andwf	bitya,w
+000129   00ae     movwf	0x2e               	movwf	temp
+00012a   1828     btfsc	0x28, 0            	btfsc	toggley,0
+00012b   0ead     swapf	0x2d, f            	swapf	tempyb,f
+00012c   082d     movf	0x2d, w             	movfw	tempyb
+00012d   0534     andwf	0x34, w            	andwf	bityb,w
+00012e   07ae     addwf	0x2e, f            	addwf	temp,f
+00012f   0832     movf	0x32, w             	movfw	savb
+000130   0530     andwf	0x30, w            	andwf	masky,w		;b'11001111'
+000131   072e     addwf	0x2e, w            	addwf	temp,w
+000132   0086     movwf	0x6                	movwf	PORTB		;ouput patterns
+000133   00b2     movwf	0x32               	movwf	savb
+000134   0ba6     decfsz	0x26, f           	decfsz  pack3,f
+000135   2923     goto	0x123                       goto    DOWN
+000136   0008     return                           return
+                                           		
+000137   1e24     btfss	0x24, 0x4          MOVEX:  btfss   pack1,4
+000138   294d     goto	0x14d                       goto    LEFT
+                                           
+000139   207d     call	0x7d                RIGHT:  call    DEL200          ; send H and HQ for right movement
+00013a   0aa7     incf	0x27, f             	incf	togglex,f	; bon la c'est bobo la tete !
+00013b   1c27     btfss	0x27, 0            	btfss	togglex,0	; le pattern est sur un nibble
+00013c   0eaa     swapf	0x2a, f            	swapf	tempxa,f        ; nibble = 4 bits
+00013d   082a     movf	0x2a, w             	movfw	tempxa		; seul un bit est urilisé dans le pattern
+00013e   0535     andwf	0x35, w            	andwf	bitxa,w
+00013f   00ae     movwf	0x2e               	movwf	temp		; donc on swap les nibble un fois sur deux avec un decalage 
+000140   1827     btfsc	0x27, 0            	btfsc	togglex,0       ; entre x et y (c'est la le bobo la tete)
+000141   0eab     swapf	0x2b, f            	swapf	tempxb,f	; de facon a se retouvé avec le pattern suivant
+000142   082b     movf	0x2b, w             	movfw	tempxb		; 00 , 01, 11 puis  10 aye!
+000143   0536     andwf	0x36, w            	andwf	bitxb,w
+000144   07ae     addwf	0x2e, f            	addwf	temp,f		; pourquoi ? > marche quelque soit le pattern!!(amiga / atari)
+000145   0832     movf	0x32, w             	movfw	savb
+000146   052f     andwf	0x2f, w            	andwf	maskx,w		;b'11001111'
+000147   072e     addwf	0x2e, w            	addwf	temp,w
+000148   0086     movwf	0x6                	movwf	PORTB		;ouput patterns
+000149   00b2     movwf	0x32               	movwf	savb
+00014a   0fa5     incfsz	0x25, f           	incfsz  pack2,f
+00014b   2939     goto	0x139                       goto    RIGHT
+00014c   0008     return                           return
+                                           LEFT:
+00014d   207d     call	0x7d                	call    DEL200          ; send H and HQ for left movement
+00014e   0aa7     incf	0x27, f             	incf	togglex,f
+00014f   1827     btfsc	0x27, 0            	btfsc	togglex,0
+000150   0eaa     swapf	0x2a, f            	swapf	tempxa,f
+000151   082a     movf	0x2a, w             	movfw	tempxa
+000152   0535     andwf	0x35, w            	andwf	bitxa,w
+000153   00ae     movwf	0x2e               	movwf	temp
+000154   1c27     btfss	0x27, 0            	btfss	togglex,0
+000155   0eab     swapf	0x2b, f            	swapf	tempxb,f
+000156   082b     movf	0x2b, w             	movfw	tempxb
+000157   0536     andwf	0x36, w            	andwf	bitxb,w
+000158   07ae     addwf	0x2e, f            	addwf	temp,f
+000159   0832     movf	0x32, w             	movfw	savb
+00015a   052f     andwf	0x2f, w            	andwf	maskx,w		;b'11001111'
+00015b   072e     addwf	0x2e, w            	addwf	temp,w
+00015c   0086     movwf	0x6                	movwf	PORTB		;ouput patterns
+00015d   00b2     movwf	0x32               	movwf	savb
+00015e   0ba5     decfsz	0x25, f           	decfsz  pack2,f
+00015f   294d     goto	0x14d                       goto    LEFT
+000160   0008     return                           return
+                                           
+                                           inter: ;Gestion des interruptions
+000161   0009     retfie                   	retfie ;ne fait rien
+                                           	end
+                                           

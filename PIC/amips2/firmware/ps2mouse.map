@@ -1,0 +1,66 @@
+gplink-0.13.6 alpha
+Map File - Created 6-27-2008  15:24:01
+ 
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   00000000    program   0x000002
+                   .org_4       code   0x000004    program   0x000002
+                   .org_5       code   0x000005    program   0x0002ba
+                  .config       code   0x002007    program   0x000002
+ 
+                              Program Memory Usage
+                               Start         End
+                           ---------   ---------
+                            0x002007    0x002007
+                            00000000    00000000
+                            0x000004    0x000004
+                            0x000005    0x000161
+ 
+                            352 program addresses used
+ 
+                              Symbols
+                     Name    Address   Location    Storage File
+                ---------  ---------  ---------  --------- ---------
+                     main   0x000005    program     static ps2mouse.asm
+         check_mouse_init   0x00001b    program     static ps2mouse.asm
+                megatempo   0x000037    program     static ps2mouse.asm
+            amiga_pattern   0x000053    program     static ps2mouse.asm
+                    start   0x000069    program     static ps2mouse.asm
+                      CHK   0x00006c    program     static ps2mouse.asm
+                   DEL200   0x00007d    program     static ps2mouse.asm
+                     DEL2   0x00007f    program     static ps2mouse.asm
+                    DEL10   0x000081    program     static ps2mouse.asm
+                      REC   0x000087    program     static ps2mouse.asm
+                      RL1   0x000089    program     static ps2mouse.asm
+                      RL2   0x000093    program     static ps2mouse.asm
+                      RL4   0x000098    program     static ps2mouse.asm
+                      RL8   0x000099    program     static ps2mouse.asm
+                      RL3   0x00009c    program     static ps2mouse.asm
+                   RECBIT   0x00009e    program     static ps2mouse.asm
+                      RL5   0x0000a5    program     static ps2mouse.asm
+                    INHIB   0x0000a8    program     static ps2mouse.asm
+                      REL   0x0000ab    program     static ps2mouse.asm
+                    CLKHI   0x0000ab    program     static ps2mouse.asm
+                    CLKLO   0x0000af    program     static ps2mouse.asm
+                    DATLO   0x0000b4    program     static ps2mouse.asm
+                    DATHI   0x0000b9    program     static ps2mouse.asm
+                 send_bit   0x0000bd    program     static ps2mouse.asm
+                    DHIGH   0x0000c2    program     static ps2mouse.asm
+                   wait_h   0x0000c3    program     static ps2mouse.asm
+                   wait_l   0x0000c5    program     static ps2mouse.asm
+                     SEND   0x0000c8    program     static ps2mouse.asm
+                      SL1   0x0000cd    program     static ps2mouse.asm
+                      SL7   0x0000db    program     static ps2mouse.asm
+                      SL8   0x0000dd    program     static ps2mouse.asm
+                   SNDPAR   0x0000e0    program     static ps2mouse.asm
+                   NEWPAR   0x0000e3    program     static ps2mouse.asm
+                     CONV   0x0000f8    program     static ps2mouse.asm
+                    MOVEY   0x00010d    program     static ps2mouse.asm
+                       UP   0x00010f    program     static ps2mouse.asm
+                     DOWN   0x000123    program     static ps2mouse.asm
+                    MOVEX   0x000137    program     static ps2mouse.asm
+                    RIGHT   0x000139    program     static ps2mouse.asm
+                     LEFT   0x00014d    program     static ps2mouse.asm
+                    inter   0x000161    program     static ps2mouse.asm
+ 
