@@ -1,0 +1,171 @@
+Cmp-Mod V01 Created by CvPCB (2011-07-08 BZR 3044)-stable date = 03/02/2013 10:37:18
+
+BeginCmp
+TimeStamp = /4CA870EF;
+Reference = C2;
+ValeurCmp = C;
+IdModule  = C2;
+EndCmp
+
+BeginCmp
+TimeStamp = /4CA87151;
+Reference = C3;
+ValeurCmp = C;
+IdModule  = C2;
+EndCmp
+
+BeginCmp
+TimeStamp = /4CA87152;
+Reference = C4;
+ValeurCmp = C;
+IdModule  = C2;
+EndCmp
+
+BeginCmp
+TimeStamp = /4CA87146;
+Reference = C5;
+ValeurCmp = CP1;
+IdModule  = C1V7;
+EndCmp
+
+BeginCmp
+TimeStamp = /5058E14C;
+Reference = D1;
+ValeurCmp = LED;
+IdModule  = LED-3MM;
+EndCmp
+
+BeginCmp
+TimeStamp = /4DBD84E4;
+Reference = D2;
+ValeurCmp = DIODE;
+IdModule  = D3;
+EndCmp
+
+BeginCmp
+TimeStamp = /4DBD84F1;
+Reference = D11;
+ValeurCmp = DIODE;
+IdModule  = D3;
+EndCmp
+
+BeginCmp
+TimeStamp = /4CA870AA;
+Reference = D13;
+ValeurCmp = DIODE;
+IdModule  = D3;
+EndCmp
+
+BeginCmp
+TimeStamp = /4CA8712F;
+Reference = P1;
+ValeurCmp = CONN_25X2;
+IdModule  = HE10_50D;
+EndCmp
+
+BeginCmp
+TimeStamp = /5058E156;
+Reference = R1;
+ValeurCmp = 1KR;
+IdModule  = R3;
+EndCmp
+
+BeginCmp
+TimeStamp = /4CA870D9;
+Reference = R2;
+ValeurCmp = 1KR;
+IdModule  = R3;
+EndCmp
+
+BeginCmp
+TimeStamp = /5058E134;
+Reference = R3;
+ValeurCmp = 220R;
+IdModule  = R3;
+EndCmp
+
+BeginCmp
+TimeStamp = /5058D332;
+Reference = R4;
+ValeurCmp = 1KR;
+IdModule  = R3;
+EndCmp
+
+BeginCmp
+TimeStamp = /5066ED0E;
+Reference = R5;
+ValeurCmp = 10KR;
+IdModule  = R3;
+EndCmp
+
+BeginCmp
+TimeStamp = /5059F50B;
+Reference = SW1;
+ValeurCmp = WRITE;
+IdModule  = DIP-6__300_ELL;
+EndCmp
+
+BeginCmp
+TimeStamp = /5058E053;
+Reference = SW2;
+ValeurCmp = ROM7;
+IdModule  = SIL-3;
+EndCmp
+
+BeginCmp
+TimeStamp = /5058E041;
+Reference = SW3;
+ValeurCmp = ROM0;
+IdModule  = SIL-3;
+EndCmp
+
+BeginCmp
+TimeStamp = /5066EDE6;
+Reference = SW4;
+ValeurCmp = SW_PUSH;
+IdModule  = PINHEAD1-2;
+EndCmp
+
+BeginCmp
+TimeStamp = /504C8586;
+Reference = U1;
+ValeurCmp = 74LS574;
+IdModule  = DIP-20__300_ELL;
+EndCmp
+
+BeginCmp
+TimeStamp = /5058DF56;
+Reference = U2;
+ValeurCmp = 74LS32;
+IdModule  = DIP-14__300_ELL;
+EndCmp
+
+BeginCmp
+TimeStamp = /5058E0E4;
+Reference = U3;
+ValeurCmp = 74LS32;
+IdModule  = DIP-14__300_ELL;
+EndCmp
+
+BeginCmp
+TimeStamp = /5058DBC7;
+Reference = U4;
+ValeurCmp = 74LS02;
+IdModule  = DIP-14__300_ELL;
+EndCmp
+
+BeginCmp
+TimeStamp = /5058DC2F;
+Reference = U5;
+ValeurCmp = 74LS20;
+IdModule  = DIP-14__300_ELL;
+EndCmp
+
+BeginCmp
+TimeStamp = /504C83A0;
+Reference = U6;
+ValeurCmp = 29C040;
+IdModule  = PLCC32;
+EndCmp
+
+EndListe
