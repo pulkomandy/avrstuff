@@ -1,4 +1,4 @@
-update=17/10/2015 10:48:41
+update=18/10/2015 16:04:40
 version=1
 last_client=kicad
 [cvpcb]
@@ -53,3 +53,13 @@ LibName4=74xx
 LibName5=ch376
 LibName6=regul
 LibName7=C:/Users/pulkomandy/Documents/DEV/avrstuff/CPC stuff/kicadlibs/Opendous_KiCad_Libraries/library/opendous
+[schematic_editor]
+version=1
+PageLayoutDescrFile=
+PlotDirectoryName=
+SubpartIdSeparator=0
+SubpartFirstId=65
+NetFmtName=Pcbnew
+SpiceForceRefPrefix=0
+SpiceUseNetNumbers=0
+LabSize=60
