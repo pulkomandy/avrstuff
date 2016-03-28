@@ -1,4 +1,4 @@
-update=20/10/2015 20:30:32
+update=14/02/2016 15:44:51
 version=1
 last_client=kicad
 [cvpcb]
@@ -42,16 +42,6 @@ LibName9=dip_sockets
 LibName10=led
 [general]
 version=1
-[schematic_editor]
-version=1
-PageLayoutDescrFile=
-PlotDirectoryName=
-SubpartIdSeparator=0
-SubpartFirstId=65
-NetFmtName=Pcbnew
-SpiceForceRefPrefix=0
-SpiceUseNetNumbers=0
-LabSize=60
 [eeschema]
 version=1
 LibDir=
@@ -64,3 +54,13 @@ LibName5=ch376
 LibName6=regul
 LibName7=C:/Users/pulkomandy/Documents/DEV/avrstuff/CPC stuff/kicadlibs/Opendous_KiCad_Libraries/library/opendous
 LibName8=switches
+[schematic_editor]
+version=1
+PageLayoutDescrFile=
+PlotDirectoryName=
+SubpartIdSeparator=0
+SubpartFirstId=65
+NetFmtName=Pcbnew
+SpiceForceRefPrefix=0
+SpiceUseNetNumbers=0
+LabSize=60
