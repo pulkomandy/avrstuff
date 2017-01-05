@@ -1,4 +1,4 @@
-update=14/02/2016 15:44:51
+update=05/01/2017 22:51:39
 version=1
 last_client=kicad
 [cvpcb]
@@ -40,8 +40,6 @@ LibName7=display
 LibName8=valves
 LibName9=dip_sockets
 LibName10=led
-[general]
-version=1
 [eeschema]
 version=1
 LibDir=
@@ -64,3 +62,5 @@ NetFmtName=Pcbnew
 SpiceForceRefPrefix=0
 SpiceUseNetNumbers=0
 LabSize=60
+[general]
+version=1

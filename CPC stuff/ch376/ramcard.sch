@@ -460,7 +460,7 @@ Wire Wire Line
 	750  3950 1750 3950
 Connection ~ 1450 3650
 Wire Wire Line
-	1450 3600 1450 3650
+	1450 3650 1450 3600
 Wire Wire Line
 	800  4900 1050 4900
 Wire Wire Line
@@ -881,11 +881,11 @@ D6
 Text Label 5150 1600 2    60   ~ 0
 D7
 Wire Wire Line
-	5150 2400 5500 2400
+	5150 2400 4800 2400
 Wire Wire Line
-	5500 2400 5500 1700
+	4800 2400 4800 1700
 Wire Wire Line
-	5500 1700 5150 1700
+	4800 1700 5150 1700
 Text Label 5150 2200 2    60   ~ 0
 A4
 Text Label 5150 2100 2    60   ~ 0
@@ -922,7 +922,7 @@ F 3 "" H 6200 2850 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	6200 2850 6200 2700
+	6200 2700 6200 2850
 $Comp
 L VCC #PWR014
 U 1 1 5622A2AF
@@ -946,10 +946,6 @@ Text Label 5150 2000 2    60   ~ 0
 TX
 Wire Wire Line
 	9600 2000 9300 2000
-Wire Wire Line
-	4500 4000 5250 4000
-Wire Wire Line
-	5250 4000 5250 3750
 $Comp
 L VCC #PWR015
 U 1 1 5622DFD0
@@ -1016,7 +1012,6 @@ Wire Wire Line
 Connection ~ 6400 2750
 Wire Wire Line
 	6100 800  6100 750 
-Connection ~ 5150 4000
 $Comp
 L R R4
 U 1 1 562364F7
@@ -1077,9 +1072,9 @@ F 3 "" V 3400 4350 60  0000 C CNN
 	0    -1   1    0   
 $EndComp
 Wire Wire Line
-	4200 4350 3750 4350
+	3750 4350 4200 4350
 Wire Wire Line
-	4200 4450 3750 4450
+	3750 4450 4200 4450
 Wire Wire Line
 	3900 4550 3900 4450
 Connection ~ 3900 4450
@@ -1120,7 +1115,7 @@ Wire Wire Line
 Wire Wire Line
 	3750 4100 3050 4100
 Wire Wire Line
-	3050 4500 3050 4400
+	3050 4400 3050 4500
 Wire Wire Line
 	3050 4800 3050 5050
 Connection ~ 3900 5050
@@ -1153,7 +1148,6 @@ F 3 "" H 4000 4000 60  0000 C CNN
 $EndComp
 Wire Wire Line
 	4000 4000 4200 4000
-Connection ~ 4600 4000
 Wire Notes Line
 	6450 3400 6450 6700
 Wire Notes Line
@@ -1189,7 +1183,7 @@ Wire Wire Line
 Wire Wire Line
 	7150 4450 7500 4450
 Wire Wire Line
-	7500 4950 7500 4650
+	7500 4650 7500 4950
 Text Label 7100 1700 0    60   ~ 0
 INTRPT
 Text Label 7150 4800 0    60   ~ 0
@@ -1219,7 +1213,7 @@ Text Label 9100 3000 0    60   ~ 0
 Text Label 6400 800  1    60   ~ 0
 /DSR
 Wire Wire Line
-	8050 3900 8050 3700
+	8050 3700 8050 3900
 Wire Wire Line
 	7900 3950 7900 3800
 Wire Wire Line
@@ -1315,7 +1309,7 @@ F 1 "SW_DIP_x4" H 8650 3400 50  0000 C CNN
 F 2 "Buttons_Switches_ThroughHole:SW_DIP_x4_Slide" H 8600 3150 60  0001 C CNN
 F 3 "" H 8600 3150 60  0000 C CNN
 	1    8650 3150
-	1    0    0    -1  
+	-1   0    0    1   
 $EndComp
 Wire Wire Line
 	8200 3000 8350 3000
@@ -1347,17 +1341,6 @@ Text Label 9350 800  0    60   ~ 0
 INT
 Wire Notes Line
 	2750 6700 6450 6700
-$Comp
-L FT231X U4
-U 1 1 5627FA58
-P 5200 4400
-F 0 "U4" H 5200 3900 60  0000 C CNN
-F 1 "FT231X" H 5450 3500 60  0000 C CNN
-F 2 "ch376:SSOP-24_3.9x8.7mm_Pitch0.635mm" H 5200 4600 60  0001 C CNN
-F 3 "" H 5200 4600 60  0000 C CNN
-	1    5200 4400
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	5800 5200 6300 5200
 Wire Wire Line
@@ -1474,7 +1457,7 @@ F 3 "" H 10950 6200 60  0000 C CNN
 $EndComp
 Connection ~ 10950 6100
 Wire Wire Line
-	10950 6200 10950 6000
+	10950 6000 10950 6200
 NoConn ~ 10150 5450
 $Comp
 L LED D1
@@ -1517,4 +1500,23 @@ F 3 "" H 10700 2350 60  0000 C CNN
 $EndComp
 Wire Wire Line
 	10900 2350 10700 2350
+$Comp
+L FT231X U4
+U 1 1 5627FA58
+P 5200 4400
+F 0 "U4" H 5200 3900 60  0000 C CNN
+F 1 "FT231X" H 5450 3500 60  0000 C CNN
+F 2 "ch376:SSOP-24_3.9x8.7mm_Pitch0.635mm" H 5200 4600 60  0001 C CNN
+F 3 "" H 5200 4600 60  0000 C CNN
+	1    5200 4400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4500 4000 4600 4000
+Wire Wire Line
+	4600 4000 4600 3450
+Wire Wire Line
+	5250 3750 5250 3450
+Wire Wire Line
+	5250 3450 4600 3450
 $EndSCHEMATC
