@@ -7,6 +7,16 @@
 	#error You must define BAUD to use libuart.
 #endif
 
+#ifdef __AVR_ATmega128__
+// FIXME there are two USARTs in this case and we should be able to drive either
+#define UBRRH UBRR0H
+#define UBRRL UBRR0L
+#define UCSRA UCSR0A
+#define UCSRC UCSR0C
+#define UCSRB UCSR0B
+#define UDR   UDR0
+#endif
+
 //This function is used to initialize the USART
 void USARTInit()
 {
@@ -28,6 +38,8 @@ void USARTInit()
 	  */
 #ifdef __AVR_ATtiny2313__
 	UCSRC = (1 << UCSZ1) | (1 << UCSZ0);
+#elif defined __AVR_ATmega128__
+	UCSRC = (3 << UCSZ0);
 #else
 	UCSRC = (1 << URSEL) | (3 << UCSZ0);
 #endif

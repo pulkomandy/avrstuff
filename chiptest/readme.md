@@ -10,6 +10,7 @@ stuff is working.
 
 Right now chiptest supports the following devices:
 * ATTiny2313.
+* ATmega128
 
 It tests the following features:
 * USART

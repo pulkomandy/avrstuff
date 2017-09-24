@@ -19,7 +19,7 @@ $(MCU):
 	mkdir -p $(MCU)
 
 flash: $(MCU).hex
-	$(AVRDUDE) -c usbasp -p $(MCU) -Uflash:w:$^
+	$(AVRDUDE) -c stk500 -P /dev/ports/usb0 -p $(MCU) -Uflash:w:$^
 
 clean:
 	rm *.bin *.o *.hex

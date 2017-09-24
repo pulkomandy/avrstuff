@@ -1,25 +1,29 @@
+# STK500
+F_CPU=3800000
+MCU=atmega128
+
 # K4KUSB
-F_CPU=12000000
+#F_CPU=12000000
+#MCU=attiny2313
 
 # muSerial
 # F_CPU=20000000
+#MCU=attiny2313
 
 # Common
-MCU=attiny2313
 BAUD=9600
 
 all: blinkdel.hex
 
 include ../kbd/common.mk
 
-COMPILE = $(CC) -Wall -Os -std=c99 -mmcu=$(MCU) -DF_CPU=$(F_CPU) -DBAUD=$(BAUD) \
-	-I../libs/usart/
+COMPILE = $(CC) -Wall -std=c99 $(CFLAGS) -I../libs/usart/
 
 VPATH=../libs/usart/
 
 #Rules
 
-blinkdel.bin: main.o usart.o
+$(MCU).bin: main.o usart.o
 	$(COMPILE) $^ -o $@
 
 main.o: main.c
@@ -31,7 +35,4 @@ main.o: main.c
 
 .c.o:
 	$(COMPILE) -std=c99 -c $< -o $@
-
-flash:
-	avrdude -c usbasp -p $(MCU) -Uflash:w:blinkdel.hex
 

@@ -11,17 +11,20 @@
 
 // muSerial: ATTiny2313 - LED = PD6
 // K4KUSB: ATTiny2313 - LED = PB2
-#define DDRLED DDRB
-#define PORTLED PORTB
-#define LEDBIT (1 << PB2)
-
-#define BAUD 9600 // Safe value even for low clocks. (used by setbaud.h)
+// STK500: anything, PORTD is convenient if available.
+#define DDRLED DDRC
+#define PORTLED PORTC
+#define LEDBIT (1 << PC2)
 
 int main() {
 	wdt_enable(WDTO_2S);
     // configure timer 0 for a rate of FCPU/(256 * 256)
+#ifdef __AVR_ATtiny2313__
     TCCR0A = 0;          // timer 0 prescaler: 256
 	TCCR0B = 4;
+#else
+	TCCR0 = 6; // timer 0 prescaler: 256
+#endif
 
 	//debug LED - output
 	DDRLED |= LEDBIT;
@@ -31,6 +34,7 @@ int main() {
 
 	// Let's rock!
 	uint8_t counter = 0;
+	char c = 'a';
 	for(;;) {
 		wdt_reset();
 
@@ -42,7 +46,9 @@ int main() {
 			if (counter == 0)
 			{
 				PORTLED ^= LEDBIT; // Toggle the LED
-				USARTWriteChar('H'); // Send a byte to the UART
+				USARTWriteChar(c++); // Send a byte to the UART
+				if (c > 'z')
+					c = 'a';
 			}
 		}
 	}
