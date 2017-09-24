@@ -39,7 +39,8 @@ void USARTInit()
 #ifdef __AVR_ATtiny2313__
 	UCSRC = (1 << UCSZ1) | (1 << UCSZ0);
 #elif defined __AVR_ATmega128__
-	UCSRC = (3 << UCSZ0);
+	UCSR0C = (2 << UCSZ0) | (2 << UPM0) ; /* 7 bits + even parity.
+											TODO make this configurable. */
 #else
 	UCSRC = (1 << URSEL) | (3 << UCSZ0);
 #endif
@@ -54,7 +55,7 @@ void USARTInit()
 void USARTWriteChar(char data)
 {
 	//Wait untill the transmitter is ready
-	while(!(UCSRA & (1<<UDRE)))
+	while(!(UCSR0A & (1<<UDRE0)))
 	{
 		//Do nothing
 	}
@@ -71,7 +72,7 @@ void USARTWriteChar(char data)
 char USARTReadChar()
 {
 	//Wait untill a data is available
-	while(!(UCSRA & (1<<RXC)))
+	while(!(UCSR0A & (1<<RXC0)))
 	{
 		//Do nothing
 	}
@@ -79,7 +80,7 @@ char USARTReadChar()
 	//Now USART has got data from host
 	//and is available is buffer
 
-	return UDR;
+	return UDR0;
 }
 
 
