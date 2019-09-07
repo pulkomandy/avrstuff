@@ -7,15 +7,25 @@
 #include <string.h>
 #include <stdbool.h>
 
-#ifdef __AVR_ATmega48P__
-#define TIFR TIFR0
+#if defined(__AVR_ATmega8__)
+#define _TCCA TCCR1A
+#define _TCCB TCCR1B
+#define _TIFR TIFR
+#define _TOV  TOV1
+#elif defined(__AVR_ATmega48P__)
+#define _TCCA TCCR0A
+#define _TCCB TCCR0B
+#define _TIFR TIFR0
+#define _TOV  TOV0
+#else
+#error Unknown device! Add it to main.c and set the timer properly
 #endif
 
 int main() {
 	wdt_enable(WDTO_2S);
     // configure timer 0 for a rate of 16M/(256 * 256) = ~244Hz
-    TCCR0A = 0;          // timer 0 prescaler: 256
-	TCCR0B = 4;
+    _TCCA = 0;          // timer 0 prescaler: 256
+	_TCCB = 4;
 
 	//debug LED - output
 	DDRD |= (1<<PD6);
@@ -27,8 +37,8 @@ int main() {
 
 
 		// check timer if we need periodic reports
-		if (TIFR & (1 << TOV0)) {
-			TIFR = (1 << TOV0); // reset flag
+		if (_TIFR & (1 << _TOV)) {
+			_TIFR = (1 << _TOV); // reset flag
 			PORTD ^= (1<<PD6);
 		}
 	}
