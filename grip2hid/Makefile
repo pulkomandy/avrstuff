@@ -1,6 +1,6 @@
 #Set vars
 MCU=at90usb1287
-COMPILE = avr-gcc -Wall -Os -Iusbdrv -I. -std=c99 -mmcu=$(MCU) -DF_CPU=16000000 
+COMPILE = avr-gcc -Wall -Wextra -Werror -Os -Iusbdrv -I. -mmcu=$(MCU) -DF_CPU=16000000 
 PROJECT=grip2hid
 
 #Rules
@@ -18,7 +18,7 @@ $(PROJECT).bin: main.o
 	$(COMPILE) -c $< -o $@
 
 flash: $(PROJECT).hex
-	avrdude -c flip1 -p $(MCU) -Uflash:w:$^
+	avrdude -u -c flip1 -p $(MCU) -Uflash:w:$^
 
 clean:
 	rm *.bin *.hex *.o

@@ -42,35 +42,36 @@ public:
 
 private:
 	uint32_t word = 0;
-	uint32_t count = 0;
-	uint32_t state = 0;
+	uint8_t count = 0;
+	uint8_t state = 0;
 };
 
 int main() {
 	wdt_enable(WDTO_2S);
-    // configure timer 0 for a rate of 16M/(256 * 256) = ~244Hz
-    TCCR0A = 0;          // timer 0 prescaler: 256
-	TCCR0B = 4;
 
 	// debug LEDs - output
 	DDRD |= 0xF0;
+	PORTD = 0;
 
 	// GrIP input
 	DDRB = 0;
+	uint8_t oldv = PINB;
 
-	PORTD = 0;
 	GrIP pad;
 
 	for (;;) {
 		wdt_reset();
 
-		// Wait for next bit
-		while(!(PINB & 2));
-		while(PINB & 2);
+		uint8_t newv = PINB;
 
-		// Read bit
-		uint32_t bit = (PINB & 1) != 0;
-		pad.PushBit(bit);
+		if (!(newv & 2)) { // clock is down
+			if (oldv & 2) { // and it was up at previous read
+				// Read bit
+				uint32_t bit = (newv & 1) != 0;
+				pad.PushBit(bit);
+			}
+		}
+		oldv = newv;
 	}
 
 	return 0;
