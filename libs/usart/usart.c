@@ -21,16 +21,31 @@
 #define RXC0   RXC
 #endif
 
+#ifdef __AVR_AT90USB1287__
+#define UBRR0H UBRR1H
+#define UBRR0L UBRR1L
+#define UCSR0A UCSR1A
+#define UCSR0C UCSR1C
+#define UCSR0B UCSR1B
+#define UDR0   UDR1
+#define UDRE0  UDRE1
+#define RXC0   RXC1
+
+#define RXEN   RXEN1
+#define TXEN   TXEN1
+#define U2X    U2X1
+#endif
+
 void USARTInit()
 {
 	//Set Baud rate
 	#include <util/setbaud.h>
-	UBRRH = UBRRH_VALUE;
-	UBRRL = UBRRL_VALUE;
+	UBRR0H = UBRRH_VALUE;
+	UBRR0L = UBRRL_VALUE;
 	#if USE_2X
-		UCSRA |= (1 << U2X);
+		UCSR0A |= (1 << U2X);
 	#else
-		UCSRA &= ~(1 << U2X);
+		UCSR0A &= ~(1 << U2X);
 	#endif
 
 	/*Set Frame Format
@@ -39,17 +54,19 @@ void USARTInit()
 	  >> 1 StopBit
 	  >> char size 8
 	  */
-#ifdef __AVR_ATtiny2313__
+#if defined(__AVR_ATtiny2313__)
 	UCSRC = (1 << UCSZ1) | (1 << UCSZ0);
 #elif defined __AVR_ATmega128__
 	UCSR0C = (2 << UCSZ0) | (2 << UPM0) ; /* 7 bits + even parity.
 											TODO make this configurable. */
+#elif defined(__AVR_AT90USB1287__)
+	UCSR1C = (1 << UCSZ11) | (1 << UCSZ10);
 #else
-	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+	UCSR0C = (1 << URSEL) | (3 << UCSZ0);
 #endif
 
 	//Enable The receiver and transmitter
-	UCSRB = (1 << RXEN) | (1 << TXEN);
+	UCSR0B = (1 << RXEN) | (1 << TXEN);
 }
 
 
@@ -63,7 +80,7 @@ void USARTWriteChar(char data)
 
 	//Now write the data to USART buffer
 
-	UDR=data;
+	UDR0=data;
 }
 
 
