@@ -7,17 +7,20 @@
 	#error You must define BAUD to use libuart.
 #endif
 
-#ifdef __AVR_ATmega128__
 // FIXME there are two USARTs in this case and we should be able to drive either
-#define UBRRH UBRR0H
-#define UBRRL UBRR0L
-#define UCSRA UCSR0A
-#define UCSRC UCSR0C
-#define UCSRB UCSR0B
-#define UDR   UDR0
+
+// Compatibility for devices with single USART only
+#ifdef __AVR_ATmega8__
+#define UBRR0H UBRRH
+#define UBRR0L UBRRL
+#define UCSR0A UCSRA
+#define UCSR0C UCSRC
+#define UCSR0B UCSRB
+#define UDR0   UDR
+#define UDRE0  UDRE
+#define RXC0   RXC
 #endif
 
-//This function is used to initialize the USART
 void USARTInit()
 {
 	//Set Baud rate
@@ -50,8 +53,6 @@ void USARTInit()
 }
 
 
-//This fuction writes the given "data" to
-//the USART which then transmit it via TX line
 void USARTWriteChar(char data)
 {
 	//Wait untill the transmitter is ready
@@ -66,9 +67,6 @@ void USARTWriteChar(char data)
 }
 
 
-//This function is used to read the available data
-//from USART. This function will wait untill data is
-//available.
 char USARTReadChar()
 {
 	//Wait untill a data is available

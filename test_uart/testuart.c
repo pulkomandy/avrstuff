@@ -2,7 +2,7 @@
 
 void main(void)
 {
-	USARTInit(51);
+	USARTInit();
 	USARTWriteChar('Z');
 	while(1);
 }
