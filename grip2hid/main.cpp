@@ -16,6 +16,10 @@
 #define GRIP_CLK_A  (1 << 1)
 #define GRIP_DAT_B  (1 << 3)
 #define GRIP_CLK_B  (1 << 2)
+#define GRIP_DAT_C  (1 << 7)
+#define GRIP_CLK_C  (1 << 6)
+#define GRIP_DAT_D  (1 << 5)
+#define GRIP_CLK_D  (1 << 4)
 
 class GrIP
 {
@@ -64,24 +68,19 @@ private:
 
 
 int main() {
-	GrIP pad[2];
-
 	wdt_enable(WDTO_2S);
 
-	// debug LEDs - output
-	DDRD |= 0x7C;
-	PORTD = 0;
-
 	// GrIP input
-	GRIP_PORT = 0; // Disable pull-ups
+	GRIP_PORT = 0xFF; // Enable pull-ups
 	GRIP_DDR = 0;  // Port as input
-	uint8_t oldv = GRIP_PIN;
 
 	USARTInit();
 	USARTWriteChar('h');
 	USARTWriteChar('\r');
 	USARTWriteChar('\n');
 
+	// Initial value of oldv for edge detection
+	uint8_t oldv = GRIP_PIN;
 
 	for (;;) {
 		// Because the CPU is too slow, if we try to scan all pads at once we
@@ -99,6 +98,7 @@ int main() {
 		// FIXME the loop to 255 here to wait for a bit isn't too nice. We
 		// should rather use a timer with a known period?
 		// Process pad1
+		GrIP pad;
 		uint8_t i;
 		for (i = 0; i < 255; i++) {
 			wdt_reset();
@@ -109,16 +109,16 @@ int main() {
 				if (oldv & GRIP_CLK_A) { // and it was up at previous read
 					// Read bit
 					uint32_t bit = (newv & GRIP_DAT_A) != 0;
-					i = 0;
-					if (pad[0].PushBit(bit)) {
-						pad[0].Dump();
-						USARTWriteChar(' ');
+					if (pad.PushBit(bit)) {
 						break;
 					}
 				}
 			}
 			oldv = newv;
 		}
+
+		pad.Dump();
+		USARTWriteChar(' ');
 
 		// Process pad 2
 		for (i = 0; i < 255; i++) {
@@ -129,16 +129,55 @@ int main() {
 				if (oldv & GRIP_CLK_B) { // and it was up at previous read
 					// Read bit
 					uint32_t bit = (newv & GRIP_DAT_B) != 0;
-					i = 0;
-					if (pad[1].PushBit(bit)) {
-						pad[1].Dump();
-						USARTWriteChar(' ');
+					if (pad.PushBit(bit)) {
 						break;
 					}
 				}
 			}
 			oldv = newv;
 		}
+
+		pad.Dump();
+		USARTWriteChar(' ');
+
+		// Process pad 3
+		for (i = 0; i < 255; i++) {
+			wdt_reset();
+
+			uint8_t newv = GRIP_PIN;
+			if (!(newv & GRIP_CLK_C)) { // clock is down
+				if (oldv & GRIP_CLK_C) { // and it was up at previous read
+					// Read bit
+					uint32_t bit = (newv & GRIP_DAT_C) != 0;
+					if (pad.PushBit(bit)) {
+						break;
+					}
+				}
+			}
+			oldv = newv;
+		}
+
+		pad.Dump();
+		USARTWriteChar(' ');
+
+		// Process pad 4
+		for (i = 0; i < 255; i++) {
+			wdt_reset();
+
+			uint8_t newv = GRIP_PIN;
+			if (!(newv & GRIP_CLK_D)) { // clock is down
+				if (oldv & GRIP_CLK_D) { // and it was up at previous read
+					// Read bit
+					uint32_t bit = (newv & GRIP_DAT_D) != 0;
+					if (pad.PushBit(bit)) {
+						break;
+					}
+				}
+			}
+			oldv = newv;
+		}
+
+		pad.Dump();
 		USARTWriteChar('\r');
 		USARTWriteChar('\n');
 	}
