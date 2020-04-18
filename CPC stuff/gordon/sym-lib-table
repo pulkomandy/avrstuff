@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name ramcard-rescue)(type Legacy)(uri ${KIPRJMOD}/ramcard-rescue.lib)(options "")(descr ""))
+  (lib (name byteeeprom)(type Legacy)(uri ${KIPRJMOD}/byteeeprom.lib)(options "")(descr ""))
+)
