@@ -107,6 +107,60 @@ X O6 9 500 -300 200 L 50 50 1 0 O V
 ENDDRAW
 ENDDEF
 #
+# Device_Jumper_NC_Small
+#
+DEF Device_Jumper_NC_Small JP 0 30 N N 1 F N
+F0 "JP" 0 80 50 H V C CNN
+F1 "Device_Jumper_NC_Small" 10 -60 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+DRAW
+A 0 -10 57 450 1350 0 1 0 N 40 30 -40 30
+C -40 0 20 0 1 0 N
+C 40 0 20 0 1 0 N
+X 1 1 -100 0 40 R 50 50 0 1 P
+X 2 2 100 0 40 L 50 50 0 1 P
+ENDDRAW
+ENDDEF
+#
+# Device_Jumper_NO_Small
+#
+DEF Device_Jumper_NO_Small JP 0 30 N N 1 F N
+F0 "JP" 0 80 50 H V C CNN
+F1 "Device_Jumper_NO_Small" 10 -60 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+DRAW
+C -40 0 20 0 1 0 N
+C 40 0 20 0 1 0 N
+X 1 1 -100 0 40 R 50 50 0 1 P
+X 2 2 100 0 40 L 50 50 0 1 P
+ENDDRAW
+ENDDEF
+#
+# Jumper_Jumper_3_Open
+#
+DEF Jumper_Jumper_3_Open JP 0 0 Y N 1 F N
+F0 "JP" -100 -100 50 H V C CNN
+F1 "Jumper_Jumper_3_Open" 0 110 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ Jumper*
+$ENDFPLIST
+DRAW
+A -65 -30 89 1282 518 0 1 0 N -120 40 -10 40
+A 65 -30 89 1282 518 0 1 0 N 10 40 120 40
+C -130 0 20 0 0 0 N
+C 0 0 20 0 0 0 N
+C 130 0 20 0 0 0 N
+P 2 0 1 0 0 -20 0 -50 N
+X A 1 -250 0 100 R 50 50 1 1 P
+X C 2 0 -150 100 U 50 50 1 1 I
+X B 3 250 0 100 L 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
 # byteeeprom_29C040
 #
 DEF byteeeprom_29C040 U 0 40 Y Y 1 F N
@@ -441,24 +495,6 @@ DRAW
 S -40 150 40 -150 0 1 12 N
 X ~ 1 0 250 100 D 60 60 1 1 P
 X ~ 2 0 -250 100 U 60 60 1 1 P
-ENDDRAW
-ENDDEF
-#
-# ramcard-rescue_SWITCH_INV
-#
-DEF ramcard-rescue_SWITCH_INV SW 0 0 N Y 1 F N
-F0 "SW" -200 150 50 H V C CNN
-F1 "ramcard-rescue_SWITCH_INV" -150 -150 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-DRAW
-C -150 0 50 0 0 0 N
-C 150 -100 50 0 0 0 N
-C 150 100 50 0 1 0 N
-P 2 0 1 0 -100 0 150 50 N
-X 1 1 500 100 300 L 60 60 1 1 P
-X 2 2 -500 0 300 R 60 60 1 1 P
-X 3 3 500 -100 300 L 60 60 1 1 P
 ENDDRAW
 ENDDEF
 #

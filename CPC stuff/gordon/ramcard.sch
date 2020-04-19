@@ -18,9 +18,7 @@ Wire Wire Line
 	6500 1900 6500 2100
 Wire Wire Line
 	6300 1900 6300 2100
-Wire Wire Line
-	3250 2600 3500 2600
-Connection ~ 8400 3550
+Connection ~ 8400 3950
 Wire Wire Line
 	1250 950  1250 900 
 Wire Wire Line
@@ -37,19 +35,19 @@ Wire Wire Line
 Wire Wire Line
 	1150 750  1250 750 
 Wire Wire Line
-	2200 3400 2000 3400
+	2200 3600 2000 3600
 Wire Wire Line
-	2250 2700 2000 2700
+	2250 2900 2000 2900
 Wire Wire Line
-	6100 3350 6400 3350
+	6100 3750 6400 3750
 Wire Wire Line
 	8800 2750 9050 2750
-Connection ~ 3750 1250
+Connection ~ 3300 1150
 Wire Wire Line
-	4400 1250 4100 1250
-Connection ~ 4100 850 
+	3950 1150 3650 1150
+Connection ~ 3650 750 
 Wire Wire Line
-	4100 800  4100 850 
+	3650 700  3650 750 
 Wire Wire Line
 	7200 1100 7200 950 
 Wire Wire Line
@@ -65,45 +63,43 @@ Wire Wire Line
 Wire Bus Line
 	900  5050 900  4350
 Wire Wire Line
-	8150 2450 7950 2450
+	8150 2400 7950 2400
 Wire Wire Line
-	8150 2350 7950 2350
+	8150 2300 7950 2300
 Wire Wire Line
-	8150 2250 7950 2250
+	8150 2200 7950 2200
 Wire Wire Line
-	8150 2150 7950 2150
+	8150 2100 7950 2100
 Wire Wire Line
-	8150 2050 7950 2050
+	8150 2000 7950 2000
 Wire Wire Line
-	8150 1950 7950 1950
+	8150 1900 7950 1900
 Wire Wire Line
-	8150 1850 7950 1850
+	8150 1800 7950 1800
 Wire Wire Line
-	8150 1750 7950 1750
+	8150 1700 7950 1700
 Wire Wire Line
-	8150 1650 7950 1650
+	8150 1600 7950 1600
 Wire Wire Line
-	8150 1550 7950 1550
+	8150 1500 7950 1500
 Wire Wire Line
-	8150 1450 7950 1450
+	8150 1400 7950 1400
 Wire Wire Line
-	8150 1350 7950 1350
+	8150 1300 7950 1300
 Wire Wire Line
-	8150 1250 7950 1250
+	8150 1200 7950 1200
 Wire Wire Line
-	8150 1150 7950 1150
+	8150 1100 7950 1100
 Wire Wire Line
-	8150 1050 7950 1050
+	8150 1000 7950 1000
 Wire Wire Line
-	8150 950  7950 950 
+	8150 900  7950 900 
 Wire Wire Line
-	8150 850  7950 850 
+	8150 800  7950 800 
 Wire Wire Line
-	8150 750  7950 750 
+	8150 700  7950 700 
 Wire Wire Line
-	8150 650  7950 650 
-Wire Bus Line
-	6100 750  5400 750 
+	8150 600  7950 600 
 Wire Wire Line
 	6100 1100 6100 950 
 Wire Wire Line
@@ -133,7 +129,7 @@ Wire Wire Line
 Wire Wire Line
 	1050 4350 900  4350
 Wire Wire Line
-	8900 3550 9050 3550
+	8900 3950 9050 3950
 Wire Wire Line
 	7600 1100 7600 950 
 Wire Wire Line
@@ -195,7 +191,7 @@ Wire Wire Line
 Wire Wire Line
 	7700 1100 7700 950 
 Wire Wire Line
-	8300 3550 8400 3550
+	8300 3950 8400 3950
 Wire Wire Line
 	7400 2100 7400 1900
 Wire Wire Line
@@ -226,8 +222,6 @@ Wire Wire Line
 	6000 1900 6000 2050
 Wire Wire Line
 	6100 1900 6100 2050
-Wire Bus Line
-	6100 2200 5400 2200
 Wire Wire Line
 	6600 2100 6600 1900
 Wire Wire Line
@@ -235,11 +229,11 @@ Wire Wire Line
 Wire Wire Line
 	6600 1100 6600 950 
 Wire Wire Line
-	4100 1400 4100 1250
-Connection ~ 4100 1250
+	3650 1300 3650 1150
+Connection ~ 3650 1150
 Wire Wire Line
-	4400 850  4100 850 
-Connection ~ 3750 850 
+	3950 750  3650 750 
+Connection ~ 3300 750 
 Wire Wire Line
 	7350 2850 7600 2850
 Wire Wire Line
@@ -251,7 +245,7 @@ Wire Wire Line
 Wire Wire Line
 	1150 1250 1250 1250
 Wire Wire Line
-	9350 4100 9350 4000
+	4900 2650 4900 2550
 Wire Wire Line
 	6200 1900 6200 2100
 Wire Wire Line
@@ -260,47 +254,47 @@ NoConn ~ 6800 950
 $Comp
 L ramcard-rescue:GND #PWR01
 U 1 1 5066EDF0
-P 9350 4100
-F 0 "#PWR01" H 9350 4100 30  0001 C CNN
-F 1 "GND" H 9350 4030 30  0001 C CNN
-F 2 "" H 9350 4100 50  0001 C CNN
-F 3 "" H 9350 4100 50  0001 C CNN
-	1    9350 4100
+P 4900 2650
+F 0 "#PWR01" H 4900 2650 30  0001 C CNN
+F 1 "GND" H 4900 2580 30  0001 C CNN
+F 2 "" H 4900 2650 50  0001 C CNN
+F 3 "" H 4900 2650 50  0001 C CNN
+	1    4900 2650
 	1    0    0    -1  
 $EndComp
-Text Label 8750 4000 2    60   ~ 0
+Text Label 4300 2550 2    60   ~ 0
 BUSRESET
 $Comp
 L ramcard-rescue:SW_PUSH SW4
 U 1 1 5066EDE6
-P 9050 4000
-F 0 "SW4" H 9200 4110 50  0000 C CNN
-F 1 "SW_PUSH" H 9050 3920 50  0000 C CNN
-F 2 "Button_Switch_SMD:SW_SPST_B3S-1000" H 9050 4000 50  0001 C CNN
-F 3 "" H 9050 4000 50  0001 C CNN
-	1    9050 4000
+P 4600 2550
+F 0 "SW4" H 4750 2660 50  0000 C CNN
+F 1 "SW_PUSH" H 4600 2470 50  0000 C CNN
+F 2 "Button_Switch_SMD:SW_SPST_B3S-1000" H 4600 2550 50  0001 C CNN
+F 3 "" H 4600 2550 50  0001 C CNN
+	1    4600 2550
 	1    0    0    -1  
 $EndComp
 $Comp
 L ramcard-rescue:GND #PWR02
 U 1 1 5066ED17
-P 4000 2600
-F 0 "#PWR02" H 4000 2600 30  0001 C CNN
-F 1 "GND" H 4000 2530 30  0001 C CNN
-F 2 "" H 4000 2600 50  0001 C CNN
-F 3 "" H 4000 2600 50  0001 C CNN
-	1    4000 2600
-	0    -1   -1   0   
+P 3300 3150
+F 0 "#PWR02" H 3300 3150 30  0001 C CNN
+F 1 "GND" H 3300 3080 30  0001 C CNN
+F 2 "" H 3300 3150 50  0001 C CNN
+F 3 "" H 3300 3150 50  0001 C CNN
+	1    3300 3150
+	1    0    0    -1  
 $EndComp
 $Comp
 L ramcard-rescue:R R5
 U 1 1 5066ED0E
-P 3750 2600
-F 0 "R5" V 3830 2600 50  0000 C CNN
-F 1 "10KR" V 3750 2600 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric" H 3750 2600 50  0001 C CNN
-F 3 "" H 3750 2600 50  0001 C CNN
-	1    3750 2600
+P 3050 3050
+F 0 "R5" V 3130 3050 50  0000 C CNN
+F 1 "10KR" V 3050 3050 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 3050 3050 50  0001 C CNN
+F 3 "" H 3050 3050 50  0001 C CNN
+	1    3050 3050
 	0    -1   -1   0   
 $EndComp
 Text Label 7200 950  1    60   ~ 0
@@ -395,56 +389,32 @@ Text Label 4600 1850 0    60   ~ 0
 $Comp
 L power:VCC #PWR06
 U 1 1 5058E0FB
-P 2200 3200
-F 0 "#PWR06" H 2200 3300 30  0001 C CNN
-F 1 "VCC" H 2200 3300 30  0000 C CNN
-F 2 "" H 2200 3200 50  0001 C CNN
-F 3 "" H 2200 3200 50  0001 C CNN
-	1    2200 3200
+P 2700 3350
+F 0 "#PWR06" H 2700 3450 30  0001 C CNN
+F 1 "VCC" H 2700 3450 30  0000 C CNN
+F 2 "" H 2700 3350 50  0001 C CNN
+F 3 "" H 2700 3350 50  0001 C CNN
+	1    2700 3350
 	1    0    0    -1  
 $EndComp
-Text Label 3200 3300 0    60   ~ 0
+Text Label 2750 3750 0    60   ~ 0
 R7EN
-Text Label 4100 3050 0    60   ~ 0
+Text Label 4100 3450 0    60   ~ 0
 R7EN
-Text Label 4100 2950 0    60   ~ 0
+Text Label 4100 3350 0    60   ~ 0
 R0EN
-Text Label 3250 2600 0    60   ~ 0
+Text Label 2600 3050 0    60   ~ 0
 R0EN
 $Comp
 L power:VCC #PWR07
 U 1 1 5058E067
-P 2250 2500
-F 0 "#PWR07" H 2250 2600 30  0001 C CNN
-F 1 "VCC" H 2250 2600 30  0000 C CNN
-F 2 "" H 2250 2500 50  0001 C CNN
-F 3 "" H 2250 2500 50  0001 C CNN
-	1    2250 2500
-	1    0    0    -1  
-$EndComp
-$Comp
-L ramcard-rescue:SWITCH_INV SW?
-U 1 1 5058E053
-P 2700 3300
-AR Path="/5058E041" Ref="SW?"  Part="1" 
-AR Path="/5058E053" Ref="SW2"  Part="1" 
-F 0 "SW2" H 2500 3450 50  0000 C CNN
-F 1 "ROM7" H 2550 3150 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 2700 3300 50  0001 C CNN
-F 3 "" H 2700 3300 50  0001 C CNN
-	1    2700 3300
-	-1   0    0    1   
-$EndComp
-$Comp
-L ramcard-rescue:SWITCH_INV SW3
-U 1 1 5058E041
 P 2750 2600
-F 0 "SW3" H 2550 2750 50  0000 C CNN
-F 1 "ROM0" H 2600 2450 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 2750 2600 50  0001 C CNN
+F 0 "#PWR07" H 2750 2700 30  0001 C CNN
+F 1 "VCC" H 2750 2700 30  0000 C CNN
+F 2 "" H 2750 2600 50  0001 C CNN
 F 3 "" H 2750 2600 50  0001 C CNN
 	1    2750 2600
-	-1   0    0    1   
+	1    0    0    -1  
 $EndComp
 $Comp
 L ramcard-rescue:74LS32 U2
@@ -459,50 +429,50 @@ F 3 "" H 4000 1850 50  0001 C CNN
 $EndComp
 Text Label 3150 5350 2    60   ~ 0
 A15
-Text Label 4100 3150 0    60   ~ 0
-Q5
 Text Label 4100 3550 0    60   ~ 0
+Q5
+Text Label 4100 3950 0    60   ~ 0
 Q7
-Text Label 4100 3650 0    60   ~ 0
+Text Label 4100 4050 0    60   ~ 0
 Q6
-Text Label 6000 3550 0    60   ~ 0
+Text Label 6000 3950 0    60   ~ 0
 ROMACC
-Text Label 6100 3350 0    60   ~ 0
+Text Label 6100 3750 0    60   ~ 0
 RDWR
-Text Label 9300 1800 0    60   ~ 0
+Text Label 9300 1750 0    60   ~ 0
 /WE
-Text GLabel 9300 1900 2    60   Output ~ 0
+Text GLabel 9300 1850 2    60   Output ~ 0
 ROMEN
-Text Label 7950 2450 0    60   ~ 0
+Text Label 7950 2400 0    60   ~ 0
 Q4
-Text Label 7950 2350 0    60   ~ 0
+Text Label 7950 2300 0    60   ~ 0
 Q3
-Text Label 7950 2250 0    60   ~ 0
+Text Label 7950 2200 0    60   ~ 0
 Q2
-Text Label 7950 2150 0    60   ~ 0
+Text Label 7950 2100 0    60   ~ 0
 Q1
-Text Label 7950 2050 0    60   ~ 0
+Text Label 7950 2000 0    60   ~ 0
 Q0
 $Comp
 L power:VCC #PWR08
 U 1 1 5058D352
-P 8400 3050
-F 0 "#PWR08" H 8400 3150 30  0001 C CNN
-F 1 "VCC" H 8400 3150 30  0000 C CNN
-F 2 "" H 8400 3050 50  0001 C CNN
-F 3 "" H 8400 3050 50  0001 C CNN
-	1    8400 3050
+P 8400 3450
+F 0 "#PWR08" H 8400 3550 30  0001 C CNN
+F 1 "VCC" H 8400 3550 30  0000 C CNN
+F 2 "" H 8400 3450 50  0001 C CNN
+F 3 "" H 8400 3450 50  0001 C CNN
+	1    8400 3450
 	1    0    0    -1  
 $EndComp
 $Comp
 L ramcard-rescue:R R4
 U 1 1 5058D332
-P 8400 3300
-F 0 "R4" V 8480 3300 50  0000 C CNN
-F 1 "1KR" V 8400 3300 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric" H 8400 3300 50  0001 C CNN
-F 3 "" H 8400 3300 50  0001 C CNN
-	1    8400 3300
+P 8400 3700
+F 0 "R4" V 8480 3700 50  0000 C CNN
+F 1 "1KR" V 8400 3700 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 8400 3700 50  0001 C CNN
+F 3 "" H 8400 3700 50  0001 C CNN
+	1    8400 3700
 	-1   0    0    1   
 $EndComp
 $Comp
@@ -519,29 +489,29 @@ $EndComp
 $Comp
 L byteeeprom:29C040 U6
 U 1 1 504C83A0
-P 8750 1550
-F 0 "U6" H 8750 1550 60  0000 C CNN
-F 1 "29C040" V 8700 2100 60  0000 C CNN
-F 2 "Package_LCC:PLCC-32_11.4x14.0mm_P1.27mm" H 8750 1550 50  0001 C CNN
-F 3 "" H 8750 1550 50  0001 C CNN
-	1    8750 1550
+P 8750 1500
+F 0 "U6" H 8750 1500 60  0000 C CNN
+F 1 "29C040" V 8700 2050 60  0000 C CNN
+F 2 "Package_LCC:PLCC-32_11.4x14.0mm_P1.27mm" H 8750 1500 50  0001 C CNN
+F 3 "" H 8750 1500 50  0001 C CNN
+	1    8750 1500
 	1    0    0    -1  
 $EndComp
 Text Label 7450 2650 0    60   ~ 0
 A13
-Text Label 9300 2000 0    60   ~ 0
+Text Label 9300 1950 0    60   ~ 0
 /CE
-Text Label 7600 3450 0    60   ~ 0
+Text Label 7600 3850 0    60   ~ 0
 /CE
 $Comp
 L power:VCC #PWR09
 U 1 1 4DDEB8E8
-P 9300 2350
-F 0 "#PWR09" H 9300 2450 30  0001 C CNN
-F 1 "VCC" H 9300 2450 30  0000 C CNN
-F 2 "" H 9300 2350 50  0001 C CNN
-F 3 "" H 9300 2350 50  0001 C CNN
-	1    9300 2350
+P 9300 2300
+F 0 "#PWR09" H 9300 2400 30  0001 C CNN
+F 1 "VCC" H 9300 2400 30  0000 C CNN
+F 2 "" H 9300 2300 50  0001 C CNN
+F 3 "" H 9300 2300 50  0001 C CNN
+	1    9300 2300
 	0    1    1    0   
 $EndComp
 Text Label 2650 4750 0    60   ~ 0
@@ -549,23 +519,23 @@ Q4
 $Comp
 L ramcard-rescue:GND #PWR011
 U 1 1 4DBD3AB8
-P 4100 1400
-F 0 "#PWR011" H 4100 1400 30  0001 C CNN
-F 1 "GND" H 4100 1330 30  0001 C CNN
-F 2 "" H 4100 1400 50  0001 C CNN
-F 3 "" H 4100 1400 50  0001 C CNN
-	1    4100 1400
+P 3650 1300
+F 0 "#PWR011" H 3650 1300 30  0001 C CNN
+F 1 "GND" H 3650 1230 30  0001 C CNN
+F 2 "" H 3650 1300 50  0001 C CNN
+F 3 "" H 3650 1300 50  0001 C CNN
+	1    3650 1300
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:VCC #PWR012
 U 1 1 4DBD3AB1
-P 4100 800
-F 0 "#PWR012" H 4100 900 30  0001 C CNN
-F 1 "VCC" H 4100 900 30  0000 C CNN
-F 2 "" H 4100 800 50  0001 C CNN
-F 3 "" H 4100 800 50  0001 C CNN
-	1    4100 800 
+P 3650 700
+F 0 "#PWR012" H 3650 800 30  0001 C CNN
+F 1 "VCC" H 3650 800 30  0000 C CNN
+F 2 "" H 3650 700 50  0001 C CNN
+F 3 "" H 3650 700 50  0001 C CNN
+	1    3650 700 
 	1    0    0    -1  
 $EndComp
 Text GLabel 6600 950  1    60   Output ~ 0
@@ -601,33 +571,33 @@ F 3 "" H 6600 2100 50  0001 C CNN
 	1    6600 2100
 	-1   0    0    1   
 $EndComp
-Text Label 7950 1950 0    60   ~ 0
+Text Label 7950 1900 0    60   ~ 0
 A13
-Text Label 7950 1850 0    60   ~ 0
+Text Label 7950 1800 0    60   ~ 0
 A12
-Text Label 7950 1750 0    60   ~ 0
+Text Label 7950 1700 0    60   ~ 0
 A11
-Text Label 7950 1650 0    60   ~ 0
+Text Label 7950 1600 0    60   ~ 0
 A10
-Text Label 7950 1550 0    60   ~ 0
+Text Label 7950 1500 0    60   ~ 0
 A9
-Text Label 7950 1450 0    60   ~ 0
+Text Label 7950 1400 0    60   ~ 0
 A8
-Text Label 7950 1350 0    60   ~ 0
+Text Label 7950 1300 0    60   ~ 0
 A7
-Text Label 7950 1250 0    60   ~ 0
+Text Label 7950 1200 0    60   ~ 0
 A6
-Text Label 7950 1150 0    60   ~ 0
+Text Label 7950 1100 0    60   ~ 0
 A5
-Text Label 7950 1050 0    60   ~ 0
+Text Label 7950 1000 0    60   ~ 0
 A4
-Text Label 7950 950  0    60   ~ 0
+Text Label 7950 900  0    60   ~ 0
 A3
-Text Label 7950 850  0    60   ~ 0
+Text Label 7950 800  0    60   ~ 0
 A2
-Text Label 7950 750  0    60   ~ 0
+Text Label 7950 700  0    60   ~ 0
 A1
-Text Label 7950 650  0    60   ~ 0
+Text Label 7950 600  0    60   ~ 0
 A0
 Text Label 5400 2050 1    60   ~ 0
 A15
@@ -704,37 +674,37 @@ D0
 $Comp
 L ramcard-rescue:GND #PWR014
 U 1 1 4DBBE106
-P 9300 2450
-F 0 "#PWR014" H 9300 2450 30  0001 C CNN
-F 1 "GND" H 9300 2380 30  0001 C CNN
-F 2 "" H 9300 2450 50  0001 C CNN
-F 3 "" H 9300 2450 50  0001 C CNN
-	1    9300 2450
+P 9300 2400
+F 0 "#PWR014" H 9300 2400 30  0001 C CNN
+F 1 "GND" H 9300 2330 30  0001 C CNN
+F 2 "" H 9300 2400 50  0001 C CNN
+F 3 "" H 9300 2400 50  0001 C CNN
+	1    9300 2400
 	0    -1   -1   0   
 $EndComp
 Text GLabel 7400 2100 3    60   Input ~ 0
 ROMDIS
-Text Label 9300 1350 0    60   ~ 0
+Text Label 9300 1300 0    60   ~ 0
 D7
-Text Label 9300 1250 0    60   ~ 0
+Text Label 9300 1200 0    60   ~ 0
 D6
-Text Label 9300 1150 0    60   ~ 0
+Text Label 9300 1100 0    60   ~ 0
 D5
-Text Label 9300 1050 0    60   ~ 0
+Text Label 9300 1000 0    60   ~ 0
 D4
-Text Label 9300 950  0    60   ~ 0
+Text Label 9300 900  0    60   ~ 0
 D3
-Text Label 9300 850  0    60   ~ 0
+Text Label 9300 800  0    60   ~ 0
 D2
-Text Label 9300 750  0    60   ~ 0
+Text Label 9300 700  0    60   ~ 0
 D1
-Text Label 9300 650  0    60   ~ 0
+Text Label 9300 600  0    60   ~ 0
 D0
 Text Notes 1600 5050 0    60   ~ 0
 register
-Text Notes 6700 3200 0    60   ~ 0
-Rom active notification
-Text GLabel 9050 3550 2    60   Output ~ 0
+Text Notes 3850 2850 0    60   ~ 0
+ROM activation decoding
+Text GLabel 9050 3950 2    60   Output ~ 0
 ROMDIS
 NoConn ~ 7400 950 
 NoConn ~ 7500 950 
@@ -748,9 +718,9 @@ NoConn ~ 7200 2100
 NoConn ~ 7300 2100
 NoConn ~ 7500 2100
 NoConn ~ 7600 2100
-Text Notes 5100 1850 1    60   ~ 0
+Text Notes 5700 650  2    60   ~ 0
 \ncpc connector
-Text Notes 5650 2600 0    60   ~ 0
+Text Notes 5600 2650 0    60   ~ 0
 OUT Decoder
 Text GLabel 5950 2750 0    60   Input ~ 0
 WR
@@ -813,45 +783,45 @@ Current ROM number storage
 $Comp
 L ramcard-rescue:74LS32 U2
 U 1 1 4CA87CE5
-P 7000 3450
-F 0 "U2" H 7000 3500 60  0000 C CNN
-F 1 "74LS32" H 7000 3400 60  0000 C CNN
-F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 7000 3450 50  0001 C CNN
-F 3 "" H 7000 3450 50  0001 C CNN
-	1    7000 3450
+P 7000 3850
+F 0 "U2" H 7000 3900 60  0000 C CNN
+F 1 "74LS32" H 7000 3800 60  0000 C CNN
+F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 7000 3850 50  0001 C CNN
+F 3 "" H 7000 3850 50  0001 C CNN
+	1    7000 3850
 	1    0    0    1   
 $EndComp
 $Comp
 L ramcard-rescue:C C4
 U 1 1 4CA87152
-P 4400 1050
-F 0 "C4" H 4450 1150 50  0000 L CNN
-F 1 "C" H 4450 950 50  0000 L CNN
-F 2 "Capacitor_SMD:C_1206_3216Metric_Pad1.42x1.75mm_HandSolder" H 4400 1050 50  0001 C CNN
-F 3 "" H 4400 1050 50  0001 C CNN
-	1    4400 1050
+P 3950 950
+F 0 "C4" H 4000 1050 50  0000 L CNN
+F 1 "C" H 4000 850 50  0000 L CNN
+F 2 "Capacitor_SMD:C_1206_3216Metric_Pad1.42x1.75mm_HandSolder" H 3950 950 50  0001 C CNN
+F 3 "" H 3950 950 50  0001 C CNN
+	1    3950 950 
 	1    0    0    -1  
 $EndComp
 $Comp
 L ramcard-rescue:C C3
 U 1 1 4CA87151
-P 4100 1050
-F 0 "C3" H 4150 1150 50  0000 L CNN
-F 1 "C" H 4150 950 50  0000 L CNN
-F 2 "Capacitor_SMD:C_1206_3216Metric_Pad1.42x1.75mm_HandSolder" H 4100 1050 50  0001 C CNN
-F 3 "" H 4100 1050 50  0001 C CNN
-	1    4100 1050
+P 3650 950
+F 0 "C3" H 3700 1050 50  0000 L CNN
+F 1 "C" H 3700 850 50  0000 L CNN
+F 2 "Capacitor_SMD:C_1206_3216Metric_Pad1.42x1.75mm_HandSolder" H 3650 950 50  0001 C CNN
+F 3 "" H 3650 950 50  0001 C CNN
+	1    3650 950 
 	1    0    0    -1  
 $EndComp
 $Comp
 L ramcard-rescue:CP1 C5
 U 1 1 4CA87146
-P 3750 1050
-F 0 "C5" H 3800 1150 50  0000 L CNN
-F 1 "CP1" H 3800 950 50  0000 L CNN
-F 2 "Capacitor_THT:CP_Radial_D5.0mm_P2.50mm" H 3750 1050 50  0001 C CNN
-F 3 "" H 3750 1050 50  0001 C CNN
-	1    3750 1050
+P 3300 950
+F 0 "C5" H 3350 1050 50  0000 L CNN
+F 1 "CP1" H 3350 850 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Radial_D5.0mm_P2.50mm" H 3300 950 50  0001 C CNN
+F 3 "" H 3300 950 50  0001 C CNN
+	1    3300 950 
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -868,124 +838,122 @@ $EndComp
 $Comp
 L ramcard-rescue:C C2
 U 1 1 4CA870EF
-P 3400 1050
-F 0 "C2" H 3450 1150 50  0000 L CNN
-F 1 "C" H 3450 950 50  0000 L CNN
-F 2 "Capacitor_SMD:C_1206_3216Metric_Pad1.42x1.75mm_HandSolder" H 3400 1050 50  0001 C CNN
-F 3 "" H 3400 1050 50  0001 C CNN
-	1    3400 1050
+P 2950 950
+F 0 "C2" H 3000 1050 50  0000 L CNN
+F 1 "C" H 3000 850 50  0000 L CNN
+F 2 "Capacitor_SMD:C_1206_3216Metric_Pad1.42x1.75mm_HandSolder" H 2950 950 50  0001 C CNN
+F 3 "" H 2950 950 50  0001 C CNN
+	1    2950 950 
 	1    0    0    -1  
 $EndComp
 $Comp
 L ramcard-rescue:DIODE D13
 U 1 1 4CA870AA
-P 8700 3550
-F 0 "D13" H 8700 3650 40  0000 C CNN
-F 1 "DIODE" H 8700 3450 40  0000 C CNN
-F 2 "Diode_THT:D_A-405_P7.62mm_Horizontal" H 8700 3550 50  0001 C CNN
-F 3 "" H 8700 3550 50  0001 C CNN
-	1    8700 3550
+P 8700 3950
+F 0 "D13" H 8700 4050 40  0000 C CNN
+F 1 "DIODE" H 8700 3850 40  0000 C CNN
+F 2 "Diode_THT:D_A-405_P7.62mm_Horizontal" H 8700 3950 50  0001 C CNN
+F 3 "" H 8700 3950 50  0001 C CNN
+	1    8700 3950
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	8400 3550 8500 3550
+	8400 3950 8500 3950
 Wire Wire Line
 	2700 1750 2900 1750
 Wire Wire Line
-	3750 1250 3400 1250
+	3300 1150 2950 1150
 Wire Wire Line
-	4100 850  3750 850 
+	3650 750  3300 750 
 Wire Wire Line
-	4100 1250 3750 1250
+	3650 1150 3300 1150
 Wire Wire Line
-	3750 850  3400 850 
+	3300 750  2950 750 
 $Comp
 L 74xx:74LS138 U3
 U 1 1 5E9AECF6
-P 1500 3000
-F 0 "U3" H 1500 3778 50  0000 C CNN
-F 1 "74LS138" H 1500 3687 50  0000 C CNN
-F 2 "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm" H 1500 3000 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 1500 3000 50  0001 C CNN
-	1    1500 3000
+P 1500 3200
+F 0 "U3" H 1750 3700 50  0000 C CNN
+F 1 "74LS138" H 1200 3700 50  0000 C CNN
+F 2 "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm" H 1500 3200 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 1500 3200 50  0001 C CNN
+	1    1500 3200
 	1    0    0    -1  
 $EndComp
-Text Label 800  2700 0    60   ~ 0
-Q0
-Text Label 800  2800 0    60   ~ 0
-Q1
 Text Label 800  2900 0    60   ~ 0
+Q0
+Text Label 800  3000 0    60   ~ 0
+Q1
+Text Label 800  3100 0    60   ~ 0
 Q2
-Text Label 800  3400 0    60   ~ 0
+Text Label 800  3600 0    60   ~ 0
 Q3
-Text Label 800  3300 0    60   ~ 0
+Text Label 800  3500 0    60   ~ 0
 Q4
 Wire Wire Line
-	1000 3300 800  3300
+	1000 3500 800  3500
 Wire Wire Line
-	1000 3400 800  3400
-Wire Wire Line
-	1000 2700 800  2700
-Wire Wire Line
-	1000 2800 800  2800
+	1000 3600 800  3600
 Wire Wire Line
 	1000 2900 800  2900
 Wire Wire Line
-	7600 3450 7700 3450
+	1000 3000 800  3000
+Wire Wire Line
+	1000 3100 800  3100
+Wire Wire Line
+	7600 3850 7700 3850
 $Comp
 L power:VCC #PWR0101
 U 1 1 5EA2D764
-P 800 3200
-F 0 "#PWR0101" H 800 3300 30  0001 C CNN
-F 1 "VCC" H 800 3300 30  0000 C CNN
-F 2 "" H 800 3200 50  0001 C CNN
-F 3 "" H 800 3200 50  0001 C CNN
-	1    800  3200
+P 800 3400
+F 0 "#PWR0101" H 800 3500 30  0001 C CNN
+F 1 "VCC" H 800 3500 30  0000 C CNN
+F 2 "" H 800 3400 50  0001 C CNN
+F 3 "" H 800 3400 50  0001 C CNN
+	1    800  3400
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	800  3200 1000 3200
+	800  3400 1000 3400
 $Comp
 L 74xx:74LS138 U5
 U 1 1 5EA33331
-P 4750 3250
-F 0 "U5" H 4750 4028 50  0000 C CNN
-F 1 "74LS138" H 4750 3937 50  0000 C CNN
-F 2 "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm" H 4750 3250 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 4750 3250 50  0001 C CNN
-	1    4750 3250
+P 4750 3650
+F 0 "U5" H 5000 4100 50  0000 C CNN
+F 1 "74LS138" H 4500 4100 50  0000 C CNN
+F 2 "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm" H 4750 3650 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 4750 3650 50  0001 C CNN
+	1    4750 3650
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	4100 2950 4250 2950
-Wire Wire Line
-	4100 3050 4250 3050
-Wire Wire Line
-	4100 3150 4250 3150
+	4100 3350 4250 3350
 Wire Wire Line
 	4100 3450 4250 3450
 Wire Wire Line
 	4100 3550 4250 3550
 Wire Wire Line
-	4100 3650 4250 3650
+	4100 3950 4250 3950
+Wire Wire Line
+	4100 4050 4250 4050
 Text Label 3150 5150 2    60   ~ 0
 A14
 $Comp
 L 74xx:74LS00 U4
-U 3 1 5EA5E912
-P 8000 3550
-F 0 "U4" H 8000 3875 50  0000 C CNN
-F 1 "74LS00" H 8000 3784 50  0000 C CNN
-F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 8000 3550 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74ls00" H 8000 3550 50  0001 C CNN
-	3    8000 3550
+U 4 1 5EA5E912
+P 8000 3950
+F 0 "U4" H 8000 3950 50  0000 C CNN
+F 1 "74LS00" H 8000 4184 50  0000 C CNN
+F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 8000 3950 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74ls00" H 8000 3950 50  0001 C CNN
+	4    8000 3950
 	1    0    0    -1  
 $EndComp
 $Comp
 L 74xx:74LS00 U4
 U 1 1 5EA5E9AD
 P 3600 5250
-F 0 "U4" H 3600 5575 50  0000 C CNN
+F 0 "U4" H 3600 5250 50  0000 C CNN
 F 1 "74LS00" H 3600 5484 50  0000 C CNN
 F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 3600 5250 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74ls00" H 3600 5250 50  0001 C CNN
@@ -993,13 +961,13 @@ F 3 "http://www.ti.com/lit/gpn/sn74ls00" H 3600 5250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	7700 3450 7700 3650
-Connection ~ 7700 3450
+	7700 3850 7700 4050
+Connection ~ 7700 3850
 $Comp
 L 74xx:74LS00 U4
 U 2 1 5EA5EC31
 P 4400 5250
-F 0 "U4" H 4400 5575 50  0000 C CNN
+F 0 "U4" H 4400 5250 50  0000 C CNN
 F 1 "74LS00" H 4400 5484 50  0000 C CNN
 F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 4400 5250 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74ls00" H 4400 5250 50  0001 C CNN
@@ -1021,34 +989,32 @@ Wire Wire Line
 	4700 5250 4850 5250
 Text Label 4850 5250 0    50   ~ 0
 A14A15
-Text Label 4100 3450 0    50   ~ 0
+Text Label 3950 3850 0    50   ~ 0
 A14A15
 $Comp
 L power:VCC #PWR0102
 U 1 1 5EA8DD43
-P 1500 2150
-F 0 "#PWR0102" H 1500 2250 30  0001 C CNN
-F 1 "VCC" H 1500 2250 30  0000 C CNN
-F 2 "" H 1500 2150 50  0001 C CNN
-F 3 "" H 1500 2150 50  0001 C CNN
-	1    1500 2150
+P 1500 2350
+F 0 "#PWR0102" H 1500 2450 30  0001 C CNN
+F 1 "VCC" H 1500 2450 30  0000 C CNN
+F 2 "" H 1500 2350 50  0001 C CNN
+F 3 "" H 1500 2350 50  0001 C CNN
+	1    1500 2350
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:VCC #PWR0103
 U 1 1 5EA8DD82
-P 4750 2400
-F 0 "#PWR0103" H 4750 2500 30  0001 C CNN
-F 1 "VCC" H 4750 2500 30  0000 C CNN
-F 2 "" H 4750 2400 50  0001 C CNN
-F 3 "" H 4750 2400 50  0001 C CNN
-	1    4750 2400
+P 4750 3050
+F 0 "#PWR0103" H 4750 3150 30  0001 C CNN
+F 1 "VCC" H 4750 3150 30  0000 C CNN
+F 2 "" H 4750 3050 50  0001 C CNN
+F 3 "" H 4750 3050 50  0001 C CNN
+	1    4750 3050
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	4750 2650 4750 2400
-Wire Wire Line
-	1500 2400 1500 2150
+	1500 2600 1500 2350
 $Comp
 L ramcard-rescue:GND #PWR0104
 U 1 1 5EA99CA6
@@ -1063,55 +1029,31 @@ $EndComp
 $Comp
 L ramcard-rescue:GND #PWR0105
 U 1 1 5EA99D33
-P 4750 4100
-F 0 "#PWR0105" H 4750 4100 30  0001 C CNN
-F 1 "GND" H 4750 4030 30  0001 C CNN
-F 2 "" H 4750 4100 50  0001 C CNN
-F 3 "" H 4750 4100 50  0001 C CNN
-	1    4750 4100
+P 4750 4500
+F 0 "#PWR0105" H 4750 4500 30  0001 C CNN
+F 1 "GND" H 4750 4430 30  0001 C CNN
+F 2 "" H 4750 4500 50  0001 C CNN
+F 3 "" H 4750 4500 50  0001 C CNN
+	1    4750 4500
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	4750 4100 4750 3950
-Wire Wire Line
-	1500 3900 1500 3700
-Text Notes 3400 4800 0    50   ~ 0
-ROM address space decoding
-Text Notes 2000 2250 0    50   ~ 0
+	4750 4500 4750 4350
+Text Notes 2950 4800 0    50   ~ 0
+ROM address space access (C000-FFFF) decoding
+Text Notes 550  2250 0    50   ~ 0
 Disable switches
-Text Notes 2000 650  0    50   ~ 0
+Text Notes 500  600  0    50   ~ 0
 Write protect switch
 $Comp
 L 74xx:74LS00 U4
 U 5 1 5EAC5D80
-P 3600 4050
-F 0 "U4" H 3830 4096 50  0000 L CNN
-F 1 "74LS00" H 3830 4005 50  0000 L CNN
-F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 3600 4050 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74ls00" H 3600 4050 50  0001 C CNN
-	5    3600 4050
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:VCC #PWR010
-U 1 1 5EAC5E6B
-P 3600 3550
-F 0 "#PWR010" H 3600 3650 30  0001 C CNN
-F 1 "VCC" H 3600 3650 30  0000 C CNN
-F 2 "" H 3600 3550 50  0001 C CNN
-F 3 "" H 3600 3550 50  0001 C CNN
-	1    3600 3550
-	1    0    0    -1  
-$EndComp
-$Comp
-L ramcard-rescue:GND #PWR017
-U 1 1 5EAC5EAC
-P 3600 4550
-F 0 "#PWR017" H 3600 4550 30  0001 C CNN
-F 1 "GND" H 3600 4480 30  0001 C CNN
-F 2 "" H 3600 4550 50  0001 C CNN
-F 3 "" H 3600 4550 50  0001 C CNN
-	1    3600 4550
+P 4450 1000
+F 0 "U4" H 4680 1046 50  0000 L CNN
+F 1 "74LS00" H 4680 955 50  0000 L CNN
+F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 4450 1000 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74ls00" H 4450 1000 50  0001 C CNN
+	5    4450 1000
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -1129,27 +1071,169 @@ Wire Wire Line
 	5300 950  5100 950 
 Wire Wire Line
 	5100 950  5100 1050
-NoConn ~ 2000 2800
-NoConn ~ 2000 2900
 NoConn ~ 2000 3000
 NoConn ~ 2000 3100
 NoConn ~ 2000 3200
 NoConn ~ 2000 3300
-NoConn ~ 5250 2950
-NoConn ~ 5250 3050
-NoConn ~ 5250 3150
+NoConn ~ 2000 3400
+NoConn ~ 2000 3500
 NoConn ~ 5250 3350
 NoConn ~ 5250 3450
-NoConn ~ 5250 3650
-Wire Wire Line
-	5250 3250 6000 3250
-Wire Wire Line
-	6000 3250 6000 3550
-Wire Wire Line
-	6400 3550 6000 3550
 NoConn ~ 5250 3550
+NoConn ~ 5250 3750
+NoConn ~ 5250 3850
+Wire Wire Line
+	6000 3650 6000 3950
+Wire Wire Line
+	6400 3950 6000 3950
+NoConn ~ 5250 3950
+Text Notes 5150 4250 0    50   ~ 0
+Use Q7 for ROMs 32-63.
+$Comp
+L 74xx:74LS00 U4
+U 3 1 5E9C8E7F
+P 1200 1900
+F 0 "U4" H 1200 1900 50  0000 C CNN
+F 1 "74LS00" H 1200 2134 50  0000 C CNN
+F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 1200 1900 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74ls00" H 1200 1900 50  0001 C CNN
+	3    1200 1900
+	1    0    0    -1  
+$EndComp
+$Comp
+L ramcard-rescue:GND #PWR018
+U 1 1 5E9C8FE5
+P 700 2000
+F 0 "#PWR018" H 700 2000 30  0001 C CNN
+F 1 "GND" H 700 1930 30  0001 C CNN
+F 2 "" H 700 2000 50  0001 C CNN
+F 3 "" H 700 2000 50  0001 C CNN
+	1    700  2000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	700  2000 700  1900
+Wire Wire Line
+	700  1900 900  1900
+Wire Wire Line
+	900  1900 900  2000
+Wire Wire Line
+	900  1900 900  1800
+Connection ~ 900  1900
+NoConn ~ 1500 1900
+$Comp
+L Jumper:Jumper_3_Open JP2
+U 1 1 5E9DD4D0
+P 2500 2900
+F 0 "JP2" V 2500 3032 50  0000 C CNN
+F 1 "Jumper_3_Open" H 2350 3200 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 2500 2900 50  0001 C CNN
+F 3 "~" H 2500 2900 50  0001 C CNN
+	1    2500 2900
+	1    0    0    -1  
+$EndComp
+$Comp
+L Jumper:Jumper_3_Open JP1
+U 1 1 5E9DD59C
+P 2450 3600
+F 0 "JP1" H 2450 3824 50  0000 C CNN
+F 1 "Jumper_3_Open" H 2450 3350 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 2450 3600 50  0001 C CNN
+F 3 "~" H 2450 3600 50  0001 C CNN
+	1    2450 3600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2500 3050 2800 3050
+Wire Wire Line
+	3300 3150 3300 3050
+Wire Wire Line
+	2450 3750 2750 3750
+Wire Wire Line
+	2700 3600 2700 3350
+Wire Wire Line
+	2750 2900 2750 2600
+$Comp
+L Device:Jumper_NC_Small JP3
+U 1 1 5EA3F157
+P 5650 3650
+F 0 "JP3" H 5650 3862 50  0000 C CNN
+F 1 "Jumper_NC_Small" H 5650 3771 50  0000 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 5650 3650 50  0001 C CNN
+F 3 "~" H 5650 3650 50  0001 C CNN
+	1    5650 3650
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Jumper_NO_Small JP4
+U 1 1 5EA3F293
+P 5650 4050
+F 0 "JP4" H 5650 4235 50  0000 C CNN
+F 1 "Jumper_NO_Small" H 5650 4144 50  0000 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm" H 5650 4050 50  0001 C CNN
+F 3 "~" H 5650 4050 50  0001 C CNN
+	1    5650 4050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5250 3650 5550 3650
+Wire Wire Line
+	5750 3650 6000 3650
+Wire Wire Line
+	5250 4050 5550 4050
+Wire Wire Line
+	5750 4050 6000 4050
+Wire Wire Line
+	6000 4050 6000 3950
+Connection ~ 6000 3950
+Wire Wire Line
+	4450 500  3950 500 
+Wire Wire Line
+	3950 500  3950 750 
+Connection ~ 3950 750 
+Wire Wire Line
+	3950 1500 3950 1150
+Connection ~ 3950 1150
+Wire Wire Line
+	4250 3850 3950 3850
+Text Notes 2850 2850 0    50   ~ 0
+All ROMs disabled \nwhen jumper unplugged
+Wire Notes Line
+	500  1500 1650 1500
+Wire Notes Line
+	2800 500  2800 1600
+Wire Notes Line
+	2800 1600 5000 1600
+Wire Notes Line
+	7900 2500 7900 450 
+Wire Notes Line
+	5000 2500 9550 2500
+Wire Notes Line
+	2850 4000 2850 5500
+Wire Notes Line
+	1650 1500 1650 2100
+Wire Notes Line
+	3800 2100 3800 4000
+Wire Notes Line
+	500  4000 3800 4000
+Wire Notes Line
+	2850 4700 5250 4700
+Wire Notes Line
+	5000 500  5000 3100
+Wire Notes Line
+	5000 3100 9550 3100
+Wire Notes Line
+	5000 2750 3800 2750
+Text Notes 3850 2250 0    50   ~ 0
+Reset button
+Wire Notes Line
+	500  2100 5000 2100
+Text Notes 500  1600 0    50   ~ 0
+Unused gate
+Text Notes 2900 600  0    50   ~ 0
+Power distribution
+Wire Wire Line
+	4450 1500 3950 1500
 Wire Bus Line
 	6200 800  6500 800 
-Text Notes 4900 3900 0    50   ~ 0
-Use Q7 instead for ROMs 32-63.
 $EndSCHEMATC

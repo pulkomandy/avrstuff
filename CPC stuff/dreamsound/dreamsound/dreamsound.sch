@@ -1,4 +1,5 @@
 EESchema Schematic File Version 4
+LIBS:dreamsound-cache
 EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
@@ -19,7 +20,7 @@ U 1 1 5E9B0E7E
 P 2950 2300
 F 0 "U2" H 2950 3078 50  0000 C CNN
 F 1 "74LS138" H 2950 2987 50  0000 C CNN
-F 2 "Package_SO:SOIC-16_4.55x10.3mm_P1.27mm" H 2950 2300 50  0001 C CNN
+F 2 "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm" H 2950 2300 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 2950 2300 50  0001 C CNN
 	1    2950 2300
 	1    0    0    -1  
@@ -204,8 +205,6 @@ Wire Wire Line
 	1400 1550 1650 1550
 Wire Wire Line
 	1400 1650 1650 1650
-Text Label 1650 2750 0    50   ~ 0
-!BUSRESET
 Wire Wire Line
 	1400 1750 1650 1750
 Wire Wire Line
@@ -216,8 +215,6 @@ Wire Wire Line
 	1400 2050 1650 2050
 Wire Wire Line
 	1400 2350 1650 2350
-Wire Wire Line
-	1400 2750 1650 2750
 Wire Wire Line
 	900  2350 650  2350
 Wire Wire Line
@@ -230,24 +227,22 @@ Wire Wire Line
 	900  1950 650  1950
 Wire Wire Line
 	900  2050 650  2050
-Text Label 2250 850  0    50   ~ 0
-A7
-Text Label 2250 950  0    50   ~ 0
-A9
-Text Label 2250 1050 0    50   ~ 0
-A10
-Text Label 2250 1150 0    50   ~ 0
-A11
-Text Label 2250 1250 0    50   ~ 0
-A12
-Text Label 2250 1350 0    50   ~ 0
-A13
 Text Label 2250 1550 0    50   ~ 0
-A14
+A7
 Text Label 2250 1450 0    50   ~ 0
+A9
+Text Label 2250 850  0    50   ~ 0
+A10
+Text Label 2250 950  0    50   ~ 0
+A11
+Text Label 2250 1050 0    50   ~ 0
+A12
+Text Label 2250 1150 0    50   ~ 0
+A13
+Text Label 2250 1250 0    50   ~ 0
+A14
+Text Label 2250 1350 0    50   ~ 0
 A15
-Text Label 2300 3050 0    50   ~ 0
-A1
 Text Label 2300 2500 0    50   ~ 0
 A2
 Text Label 2300 2000 0    50   ~ 0
@@ -436,7 +431,7 @@ U 1 1 5E9CE636
 P 10350 2150
 F 0 "J3" H 10529 2196 50  0000 L CNN
 F 1 "DB25_Female" H 10529 2105 50  0000 L CNN
-F 2 "Connector_Dsub:DSUB-25_Female_Horizontal_P2.77x2.54mm_EdgePinOffset9.40mm" H 10350 2150 50  0001 C CNN
+F 2 "Connector_Dsub:DSUB-25_Female_Horizontal_P2.77x2.84mm_EdgePinOffset4.94mm_Housed_MountingHolesOffset7.48mm" H 10350 2150 50  0001 C CNN
 F 3 " ~" H 10350 2150 50  0001 C CNN
 	1    10350 2150
 	1    0    0    -1  
@@ -460,7 +455,7 @@ D7
 Text Label 9800 950  0    50   ~ 0
 A0
 Text Label 9550 2750 0    50   ~ 0
-!BUSRESET
+!RESET
 Wire Wire Line
 	9800 950  10050 950 
 Wire Wire Line
@@ -697,7 +692,7 @@ NoConn ~ 900  2250
 NoConn ~ 900  2550
 NoConn ~ 900  2650
 NoConn ~ 900  2750
-NoConn ~ 900  2850
+NoConn ~ 1400 2750
 NoConn ~ 900  2950
 NoConn ~ 900  3050
 NoConn ~ 900  3150
@@ -750,10 +745,10 @@ Connection ~ 9750 2050
 Wire Wire Line
 	9750 2050 9750 2250
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0101
 U 1 1 5EAB0C0A
 P 9750 3350
-F 0 "#PWR?" H 9750 3100 50  0001 C CNN
+F 0 "#PWR0101" H 9750 3100 50  0001 C CNN
 F 1 "GND" H 9755 3177 50  0000 C CNN
 F 2 "" H 9750 3350 50  0001 C CNN
 F 3 "" H 9750 3350 50  0001 C CNN
@@ -764,10 +759,10 @@ Wire Wire Line
 	9750 3350 9750 3250
 Connection ~ 9750 3250
 $Comp
-L power:VCC #PWR?
+L power:VCC #PWR0102
 U 1 1 5EAB5D51
 P 10050 3550
-F 0 "#PWR?" H 10050 3400 50  0001 C CNN
+F 0 "#PWR0102" H 10050 3400 50  0001 C CNN
 F 1 "VCC" H 10068 3723 50  0000 C CNN
 F 2 "" H 10050 3550 50  0001 C CNN
 F 3 "" H 10050 3550 50  0001 C CNN
@@ -776,4 +771,8 @@ F 3 "" H 10050 3550 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	10050 3550 10050 3350
+Wire Wire Line
+	900  2850 650  2850
+Text Label 650  2850 0    50   ~ 0
+!RESET
 $EndSCHEMATC
