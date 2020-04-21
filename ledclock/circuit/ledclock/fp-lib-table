@@ -1,0 +1,3 @@
+(fp_lib_table
+  (lib (name conn_te_micromatch)(type KiCad)(uri ${KIPRJMOD}/conn_te_micromatch.pretty)(options "")(descr ""))
+)
