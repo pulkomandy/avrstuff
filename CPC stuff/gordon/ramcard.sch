@@ -129,8 +129,6 @@ Wire Wire Line
 Wire Wire Line
 	1050 4350 900  4350
 Wire Wire Line
-	8900 3950 9050 3950
-Wire Wire Line
 	7600 1100 7600 950 
 Wire Wire Line
 	7400 1100 7400 950 
@@ -239,8 +237,6 @@ Wire Wire Line
 Wire Wire Line
 	7450 2650 7600 2650
 Wire Wire Line
-	2650 1750 2700 1750
-Wire Wire Line
 	1050 950  950  950 
 Wire Wire Line
 	1150 1250 1250 1250
@@ -312,9 +308,9 @@ F 3 "" H 1700 1000 50  0001 C CNN
 $EndComp
 Text Label 2150 850  0    60   ~ 0
 RDWR
-Text GLabel 1150 750  0    60   Output ~ 0
-ROMEN
 Text GLabel 950  950  0    60   Output ~ 0
+ROMEN
+Text GLabel 1150 750  0    60   Output ~ 0
 MREQ
 $Comp
 L ramcard-rescue:GND #PWR03
@@ -361,15 +357,15 @@ F 3 "" H 2000 1750 50  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L ramcard-rescue:LED D1
+L Device:LED D1
 U 1 1 5058E14C
-P 2450 1750
-F 0 "D1" H 2450 1850 50  0000 C CNN
-F 1 "LED" H 2450 1650 50  0000 C CNN
-F 2 "LED_THT:LED_D3.0mm" H 2450 1750 50  0001 C CNN
-F 3 "" H 2450 1750 50  0001 C CNN
-	1    2450 1750
-	1    0    0    -1  
+P 2400 1750
+F 0 "D1" H 2400 1850 50  0000 C CNN
+F 1 "LED" H 2400 1650 50  0000 C CNN
+F 2 "LED_THT:LED_D3.0mm" H 2400 1750 50  0001 C CNN
+F 3 "" H 2400 1750 50  0001 C CNN
+	1    2400 1750
+	-1   0    0    1   
 $EndComp
 $Comp
 L ramcard-rescue:R R3
@@ -847,15 +843,15 @@ F 3 "" H 2950 950 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L ramcard-rescue:DIODE D13
+L Device:D D13
 U 1 1 4CA870AA
-P 8700 3950
-F 0 "D13" H 8700 4050 40  0000 C CNN
-F 1 "DIODE" H 8700 3850 40  0000 C CNN
-F 2 "Diode_THT:D_A-405_P7.62mm_Horizontal" H 8700 3950 50  0001 C CNN
-F 3 "" H 8700 3950 50  0001 C CNN
-	1    8700 3950
-	1    0    0    -1  
+P 8650 3950
+F 0 "D13" H 8650 4050 40  0000 C CNN
+F 1 "DIODE" H 8650 3850 40  0000 C CNN
+F 2 "Diode_THT:D_A-405_P7.62mm_Horizontal" H 8650 3950 50  0001 C CNN
+F 3 "" H 8650 3950 50  0001 C CNN
+	1    8650 3950
+	-1   0    0    1   
 $EndComp
 Wire Wire Line
 	8400 3950 8500 3950
@@ -1234,6 +1230,10 @@ Text Notes 2900 600  0    50   ~ 0
 Power distribution
 Wire Wire Line
 	4450 1500 3950 1500
+Wire Wire Line
+	2550 1750 2700 1750
+Wire Wire Line
+	8800 3950 9050 3950
 Wire Bus Line
 	6200 800  6500 800 
 $EndSCHEMATC

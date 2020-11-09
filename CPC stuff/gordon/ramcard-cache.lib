@@ -107,6 +107,28 @@ X O6 9 500 -300 200 L 50 50 1 0 O V
 ENDDRAW
 ENDDEF
 #
+# Device_D
+#
+DEF Device_D D 0 40 N N 1 F N
+F0 "D" 0 100 50 H V C CNN
+F1 "Device_D" 0 -100 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ TO-???*
+ *_Diode_*
+ *SingleDiode*
+ D_*
+$ENDFPLIST
+DRAW
+P 2 0 1 8 -50 50 -50 -50 N
+P 2 0 1 0 50 0 -50 0 N
+P 4 0 1 8 50 50 50 -50 -50 0 50 50 N
+X K 1 -150 0 100 R 50 50 1 1 P
+X A 2 150 0 100 L 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
 # Device_Jumper_NC_Small
 #
 DEF Device_Jumper_NC_Small JP 0 30 N N 1 F N
@@ -135,6 +157,29 @@ C -40 0 20 0 1 0 N
 C 40 0 20 0 1 0 N
 X 1 1 -100 0 40 R 50 50 0 1 P
 X 2 2 100 0 40 L 50 50 0 1 P
+ENDDRAW
+ENDDEF
+#
+# Device_LED
+#
+DEF Device_LED D 0 40 N N 1 F N
+F0 "D" 0 100 50 H V C CNN
+F1 "Device_LED" 0 -100 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ LED*
+ LED_SMD:*
+ LED_THT:*
+$ENDFPLIST
+DRAW
+P 2 0 1 8 -50 -50 -50 50 N
+P 2 0 1 0 -50 0 50 0 N
+P 4 0 1 8 50 -50 50 50 -50 0 50 -50 N
+P 5 0 1 0 -120 -30 -180 -90 -150 -90 -180 -90 -180 -60 N
+P 5 0 1 0 -70 -30 -130 -90 -100 -90 -130 -90 -130 -60 N
+X K 1 -150 0 100 R 50 50 1 1 P
+X A 2 150 0 100 L 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
@@ -419,25 +464,6 @@ X ~ 2 0 -200 180 U 40 40 1 1 P
 ENDDRAW
 ENDDEF
 #
-# ramcard-rescue_DIODE
-#
-DEF ramcard-rescue_DIODE D 0 40 N N 1 F N
-F0 "D" 0 100 40 H V C CNN
-F1 "ramcard-rescue_DIODE" 0 -100 40 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-$FPLIST
- D?
- S*
-$ENDFPLIST
-DRAW
-P 2 0 1 6 50 50 50 -50 N
-P 3 0 1 0 -50 50 50 0 -50 -50 F
-X A 1 -200 0 150 R 40 40 1 1 P
-X K 2 200 0 150 L 40 40 1 1 P
-ENDDRAW
-ENDDEF
-#
 # ramcard-rescue_GND
 #
 DEF ~ramcard-rescue_GND #PWR 0 0 Y Y 1 F P
@@ -448,32 +474,6 @@ F3 "" 0 0 50 H I C CNN
 DRAW
 P 4 0 1 0 -50 0 0 -50 50 0 -50 0 N
 X GND 1 0 0 0 U 30 30 1 1 W N
-ENDDRAW
-ENDDEF
-#
-# ramcard-rescue_LED
-#
-DEF ramcard-rescue_LED D 0 40 Y N 1 F N
-F0 "D" 0 100 50 H V C CNN
-F1 "ramcard-rescue_LED" 0 -100 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-$FPLIST
- LED-3MM
- LED-5MM
- LED-10MM
- LED-0603
- LED-0805
- LED-1206
- LEDV
-$ENDFPLIST
-DRAW
-P 2 0 1 0 50 50 50 -50 N
-P 3 0 1 0 -50 50 50 0 -50 -50 F
-P 3 0 1 0 65 -40 110 -80 105 -55 N
-P 3 0 1 0 80 -25 125 -65 120 -40 N
-X A 1 -200 0 150 R 40 40 1 1 P
-X K 2 200 0 150 L 40 40 1 1 P
 ENDDRAW
 ENDDEF
 #
