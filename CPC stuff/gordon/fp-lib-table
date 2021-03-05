@@ -1,0 +1,3 @@
+(fp_lib_table
+  (lib (name plcc_widerpads)(type KiCad)(uri ${KIPRJMOD}/plcc_widerpads.pretty)(options "")(descr ""))
+)

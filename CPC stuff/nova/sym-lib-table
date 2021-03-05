@@ -1,0 +1,6 @@
+(sym_lib_table
+  (lib (name ramcard-rescue)(type Legacy)(uri ${KIPRJMOD}/ramcard-rescue.lib)(options "")(descr ""))
+  (lib (name RAM)(type Legacy)(uri ${KIPRJMOD}/LY6220488.lib)(options "")(descr ""))
+  (lib (name GAL)(type Legacy)(uri ${KIPRJMOD}/microchip_libs/atf750.lib)(options "")(descr ""))
+  (lib (name 2021-02-23_17-07-18)(type Legacy)(uri "/home/adestugues/opensource/avrstuff/CPC stuff/nova/KiCAD/2021-02-23_17-07-18/2021-02-23_17-07-18.lib")(options "")(descr ""))
+)
